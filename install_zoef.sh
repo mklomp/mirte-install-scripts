@@ -9,10 +9,10 @@ git config --global credential.helper 'store --file /.my-credentials'
 # Update
 sudo apt update
 
-# Install Zoef SD card scripts
+# Install install scripts
 sudo apt install -y git
 cd ~
-git clone https://gitlab.tudelft.nl/rcj_zoef/zoef_sd_card_image.git
+git clone https://gitlab.tudelft.nl/rcj_zoef/zoef_install_scripts.git
 
 ## TODO: currently not working, arduino-cli and qemu give issues
 # Install arduino firmata upload script
