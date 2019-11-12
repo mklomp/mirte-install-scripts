@@ -73,10 +73,12 @@ sudo apt install -y singularity-container
 cd ~
 git clone https://gitlab.tudelft.nl/rcj_zoef/web_interface.git
 cd web_interface
+cp Singularity Singularity.orig
 sed -i 's/From: ubuntu:bionic/From: arm32v7\/ubuntu:bionic/g' Singularity
 sed -i 's/%files/%files\n    \/usr\/bin\/qemu-arm-static \/usr\/bin\//g' Singularity
 sudo rm -rf zoef_web_interface
 ./run_singularity.sh build_dev
+mv Singularity.orig Singularity
 
 # Add systemd service to start ROS nodes
 # NOTE: starting singularity image form ssystemd has some issues (https://github.com/sylabs/singularity/issues/1600)
