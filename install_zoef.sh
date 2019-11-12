@@ -4,7 +4,7 @@
 
 
 # Save git credentials
-git config --global credential.helper 'store --file /.my-credentials'
+git config --global credential.helper 'store --file ~/.my-credentials'
 
 # Update
 sudo apt update
@@ -100,5 +100,5 @@ sudo systemctl stop zoef_web_interface || /bin/true
 sudo systemctl start zoef_web_interface
 sudo systemctl enable zoef_web_interface
 
-# TODO:  Remove git credentials
-rm /.my-credentials
+# Remove git credentials
+rm ~/.my-credentials
