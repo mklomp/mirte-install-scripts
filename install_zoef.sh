@@ -27,6 +27,8 @@ sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main
 sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 sudo apt update
 sudo apt install -y ros-melodic-ros-base python-rosinstall python-rosinstall-generator python-wstool build-essential python-catkin-tools
+sudo rosdep init
+rosdep update
 grep -qxF "source /opt/ros/melodic/setup.bash" ~/.bashrc || echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
 source /opt/ros/melodic/setup.bash
 
@@ -35,12 +37,12 @@ sudo apt install git python-pip -y
 sudo -H python -m pip install pymata
 
 # Install Zoef ROS package (TODO: create rosinstall/rosdep)
-sudo apt install -y ros-melodic-controller-manager ros-melodic-rosbridge-server ros-melodic-diff-drive-controller
 mkdir -p ~/zoef_ws/src
 cd ~/zoef_ws/src
 git clone https://gitlab.tudelft.nl/rcj_zoef/zoef_ros_package.git
 git clone https://gitlab.tudelft.nl/rcj_zoef/zoef_msgs.git
 cd ..
+rosdep install -y --from-paths src/ --ignore-src --rosdistro melodic
 catkin build
 grep -qxF "source /home/zoef/zoef_ws/devel/setup.bash" ~/.bashrc || echo "source /home/zoef/zoef_ws/devel/setup.bash" >> ~/.bashrc
 grep -qxF "export ROS_IP=127.0.0.1" ~/.bashrc || echo "export ROS_IP=127.0.0.1" >> ~/.bashrc
