@@ -22,6 +22,13 @@ cd zoef_arduino
 sudo singularity build --sandbox arduino_utils Singularity
 echo usbmon | sudo tee -a /etc/modules
 
+# first install NPM due to bug (https://github.com/ros/rosdistro/issues/19845)
+sudo apt purge -y ros-*
+sudo apt autoremove -y
+sudo apt install nodejs npm -y
+sudo npm install -g express express-ws node-pty
+grep -qxF "export NODE_PATH=/opt/lib/node_modules" ~/.bashrc || echo "export NODE_PATH=/opt/lib/node_modules" >> ~/.bashrc
+
 # Install ROS Melodic
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
