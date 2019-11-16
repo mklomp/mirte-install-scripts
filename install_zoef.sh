@@ -31,6 +31,8 @@ cp Singularity Singularity.orig
 sed -i 's/From: ubuntu:bionic/From: arm32v7\/ubuntu:bionic/g' Singularity
 sed -i 's/%files/%files\n    \/usr\/bin\/qemu-arm-static \/usr\/bin\//g' Singularity
 sudo rm -rf zoef_web_interface
+sudo ln -s /home/zoef/web_interface/robot.py /tmp
+
 ./run_singularity.sh build_dev
 mv Singularity.orig Singularity
 
