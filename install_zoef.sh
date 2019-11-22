@@ -22,6 +22,9 @@ cd zoef_arduino
 sudo singularity build --sandbox arduino_utils Singularity
 echo usbmon | sudo tee -a /etc/modules
 
+# Make working directory for user scripts (TODO: maybe cretae own user?)
+mkdir ~/workdir
+
 # Install Zoef Interface
 sudo apt install -y singularity-container
 cd ~
@@ -31,8 +34,8 @@ cp Singularity Singularity.orig
 sed -i 's/From: ubuntu:bionic/From: arm32v7\/ubuntu:bionic/g' Singularity
 sed -i 's/%files/%files\n    \/usr\/bin\/qemu-arm-static \/usr\/bin\//g' Singularity
 sudo rm -rf zoef_web_interface
-sudo ln -s /home/zoef/web_interface/python/robot.py /tmp
-sudo cp /home/zoef/web_interface/python/linetrace.py /tmp
+export PYTHONPATH=$PYTHONPATH:/home/zoef/web_interface/python
+sudo cp /home/zoef/web_interface/python/linetrace.py /home/zoef/workdir
 
 ./run_singularity.sh build_dev
 mv Singularity.orig Singularity
@@ -47,7 +50,7 @@ sudo bash -c "echo 'After=ssh.service' >> /lib/systemd/system/zoef_web_interface
 sudo bash -c "echo 'After=network-online.target' >> /lib/systemd/system/zoef_web_interface.service"
 sudo bash -c "echo '' >> /lib/systemd/system/zoef_web_interface.service"
 sudo bash -c "echo '[Service]' >> /lib/systemd/system/zoef_web_interface.service"
-sudo bash -c "echo 'ExecStart=/bin/bash -c \"nodejs /home/zoef/web_interface/web-shell.js & cd /home/zoef/web_interface/ && singularity run -B app:/app/my_app zoef_web_interface 2>&1 | tee\"' >> /lib/systemd/system/zoef_web_interface.service"
+sudo bash -c "echo 'ExecStart=/bin/bash -c \"nodejs /home/zoef/web_interface/web-shell.js & cd /home/zoef/web_interface/ && singularity run -B app:/app/my_app -B /home/zoef/workdir:/workdir zoef_web_interface 2>&1 | tee\"' >> /lib/systemd/system/zoef_web_interface.service"
 sudo bash -c "echo '' >> /lib/systemd/system/zoef_web_interface.service"
 sudo bash -c "echo '[Install]' >> /lib/systemd/system/zoef_web_interface.service"
 sudo bash -c "echo 'WantedBy=multi-user.target' >> /lib/systemd/system/zoef_web_interface.service"
