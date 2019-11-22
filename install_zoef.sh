@@ -80,6 +80,10 @@ source /opt/ros/melodic/setup.bash
 sudo apt install git python-pip -y
 sudo -H python -m pip install pymata
 
+# Install computer vision libraries
+sudo apt install python-opencv libzbar0 -y
+sudo -H python -m pip install pyzbar
+
 # Install Zoef ROS package (TODO: create rosinstall/rosdep)
 mkdir -p ~/zoef_ws/src
 cd ~/zoef_ws/src
