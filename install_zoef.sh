@@ -13,12 +13,17 @@ sudo apt update
 sudo apt install -y git
 cd ~
 git clone https://gitlab.tudelft.nl/rcj_zoef/zoef_install_scripts.git
+cd zoef_install_scripts
+git branch --track origin/refactored_encoder
+git checkout refactored_encoder
 
 # Install arduino firmata upload script
 sudo apt install -y singularity-container
 cd ~
 git clone https://gitlab.tudelft.nl/rcj_zoef/zoef_arduino.git
 cd zoef_arduino
+git branch --track origin/refactored_encoder
+git checkout refactored_encoder
 sudo singularity build --sandbox arduino_utils Singularity
 echo usbmon | sudo tee -a /etc/modules
 
@@ -30,6 +35,8 @@ sudo apt install -y singularity-container
 cd ~
 git clone https://gitlab.tudelft.nl/rcj_zoef/web_interface.git
 cd web_interface
+git branch --track origin/refactor
+git checkout refactor
 cp Singularity Singularity.orig
 sed -i 's/From: ubuntu:bionic/From: arm32v7\/ubuntu:bionic/g' Singularity
 sed -i 's/%files/%files\n    \/usr\/bin\/qemu-arm-static \/usr\/bin\//g' Singularity
@@ -77,8 +84,12 @@ grep -qxF "source /opt/ros/melodic/setup.bash" ~/.bashrc || echo "source /opt/ro
 source /opt/ros/melodic/setup.bash
 
 # Install pymata and allow usage of usb device
-sudo apt install git python-pip -y
-sudo -H python -m pip install pymata
+cd ~
+git clone https://gitlab.tudelft.nl/rcj_zoef/zoef_pymata
+cd ~/zoef_pymata
+git branch --track origin/encoder_support
+git checkout encoder_support
+sudo python setup.py install
 
 # Install computer vision libraries
 sudo apt install python-opencv libzbar0 -y
@@ -88,7 +99,15 @@ sudo -H python -m pip install pyzbar
 mkdir -p ~/zoef_ws/src
 cd ~/zoef_ws/src
 git clone https://gitlab.tudelft.nl/rcj_zoef/zoef_ros_package.git
+cd zoef_ros_package
+git branch --track origin/refactored_encoder
+git checkout refactored_encoder
+cd ..
 git clone https://gitlab.tudelft.nl/rcj_zoef/zoef_msgs.git
+cd zoef_msgs
+git branch --track origin/refactor
+git checkout refactor
+cd ..
 cd ..
 rosdep install -y --from-paths src/ --ignore-src --rosdistro melodic
 catkin build
