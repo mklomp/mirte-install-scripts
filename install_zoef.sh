@@ -14,18 +14,19 @@ sudo apt install -y git
 cd ~
 git clone https://gitlab.tudelft.nl/rcj_zoef/zoef_install_scripts.git
 cd zoef_install_scripts
-git branch --track origin/refactored_encoder
-git checkout refactored_encoder
+git checkout --track origin/refactored_encoder
 
 # Install arduino firmata upload script
 sudo apt install -y singularity-container
 cd ~
 git clone https://gitlab.tudelft.nl/rcj_zoef/zoef_arduino.git
 cd zoef_arduino
-git branch --track origin/refactored_encoder
-git checkout refactored_encoder
+git checkout --track origin/refactored_encoder
+cp Singularity Singularity.orig
+sed -i 's/%post/%files\n    \/usr\/bin\/qemu-arm-static \/usr\/bin\/\n\n%post/g' Singularity
 sudo singularity build --sandbox arduino_utils Singularity
 echo usbmon | sudo tee -a /etc/modules
+mv Singularity.orig Singularity
 
 # Make working directory for user scripts (TODO: maybe cretae own user?)
 mkdir ~/workdir
@@ -35,8 +36,7 @@ sudo apt install -y singularity-container
 cd ~
 git clone https://gitlab.tudelft.nl/rcj_zoef/web_interface.git
 cd web_interface
-git branch --track origin/refactor
-git checkout refactor
+git checkout --track origin/refactor
 cp Singularity Singularity.orig
 sed -i 's/From: ubuntu:bionic/From: arm32v7\/ubuntu:bionic/g' Singularity
 sed -i 's/%files/%files\n    \/usr\/bin\/qemu-arm-static \/usr\/bin\//g' Singularity
@@ -87,8 +87,7 @@ source /opt/ros/melodic/setup.bash
 cd ~
 git clone https://gitlab.tudelft.nl/rcj_zoef/zoef_pymata
 cd ~/zoef_pymata
-git branch --track origin/encoder_support
-git checkout encoder_support
+git checkout --track origin/encoder_support
 sudo python setup.py install
 
 # Install computer vision libraries
@@ -100,13 +99,11 @@ mkdir -p ~/zoef_ws/src
 cd ~/zoef_ws/src
 git clone https://gitlab.tudelft.nl/rcj_zoef/zoef_ros_package.git
 cd zoef_ros_package
-git branch --track origin/refactored_encoder
-git checkout refactored_encoder
+git checkout --track origin/refactored_encoder
 cd ..
 git clone https://gitlab.tudelft.nl/rcj_zoef/zoef_msgs.git
 cd zoef_msgs
-git branch --track origin/refactor
-git checkout refactor
+git checkout --track origin/refactor
 cd ..
 cd ..
 rosdep install -y --from-paths src/ --ignore-src --rosdistro melodic
