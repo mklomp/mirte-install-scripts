@@ -1,7 +1,7 @@
 #!/bin/bash
 # Or should we use https://docs.armbian.com/Developer-Guide_User-Configurations/#user-provided-image-customization-script
 
-
+mount -t proc none /proc
 
 # Save git credentials
 git config --global credential.helper 'store --file ~/.my-credentials'
