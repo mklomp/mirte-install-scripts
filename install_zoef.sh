@@ -17,16 +17,15 @@ cd zoef_install_scripts
 git checkout --track origin/refactored_encoder
 
 # Install arduino firmata upload script
-sudo apt install -y singularity-container
 cd ~
 git clone https://gitlab.tudelft.nl/rcj_zoef/zoef_arduino.git
 cd zoef_arduino
 git checkout --track origin/refactored_encoder
 cp Singularity Singularity.orig
-sed -i 's/%post/%files\n    \/usr\/bin\/qemu-arm-static \/usr\/bin\/\n\n%post/g' Singularity
-sudo singularity build --sandbox arduino_utils Singularity
-echo usbmon | sudo tee -a /etc/modules
+sed -i 's/%post/%files\n    \/usr\/bin\/qemu-arm-static \/usr\/bin\/\n\n%post/g' Singularity  #TODO: only when not already there
+./install.sh
 mv Singularity.orig Singularity
+./run.sh
 
 # Make working directory for user scripts (TODO: maybe cretae own user?)
 mkdir ~/workdir
@@ -41,7 +40,7 @@ cp Singularity Singularity.orig
 sed -i 's/From: ubuntu:bionic/From: arm32v7\/ubuntu:bionic/g' Singularity
 sed -i 's/%files/%files\n    \/usr\/bin\/qemu-arm-static \/usr\/bin\//g' Singularity
 sudo rm -rf zoef_web_interface
-export PYTHONPATH=$PYTHONPATH:/home/zoef/web_interface/python
+grep -qxF "export PYTHONPATH=$PYTHONPATH:/home/zoef/web_interface/python" ~/.bashrc || echo "export PYTHONPATH=$PYTHONPATH:/home/zoef/web_interface/python" >> ~/.bashrc
 sudo cp /home/zoef/web_interface/python/linetrace.py /home/zoef/workdir
 
 ./run_singularity.sh build_dev
@@ -99,7 +98,7 @@ mkdir -p ~/zoef_ws/src
 cd ~/zoef_ws/src
 git clone https://gitlab.tudelft.nl/rcj_zoef/zoef_ros_package.git
 cd zoef_ros_package
-git checkout --track origin/refactored_encoder
+git checkout --track origin/refactor
 cd ..
 git clone https://gitlab.tudelft.nl/rcj_zoef/zoef_msgs.git
 cd zoef_msgs
