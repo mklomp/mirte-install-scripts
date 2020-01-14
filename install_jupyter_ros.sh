@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # install basic python tools
-sudo apt install python2.7 python-virtualenv python-dev git
+sudo apt install -y python2.7 python-virtualenv python-dev git
 
 # create and activate virtualenv
 cd /
