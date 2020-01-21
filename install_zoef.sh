@@ -110,6 +110,9 @@ catkin build
 grep -qxF "source /home/zoef/zoef_ws/devel/setup.bash" ~/.bashrc || echo "source /home/zoef/zoef_ws/devel/setup.bash" >> ~/.bashrc
 source /home/zoef/zoef_ws/devel/setup.bash
 
+# Add zoef to dialout
+sudo adduser zoef dialout
+
 # Add systemd service to start ROS nodes
 sudo rm /lib/systemd/system/zoef_ros.service
 sudo bash -c "echo '[Unit]' > /lib/systemd/system/zoef_ros.service"
