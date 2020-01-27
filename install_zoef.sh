@@ -13,14 +13,11 @@ sudo apt update
 sudo apt install -y git
 cd ~
 git clone https://gitlab.tudelft.nl/rcj_zoef/zoef_install_scripts.git
-cd zoef_install_scripts
-git checkout --track origin/refactored_encoder
 
 # Install arduino firmata upload script
 cd ~
 git clone https://gitlab.tudelft.nl/rcj_zoef/zoef_arduino.git
 cd zoef_arduino
-git checkout --track origin/refactored_encoder
 cp Singularity Singularity.orig
 sed -i 's/%post/%files\n    \/usr\/bin\/qemu-arm-static \/usr\/bin\/\n\n%post/g' Singularity  #TODO: only when not already there
 ./install.sh
@@ -35,7 +32,6 @@ sudo apt install -y singularity-container
 cd ~
 git clone https://gitlab.tudelft.nl/rcj_zoef/web_interface.git
 cd web_interface
-git checkout --track origin/refactor
 cp Singularity Singularity.orig
 sed -i 's/From: ubuntu:bionic/From: arm32v7\/ubuntu:bionic/g' Singularity
 sed -i 's/%files/%files\n    \/usr\/bin\/qemu-arm-static \/usr\/bin\//g' Singularity
@@ -86,7 +82,6 @@ source /opt/ros/melodic/setup.bash
 cd ~
 git clone https://gitlab.tudelft.nl/rcj_zoef/zoef_pymata
 cd ~/zoef_pymata
-git checkout --track origin/encoder_support
 sudo python setup.py install
 
 # Install computer vision libraries
@@ -97,13 +92,7 @@ sudo -H python -m pip install pyzbar
 mkdir -p ~/zoef_ws/src
 cd ~/zoef_ws/src
 git clone https://gitlab.tudelft.nl/rcj_zoef/zoef_ros_package.git
-cd zoef_ros_package
-git checkout --track origin/refactor
-cd ..
 git clone https://gitlab.tudelft.nl/rcj_zoef/zoef_msgs.git
-cd zoef_msgs
-git checkout --track origin/refactor
-cd ..
 cd ..
 rosdep install -y --from-paths src/ --ignore-src --rosdistro melodic
 catkin build
