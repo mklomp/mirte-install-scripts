@@ -5,6 +5,10 @@ if test -z $1  || test "$1" == "upload"
 then
    sudo singularity run --app upload --bind ino_project:/ino_project arduino_utils
 fi
+if test "$1" == "upload_old"
+then
+   sudo singularity run --app upload_old --bind ino_project:/ino_project arduino_utils
+fi
 if test "$1" == "build"
 then
    sudo singularity run --app build --bind ino_project:/ino_project arduino_utils
