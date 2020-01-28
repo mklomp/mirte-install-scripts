@@ -64,7 +64,7 @@ sudo systemctl enable zoef_web_interface
 
 # Install Jupyter Notebook
 cd ~/zoef_install_scripts
-su zoef bash -c "./install_jupyter_ros.sh"
+./install_jupyter_ros.sh
 
 # first install NPM, then ROS due to bug (https://github.com/ros/rosdistro/issues/19845)
 sudo apt purge -y ros-*
