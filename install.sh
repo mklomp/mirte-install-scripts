@@ -13,9 +13,7 @@ mkdir src
 # Replace default FirmataPlus with our own version
 cd lib
 git clone https://gitlab.tudelft.nl/rcj_zoef/zoef_firmata
-cd zoef_firmata
-git checkout --track origin/clean_encoder
-cd ../..
+cd ..
 cp ./lib/zoef_firmata/examples/FirmataPlus/FirmataPlus.ino ./src
 mv ./lib/zoef_firmata/libraries/* ./lib
 cd lib
