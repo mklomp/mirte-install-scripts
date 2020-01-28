@@ -1,0 +1,11 @@
+[Unit]
+Description=Zoef Jupyter
+After=network.target
+After=ssh.service
+After=network-online.target
+
+[Service]
+ExecStart=/bin/bash -c "cd /home/zoef/jupyter-ros/notebooks && source /home/zoef/jupyter/bin/activate && jupyter notebook --ip='0.0.0.0' --NotebookApp.token='' --NotebookApp.password='' --allow-root"
+
+[Install]
+WantedBy=multi-user.target
