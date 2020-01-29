@@ -5,7 +5,8 @@ After=ssh.service
 After=network-online.target
 
 [Service]
-ExecStart=/bin/bash -c "cd /home/zoef/jupyter-ros/notebooks && source /home/zoef/jupyter/bin/activate && jupyter notebook --ip='0.0.0.0' --NotebookApp.token='' --NotebookApp.password='' --allow-root"
+User=zoef
+ExecStart=/bin/bash -c "source /opt/ros/melodic/setup.bash && source /home/zoef/zoef_ws/devel/setup.bash && cd /home/zoef/jupyter-ros/notebooks && source /home/zoef/jupyter/bin/activate && jupyter nbextension enable --py --sys-prefix jupyros && jupyter notebook --ip='0.0.0.0' --NotebookApp.token='' --NotebookApp.password=''"
 
 [Install]
 WantedBy=multi-user.target
