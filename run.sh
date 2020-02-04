@@ -1,5 +1,6 @@
 #!/bin/bash
 
+sudo service zoef_ros stop
 echo 
 if test -z $1  || test "$1" == "upload"
 then
@@ -20,3 +21,4 @@ then
    sudo singularity run --app monitor arduino_utils
 fi
 
+sudo service zoef_ros start
