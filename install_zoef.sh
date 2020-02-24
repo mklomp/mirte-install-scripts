@@ -70,7 +70,8 @@ cd ~/zoef_install_scripts
 sudo apt purge -y ros-*
 sudo apt autoremove -y
 sudo apt install nodejs npm -y
-sudo npm install -g express express-ws node-pty --loglevel verbose
+sudo npm config set prefix "/usr/local/lib/node_modules"
+sudo npm install -g express express-ws node-pty
 
 # Install ROS Melodic
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
