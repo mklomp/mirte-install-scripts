@@ -19,7 +19,8 @@ cp libraries/FirmataPlusDue/examples/FirmataPlusDue/FirmataPlusDue.ino .
 cp libraries/FirmataPlusDue/libraries/* libraries/ -R
 cd ../..
 
-# Install singularity image 
+# Install singularity image
+# TODO: change Singularity file to install lib23z1 when on 64 bit machine
 sudo apt install -y singularity-container
 sudo rm -rf arduino_utils
 sudo singularity build --sandbox arduino_utils Singularity
