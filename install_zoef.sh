@@ -1,46 +1,49 @@
 #!/bin/bash
-# Or should we use https://docs.armbian.com/Developer-Guide_User-Configurations/#user-provided-image-customization-script
 
+ZOEF_SRC_DIR=/usr/local/src/zoef
+
+#TODO: find out why this is needed
 mount -t proc none /proc
-
-# Save git credentials
-git config --global credential.helper 'store --file ~/.my-credentials'
 
 # Update
 sudo apt update
 
-# Install install scripts
-sudo apt install -y git
-cd ~
-git clone https://gitlab.tudelft.nl/rcj_zoef/zoef_install_scripts.git
+# Add zoef user with sudo rights
+#TODO: user without homedir (create homedir for user)
+useradd -m -G sudo -s /bin/bash zoef
+mkdir /home/zoef/workdir
+echo -e "zoef_zoef\nzoef_zoef" | passwd zoef
+passwd --expire zoef
+
+# Disable ssh root login
+sed -i 's/#PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
+
+# Install vcstool
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+sudo apt-key adv --keyserver hkp://pool.sks-keyservers.net --recv-key 0xAB17C654
+sudo apt-get update
+sudo apt-get install -y python3-vcstool
+
+# Download all Zoef repositories
+mkdir -p $ZOEF_SRC_DIR
+cp repos.yaml $ZOEF_SRC_DIR
+cd $ZOEF_SRC_DIR
+git config --global credential.helper 'store --file /.my-credentials'
+vcs import < repos.yaml --workers 1
+rm /.my-credentials
 
 # Install arduino firmata upload script
-cd ~
-git clone https://gitlab.tudelft.nl/rcj_zoef/zoef_arduino.git
-cd zoef_arduino
-cp Singularity Singularity.orig
-sed -i 's/%post/%files\n    \/usr\/bin\/qemu-arm-static \/usr\/bin\/\n\n%post/g' Singularity  #TODO: only when not already there
+cd $ZOEF_SRC_DIR/zoef_arduino
 ./install.sh
-mv Singularity.orig Singularity
-./run.sh
 
-# Make working directory for user scripts (TODO: maybe cretae own user?)
-mkdir ~/workdir
+# Add zoef to dialout
+sudo adduser zoef dialout
 
 # Install Zoef Interface
-sudo apt install -y singularity-container
-cd ~
-git clone https://gitlab.tudelft.nl/rcj_zoef/web_interface.git
-cd web_interface
-cp Singularity Singularity.orig
-sed -i 's/From: ubuntu:bionic/From: arm32v7\/ubuntu:bionic/g' Singularity
-sed -i 's/%files/%files\n    \/usr\/bin\/qemu-arm-static \/usr\/bin\//g' Singularity
-sudo rm -rf zoef_web_interface
-grep -qxF "export PYTHONPATH=$PYTHONPATH:/home/zoef/web_interface/python" ~/.bashrc || echo "export PYTHONPATH=$PYTHONPATH:/home/zoef/web_interface/python" >> ~/.bashrc
-sudo cp /home/zoef/web_interface/python/linetrace.py /home/zoef/workdir
-
+cd $ZOEF_SRC_DIR/web_interface
+grep -qxF "export PYTHONPATH=$PYTHONPATH:/home/zoef/web_interface/python" /home/zoef/.bashrc || echo "export PYTHONPATH=$PYTHONPATH:/home/zoef/web_interface/python" >> /home/zoef/.bashrc
+sudo ln -s $ZOEF_SRC_DIR/web_interface/python/linetrace.py /home/zoef/workdir
 ./run_singularity.sh build_dev
-mv Singularity.orig Singularity
 
 # Add systemd service to start ROS nodes
 # NOTE: starting singularity image form ssystemd has some issues (https://github.com/sylabs/singularity/issues/1600)
@@ -63,7 +66,7 @@ sudo systemctl start zoef_web_interface
 sudo systemctl enable zoef_web_interface
 
 # Install Jupyter Notebook
-cd ~/zoef_install_scripts
+cd $ZOEF_SRC_DIR/zoef_install_scripts
 ./install_jupyter_ros.sh
 
 # first install NPM, then ROS due to bug (https://github.com/ros/rosdistro/issues/19845)
@@ -80,32 +83,28 @@ sudo apt update
 sudo apt install -y ros-melodic-ros-base python-rosinstall python-rosinstall-generator python-wstool build-essential python-catkin-tools
 sudo rosdep init
 rosdep update
-grep -qxF "source /opt/ros/melodic/setup.bash" ~/.bashrc || echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
+grep -qxF "source /opt/ros/melodic/setup.bash" /home/zoef/.bashrc || echo "source /opt/ros/melodic/setup.bash" >> /home/zoef/.bashrc
 source /opt/ros/melodic/setup.bash
 
 # Install pymata and allow usage of usb device
-cd ~
-git clone https://gitlab.tudelft.nl/rcj_zoef/zoef_pymata
-cd ~/zoef_pymata
+cd $ZOEF_SRC_DIR/zoef_pymata
 sudo python setup.py install
 
 # Install computer vision libraries
-sudo apt install python-opencv libzbar0 -y
+#TODO: make dependecies of ROS package
+sudo apt install python-pip python-opencv libzbar0 -y
 sudo -H python -m pip install pyzbar
 
 # Install Zoef ROS package (TODO: create rosinstall/rosdep)
-mkdir -p ~/zoef_ws/src
-cd ~/zoef_ws/src
-git clone https://gitlab.tudelft.nl/rcj_zoef/zoef_ros_package.git
-git clone https://gitlab.tudelft.nl/rcj_zoef/zoef_msgs.git
+mkdir -p /home/zoef/zoef_ws/src
+cd /home/zoef/zoef_ws/src
+ln -s $ZOEF_SRC_DIR/zoef_ros_package .
+ln -s $ZOEF_SRC_DIR/zoef_msgs .
 cd ..
 rosdep install -y --from-paths src/ --ignore-src --rosdistro melodic
 catkin build
-grep -qxF "source /home/zoef/zoef_ws/devel/setup.bash" ~/.bashrc || echo "source /home/zoef/zoef_ws/devel/setup.bash" >> ~/.bashrc
+grep -qxF "source /home/zoef/zoef_ws/devel/setup.bash" /home/zoef/.bashrc || echo "source /home/zoef/zoef_ws/devel/setup.bash" >> /home/zoef/.bashrc
 source /home/zoef/zoef_ws/devel/setup.bash
-
-# Add zoef to dialout
-sudo adduser zoef dialout
 
 # Add systemd service to start ROS nodes
 sudo rm /lib/systemd/system/zoef_ros.service
@@ -125,6 +124,3 @@ sudo systemctl daemon-reload
 sudo systemctl stop zoef_ros || /bin/true
 sudo systemctl start zoef_ros
 sudo systemctl enable zoef_ros
-
-# Remove git credentials
-rm ~/.my-credentials

@@ -24,13 +24,6 @@ echo 'WantedBy=multi-user.target' >> /lib/systemd/system/zoef_ap.service
 
 systemctl enable zoef_ap
 
-# Add zoef user with sudo rights
-useradd -m -G sudo -s /bin/bash zoef
-echo -e "zoef_zoef\nzoef_zoef" | passwd zoef
-passwd --expire zoef
-
-# Disable ssh root login
-sed -i 's/#PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
 
 # Add avahi daemon to enable http://zoef.local
 sudo apt-get install -y avahi-daemon

@@ -1,0 +1,31 @@
+repositories:
+  web_interface:
+    type: git
+    url: https://gitlab.tudelft.nl/rcj_zoef/web_interface
+    version: master
+  zoef_arduino:
+    type: git
+    url: https://gitlab.tudelft.nl/rcj_zoef/zoef_arduino
+    version: master
+  zoef_firmata:
+    type: git
+    url: https://gitlab.tudelft.nl/rcj_zoef/zoef_firmata
+    version: master
+  zoef_install_scripts:
+    type: git
+    url: https://gitlab.tudelft.nl/rcj_zoef/zoef_install_scripts
+    version: master
+  zoef_msgs:
+    type: git
+    url: https://gitlab.tudelft.nl/rcj_zoef/zoef_msgs
+    version: master
+  zoef_pymata:
+    type: git
+    url: https://gitlab.tudelft.nl/rcj_zoef/zoef_pymata
+    version: master
+  zoef_ros_package:
+    type: git
+    url: https://gitlab.tudelft.nl/rcj_zoef/zoef_ros_package
+    version: master
+
+
