@@ -21,6 +21,7 @@ sed -i 's/#PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
 # Install vcstool
 mkdir -p $ZOEF_SRC_DIR
 cp repos.yaml $ZOEF_SRC_DIR
+cp download_repos.sh $ZOEF_SRC_DIR
 cd $ZOEF_SRC_DIR
 ./download_repos.sh
 
@@ -38,6 +39,7 @@ cd $ZOEF_SRC_DIR/zoef_install_scripts
 
 # Install pymata
 cd $ZOEF_SRC_DIR/zoef_pymata
+apt install -y python-setuptools
 sudo python setup.py install
 
 # Install Zoef ROS packages
