@@ -15,8 +15,8 @@ git checkout --track origin/firmata-stm32
 cd ..
 mv zoef_firmata FirmataPlusDue
 cd ..
-cp libraries/FirmataPlusDue/examples/FirmataPlusDue/FirmataPlusDue.ino .
-cp libraries/FirmataPlusDue/libraries/* libraries/ -R
+ln -s libraries/FirmataPlusDue/examples/FirmataPlusDue/FirmataPlusDue.ino .
+ln -s libraries/FirmataPlusDue/libraries/OpticalEncoder libraries/
 cd ../..
 
 # Install singularity image
