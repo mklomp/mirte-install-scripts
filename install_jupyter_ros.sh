@@ -1,5 +1,7 @@
 #!/bin/bash
 
+ZOEF_SRC_DIR=/usr/local/src/zoef
+
 # install basic python tools
 sudo apt install -y python2.7 python-virtualenv python-dev git
 
@@ -21,7 +23,7 @@ sudo chown -R zoef:zoef /home/zoef/jupyter-ros
 
 # Add systemd service to start jupyter
 sudo rm /lib/systemd/system/zoef_jupyter.service
-sudo ln -s ./services/zoef_jupyter.service /lib/systemd/system/
+sudo ln -s $ZOEF_SRC_DIR/zoef_install_scripts/services/zoef_jupyter.service /lib/systemd/system/
 
 sudo systemctl daemon-reload
 sudo systemctl stop zoef_jupyter || /bin/true

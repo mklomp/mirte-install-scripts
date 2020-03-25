@@ -31,7 +31,7 @@ source /home/zoef/zoef_ws/devel/setup.bash
 
 # Add systemd service to start ROS nodes
 sudo rm /lib/systemd/system/zoef_ros.service
-sudo ln -s ./services/zoef_ros.service /lib/systemd/system/
+sudo ln -s $ZOEF_SRC_DIR/zoef_install_scripts/services/zoef_ros.service /lib/systemd/system/
 
 sudo systemctl daemon-reload
 sudo systemctl stop zoef_ros || /bin/true
