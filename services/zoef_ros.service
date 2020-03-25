@@ -1,0 +1,11 @@
+[Unit]
+Description=Zoef ROS
+After=network.target
+After=ssh.service
+After=network-online.target
+
+[Service]
+ExecStart=/bin/bash -c "source /home/zoef/zoef_ws/devel/setup.bash && roslaunch zoef_ros_package hw_control.launch"
+
+[Install]
+WantedBy=multi-user.target

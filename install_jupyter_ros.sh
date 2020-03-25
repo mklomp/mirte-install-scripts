@@ -21,7 +21,7 @@ sudo chown -R zoef:zoef /home/zoef/jupyter-ros
 
 # Add systemd service to start jupyter
 sudo rm /lib/systemd/system/zoef_jupyter.service
-sudo ln -s ./zoef_jupyter.service /lib/systemd/system/
+sudo ln -s ./services/zoef_jupyter.service /lib/systemd/system/
 
 sudo systemctl daemon-reload
 sudo systemctl stop zoef_jupyter || /bin/true
