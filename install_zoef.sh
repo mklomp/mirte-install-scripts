@@ -19,18 +19,10 @@ passwd --expire zoef
 sed -i 's/#PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
 
 # Install vcstool
-sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-sudo apt-key adv --keyserver hkp://pool.sks-keyservers.net --recv-key 0xAB17C654
-sudo apt-get update
-sudo apt-get install -y python3-vcstool
-
-# Download all Zoef repositories
 mkdir -p $ZOEF_SRC_DIR
 cp repos.yaml $ZOEF_SRC_DIR
 cd $ZOEF_SRC_DIR
-git config --global credential.helper 'store --file /.my-credentials'
-vcs import < repos.yaml --workers 1
-rm /.my-credentials
+./download_repos.sh
 
 # Install arduino firmata upload script
 cd $ZOEF_SRC_DIR/zoef_arduino
