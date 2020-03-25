@@ -39,6 +39,14 @@ cd $ZOEF_SRC_DIR/zoef_arduino
 # Add zoef to dialout
 sudo adduser zoef dialout
 
+# first install NPM, then ROS due to bug (https://github.com/ros/rosdistro/issues/19845)
+#TODO: should be part of zoef_interface
+sudo apt purge -y ros-*
+sudo apt autoremove -y
+sudo apt install nodejs npm -y
+cd /usr/local/lib
+sudo npm install express express-ws node-pty
+
 # Install Zoef Interface
 cd $ZOEF_SRC_DIR/web_interface
 grep -qxF "export PYTHONPATH=$PYTHONPATH:/home/zoef/web_interface/python" /home/zoef/.bashrc || echo "export PYTHONPATH=$PYTHONPATH:/home/zoef/web_interface/python" >> /home/zoef/.bashrc
@@ -69,14 +77,7 @@ sudo systemctl enable zoef_web_interface
 cd $ZOEF_SRC_DIR/zoef_install_scripts
 ./install_jupyter_ros.sh
 
-# first install NPM, then ROS due to bug (https://github.com/ros/rosdistro/issues/19845)
-sudo apt purge -y ros-*
-sudo apt autoremove -y
-sudo apt install nodejs npm -y
-cd /usr/local/lib
-sudo npm install express express-ws node-pty
-
-# Install pymata and allow usage of usb device
+# Install pymata
 cd $ZOEF_SRC_DIR/zoef_pymata
 sudo python setup.py install
 

@@ -1,0 +1,11 @@
+[Unit]
+Description=Zoef Wifi AP
+After=network.target
+After=ssh.service
+After=network-online.target
+
+[Service]
+ExecStart=/bin/bash -c "/usr/local/src/zoef/zoef_install_scripts/network_setup.sh"
+
+[Install]
+WantedBy=multi-user.target

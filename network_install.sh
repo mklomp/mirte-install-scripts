@@ -10,20 +10,12 @@ systemctl disable hostapd
 
 # Added systemd service to account for fix: https://askubuntu.com/questions/472794/hostapd-error-nl80211-could-not-configure-driver-mode
 sudo rm /lib/systemd/system/zoef_ap.service
-echo '[Unit]' >> /lib/systemd/system/zoef_ap.service
-echo 'Description=Zoef Wifi AP' >> /lib/systemd/system/zoef_ap.service
-echo 'After=network.target' >> /lib/systemd/system/zoef_ap.service
-echo 'After=ssh.service' >> /lib/systemd/system/zoef_ap.service
-echo 'After=network-online.target' >> /lib/systemd/system/zoef_ap.service
-echo '' >> /lib/systemd/system/zoef_ap.service
-echo '[Service]' >> /lib/systemd/system/zoef_ap.service
-echo 'ExecStart=/bin/bash -c "/home/zoef/zoef_install_scripts/network_setup.sh"' >> /lib/systemd/system/zoef_ap.service
-echo '' >> /lib/systemd/system/zoef_ap.service
-echo '[Install]' >> /lib/systemd/system/zoef_ap.service
-echo 'WantedBy=multi-user.target' >> /lib/systemd/system/zoef_ap.service
+sudo ln -s ./services/zoef_ap.service /lib/systemd/system/
 
-systemctl enable zoef_ap
-
+sudo systemctl daemon-reload
+sudo systemctl stop zoef_ap || /bin/true
+sudo systemctl start zoef_ap
+sudo systemctl enable zoef_ap
 
 # Add avahi daemon to enable http://zoef.local
 sudo apt-get install -y avahi-daemon
