@@ -3,9 +3,6 @@ set -e
 
 ZOEF_SRC_DIR=/usr/local/src/zoef
 
-#TODO: find out why this is needed
-mount -t proc none /proc
-
 # Update
 sudo apt update
 
