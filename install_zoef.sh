@@ -25,10 +25,6 @@ cp download_repos.sh $ZOEF_SRC_DIR
 cd $ZOEF_SRC_DIR
 ./download_repos.sh
 
-# Install arduino firmata upload script
-cd $ZOEF_SRC_DIR/zoef_arduino
-./install.sh
-
 # Install Zoef Interface
 cd $ZOEF_SRC_DIR/web_interface
 ./install.sh
@@ -41,6 +37,14 @@ cd $ZOEF_SRC_DIR/zoef_install_scripts
 cd $ZOEF_SRC_DIR/zoef_pymata
 apt install -y python-setuptools
 sudo python setup.py install
+
+# Install Firmata project
+cd $ZOEF_SRC_DIR/zoef_install_scripts
+./install_firmata_project.sh
+
+# Install arduino firmata upload script
+cd $ZOEF_SRC_DIR/zoef_arduino
+./install.sh
 
 # Install Zoef ROS packages
 cd $ZOEF_SRC_DIR/zoef_install_scripts
