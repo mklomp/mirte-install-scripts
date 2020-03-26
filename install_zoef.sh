@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 ZOEF_SRC_DIR=/usr/local/src/zoef
 
