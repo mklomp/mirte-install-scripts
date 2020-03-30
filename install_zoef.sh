@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+sudo locale-gen "nl_NL.UTF-8"
 
 ZOEF_SRC_DIR=/usr/local/src/zoef
 
