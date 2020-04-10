@@ -5,6 +5,7 @@ After=ssh.service
 After=network-online.target
 
 [Service]
+KillMode=process
 ExecStart=/bin/bash -c "/usr/local/src/zoef/zoef_install_scripts/network_setup.sh"
 
 [Install]
