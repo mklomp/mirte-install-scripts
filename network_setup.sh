@@ -2,6 +2,9 @@
 
 ZOEF_SRC_DIR=/usr/local/src/zoef
 
+# Install avahi (install fails inside chroot)
+sudo apt install -y avahi-utils || /bin/true 
+
 iwgetid -r
 if [ $? -eq 0 ]; then
     printf 'Skipping WiFi Connect\n'
