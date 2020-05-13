@@ -19,8 +19,8 @@ sudo systemctl stop zoef_ap || /bin/true
 sudo systemctl start zoef_ap
 sudo systemctl enable zoef_ap
 
-# Install avahi
-sudo apt install -y avahi-utils
+# Install avahi (install fails inside chroot)
+sudo apt install -y avahi-utils || /bin/true 
 
 # Generate wifi password (TODO: generate random password and put on NTFS)
 if [ ! -f /etc/wifi_pwd ]; then
