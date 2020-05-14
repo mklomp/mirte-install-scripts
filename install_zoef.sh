@@ -5,7 +5,7 @@ sudo locale-gen "nl_NL.UTF-8"
 ZOEF_SRC_DIR=/usr/local/src/zoef
 
 # Update
-sudo apt update
+sudo apt update -y
 
 # Create unique SSID
 if [ ! -f /etc/ssid ]; then
