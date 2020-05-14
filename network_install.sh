@@ -3,7 +3,10 @@
 ZOEF_SRC_DIR=/usr/local/src/zoef
 
 # Install wifi-connect
-bash <(curl -L https://github.com/balena-io/wifi-connect/raw/master/scripts/raspbian-install.sh)
+wget https://github.com/balena-io/wifi-connect/raw/master/scripts/raspbian-install.sh
+chmod +x raspbian-install.sh
+./raspbian-install.sh -y
+rm raspbian-install.sh
 systemctl disable systemd-resolved
 echo "nameserver 8.8.8.8" > /etc/resolv.conf
 apt install -y dnsmasq
@@ -19,8 +22,12 @@ sudo systemctl stop zoef_ap || /bin/true
 sudo systemctl start zoef_ap
 sudo systemctl enable zoef_ap
 
-# Install avahi (install fails inside chroot)
-sudo apt install -y avahi-utils || /bin/true 
+# Install avahi
+sudo apt install avahi-utils avahi-daemon
+sudo apt install avahi-utils avahi-daemon # NOTE: Twice, since regular apt installation on armbian fails (https://forum.armbian.com/topic/10204-cant-install-avahi-on-armbian-while-building-custom-image/)
+
+# Disable ssh root login
+sed -i 's/#PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config 
 
 # Generate wifi password (TODO: generate random password and put on NTFS)
 if [ ! -f /etc/wifi_pwd ]; then
