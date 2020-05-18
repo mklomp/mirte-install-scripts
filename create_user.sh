@@ -15,6 +15,7 @@ fi
 #TODO: user without homedir (create homedir for user)
 sudo useradd -m -G sudo -s /bin/bash zoef
 mkdir /home/zoef/workdir
+sudo chown zoef:zoef /home/zoef/workdir
 echo -e "zoef_zoef\nzoef_zoef" | passwd zoef
 mkdir -p $ZOEF_SRC_DIR
 sudo chown zoef:zoef $ZOEF_SRC_DIR
