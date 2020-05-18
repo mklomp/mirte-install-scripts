@@ -23,8 +23,8 @@ sudo systemctl start zoef_ap
 sudo systemctl enable zoef_ap
 
 # Install avahi
-sudo apt install avahi-utils avahi-daemon
-sudo apt install avahi-utils avahi-daemon # NOTE: Twice, since regular apt installation on armbian fails (https://forum.armbian.com/topic/10204-cant-install-avahi-on-armbian-while-building-custom-image/)
+sudo apt install -y avahi-utils avahi-daemon
+sudo apt install -y avahi-utils avahi-daemon # NOTE: Twice, since regular apt installation on armbian fails (https://forum.armbian.com/topic/10204-cant-install-avahi-on-armbian-while-building-custom-image/)
 
 # Disable ssh root login
 sed -i 's/#PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config 
