@@ -10,7 +10,7 @@ repositories:
   zoef_firmata:
     type: git
     url: https://gitlab.tudelft.nl/rcj_zoef/zoef_firmata
-    version: master
+    version: firmata-stm32
   zoef_install_scripts:
     type: git
     url: https://gitlab.tudelft.nl/rcj_zoef/zoef_install_scripts
