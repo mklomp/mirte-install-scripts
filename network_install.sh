@@ -23,6 +23,7 @@ sudo systemctl start zoef_ap
 sudo systemctl enable zoef_ap
 
 # Install avahi
+sudo apt install -y libnss-mdns
 sudo apt install -y avahi-utils avahi-daemon
 sudo apt install -y avahi-utils avahi-daemon # NOTE: Twice, since regular apt installation on armbian fails (https://forum.armbian.com/topic/10204-cant-install-avahi-on-armbian-while-building-custom-image/)
 
