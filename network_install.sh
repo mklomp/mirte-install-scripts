@@ -34,3 +34,6 @@ sed -i 's/#PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
 if [ ! -f /etc/wifi_pwd ]; then
     sudo bash -c 'echo zoef_zoef > /etc/wifi_pwd'
 fi
+
+# Allow wifi_pwd to be modified using the web interface
+sudo chmod 777 /etc/wifi_pwd
