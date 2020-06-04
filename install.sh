@@ -11,5 +11,8 @@ sudo ./run.sh build_stm32
 # Add zoef to dialout
 sudo adduser zoef dialout
 
+# Temp fix to be able to upload to stm32 without root pwd (from user interface)
+sudo bash -c 'echo "zoef ALL = (root) NOPASSWD: /usr/local/src/zoef/zoef_arduino/run.sh" >> /etc/sudoers'
+
 # Enable usbmon
 #echo usbmon | sudo tee -a /etc/modules
