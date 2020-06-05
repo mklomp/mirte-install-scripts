@@ -33,7 +33,7 @@ then
 fi
 if test "$1" == "upload_stm32"
 then
-    sudo singularity run --app upload_stm32 --bind /home/zoef/arduino_project:/arduino_project --bind /usr/local/src/zoef:/usr/local/src/zoef arduino_utils
+    sudo singularity run --app upload_stm32 --bind /home/zoef/arduino_project:/arduino_project --bind /usr/local/src/zoef:/usr/local/src/zoef /usr/local/src/zoef/zoef_arduino/arduino_utils
 fi
 
 #if test "$1" == "monitor"
