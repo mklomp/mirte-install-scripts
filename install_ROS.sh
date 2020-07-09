@@ -13,6 +13,17 @@ source /opt/ros/melodic/setup.bash
 sudo rosdep init
 rosdep update
 
+# Be able to run python3.7 nodes as well
+sudo apt install -y python3.7 python3-pip
+sudo -H python3.7 -m pip install rosdep rospkg rosinstall_generator rosinstall wstool vcstools catkin_tools catkin_pkg
+
+# Install aio dependencies
+sudo -H python3.7 -m pip install janus async-generator
+git clone https://github.com/locusrobotics/aiorospy.git
+cd aiorospy/aiorospy
+sudo -H python3.7 -m pip install .
+cd ../..
+
 # Install computer vision libraries
 #TODO: make dependecies of ROS package
 sudo apt install python-pip python-wheel python-setuptools python-opencv libzbar0 -y

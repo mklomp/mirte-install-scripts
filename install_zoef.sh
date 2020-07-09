@@ -18,6 +18,9 @@ cp download_repos.sh $ZOEF_SRC_DIR
 cd $ZOEF_SRC_DIR
 ./download_repos.sh
 
+# Install dependecnies to be able to run python3.7
+sudo apt install -y python3.7 python3-pip python3-setuptools
+
 # Install Zoef Interface
 cd $ZOEF_SRC_DIR/web_interface
 ./install.sh
@@ -26,14 +29,15 @@ cd $ZOEF_SRC_DIR/web_interface
 cd $ZOEF_SRC_DIR/zoef_install_scripts
 ./install_jupyter_ros.sh
 
-# Install pymata
+# Install pymata-express
 cd $ZOEF_SRC_DIR/zoef_pymata
-sudo apt install -y python-setuptools
-sudo python setup.py install
+sudo -H python3.7 -m pip install .
 
 # Install Firmata project
 cd $ZOEF_SRC_DIR/zoef_install_scripts
-./install_firmata_project.sh
+mkdir -p /home/zoef/arduino_project/FirmataExpress/libraries
+ln -s $ZOEF_SRC_DIR/zoef_firmata /home/zoef/arduino_project/FirmataExpress/libraries/FirmataExpress
+ln -s $ZOEF_SRC_DIR/zoef_firmata/examples/FirmataExpress/FirmataExpress.ino /home/zoef/arduino_project/FirmataExpress
 
 # Install arduino firmata upload script
 cd $ZOEF_SRC_DIR/zoef_arduino
@@ -42,5 +46,3 @@ cd $ZOEF_SRC_DIR/zoef_arduino
 # Install Zoef ROS packages
 cd $ZOEF_SRC_DIR/zoef_install_scripts
 ./install_ROS.sh
-
-
