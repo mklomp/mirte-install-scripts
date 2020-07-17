@@ -1,5 +1,10 @@
 #!/bin/bash
 
+ZOEF_SRC_DIR=/usr/local/src/zoef
+
+# Install our own arduino libraries
+ln -s /usr/local/src/zoef/zoef-arduino-libraries/OpticalEncoder /home/zoef/arduino_project/libraries
+
 # Install singularity image
 sudo apt install -y singularity-container
 sudo rm -rf arduino_utils
