@@ -43,7 +43,7 @@ sudo systemctl start zoef_ros
 sudo systemctl enable zoef_ros
 
 # Be able to run python3.7 nodes as well
-sudo apt install -y python3.7 python3-pip
+sudo apt install -y python3.7 python3-pip python3-wheel
 sudo -H python3.7 -m pip install rosdep rospkg rosinstall_generator rosinstall wstool vcstools catkin_tools catkin_pkg
 
 # Install aio dependencies

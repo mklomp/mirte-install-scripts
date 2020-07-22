@@ -46,3 +46,6 @@ cd $ZOEF_SRC_DIR/zoef_arduino
 # Install Zoef ROS packages
 cd $ZOEF_SRC_DIR/zoef_install_scripts
 ./install_ROS.sh
+
+# Install Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
