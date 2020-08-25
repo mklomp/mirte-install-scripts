@@ -19,7 +19,7 @@
  */
 
 // This is a standard blink setup (NOTE: you need to add P to the pin number)
-int led = PB12;
+int led = PB10;
 
 void setup() {                
   pinMode(led, OUTPUT);     
