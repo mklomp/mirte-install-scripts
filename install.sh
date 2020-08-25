@@ -14,8 +14,8 @@ sudo apt install -y singularity-container
 sudo rm -rf arduino_utils
 sudo singularity build --sandbox arduino_utils Singularity
 sudo ./run.sh build FirmataExpress
-sudo ./run.sh build_nano
-sudo ./run.sh build_nano_old
+sudo ./run.sh build_nano FirmataExpress
+sudo ./run.sh build_nano_old FirmataExpress
 
 # Add zoef to dialout
 sudo adduser zoef dialout
