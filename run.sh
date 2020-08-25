@@ -1,6 +1,10 @@
 #!/bin/bash
 
-sudo service zoef_ros stop || /bin/true
+
+if test "$1" == "upload"
+then
+    sudo service zoef_ros stop || /bin/true
+fi
 
 echo
 if test -z $1
@@ -16,4 +20,13 @@ fi
 #   sudo singularity run --app monitor arduino_utils
 #fi
 
-sudo service zoef_ros start || /bin/true
+if test "$1" == "upload"
+then
+    if test "$2" == "FirmataExpress"
+    then
+        sudo service zoef_ros start || /bin/true
+        echo "ROS is starting"
+    else
+        echo "ROS not started"
+    fi
+fi
