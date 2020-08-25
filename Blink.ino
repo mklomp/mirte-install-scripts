@@ -1,21 +1,24 @@
-// Zoef by default has the following pin connections:
-//
-// B3, A15  - PWM pins for motor A
-// B14, B15 - PWM pins for motor B
-//          - analog input intensity sensor left
-//          - analog input intensity sensor right
-//          - ping for ultrasonic sensor front
-//          - echo for ultrasonic sensor front
-//          - ping for ultrasnoic sensor side
-//          - echo for ultrasonic sensor side
+/* Zoef by default has the following pin connections:
+ *
+ * B3, A15  - PWM pins for motor A
+ * B14, B15 - PWM pins for motor B
+ * A0       - analog input intensity sensor left
+ * A1       - analog input intensity sensor right
+ * A9       - trigger for ultrasonic sensor front
+ * B8       - echo for ultrasonic sensor front
+ * A10      - trigger for ultrasnoic sensor side
+ * B9       - echo for ultrasonic sensor side
+ * B12      - left encoder 
+ * B13      - right encoder
+ *
+ * Zoef does not use LEDs by default. For CSE2425 we connected
+ * the leds to the following pins:
+ *
+ * B10     - left LED
+ * B11     - right LED
+ */
 
-// Zoef does not use LEDs by default. 
-//
-// PB12     - left LED
-// PB13     - right LED
-
-
-// This is a standard blink setup
+// This is a standard blink setup (NOTE: you need to add P to the pin number)
 int led = PB12;
 
 void setup() {                
