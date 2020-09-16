@@ -42,6 +42,7 @@ fi
 # Publish avahi (not using daemon since we publish two addresses)
 avahi-publish-address -R zoef.local $(hostname -I | awk '{print $1}') &
 avahi-publish-service `cat /etc/hostname` _zoef._tcp 80 &
+avahi-publish-service `cat /etc/hostname` _arduino._tcp 80 &
 sleep 10 #For some reason the hostname will only be set correctly after a sleep
 avahi-set-host-name `cat /etc/hostname`
 sleep infinity
