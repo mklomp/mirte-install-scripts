@@ -22,12 +22,12 @@ cd $ZOEF_SRC_DIR
 sudo apt install -y python3.7 python3-pip python3-setuptools
 
 # Install Zoef Interface
-#cd $ZOEF_SRC_DIR/web_interface
-#./install.sh
+cd $ZOEF_SRC_DIR/web_interface
+./install.sh
 
 # Install Jupyter Notebook
-#cd $ZOEF_SRC_DIR/zoef_install_scripts
-#./install_jupyter_ros.sh
+cd $ZOEF_SRC_DIR/zoef_install_scripts
+./install_jupyter_ros.sh
 
 # Install pymata-express
 cd $ZOEF_SRC_DIR/zoef_pymata
@@ -44,8 +44,8 @@ cd $ZOEF_SRC_DIR/zoef_arduino
 ./install.sh
 
 # Install Zoef ROS packages
-#cd $ZOEF_SRC_DIR/zoef_install_scripts
-#./install_ROS.sh
+cd $ZOEF_SRC_DIR/zoef_install_scripts
+./install_ROS.sh
 
 # Install Rust
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
