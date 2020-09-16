@@ -9,8 +9,8 @@ repositories:
     version: master
   zoef_firmata:
     type: git
-    url: https://gitlab.tudelft.nl/rcj_zoef/zoef_firmata
-    version: firmata-stm32
+    url: https://github.com/zoef-robot/FirmataExpress.git
+    version: master
   zoef_install_scripts:
     type: git
     url: https://gitlab.tudelft.nl/rcj_zoef/zoef_install_scripts
@@ -21,11 +21,14 @@ repositories:
     version: master
   zoef_pymata:
     type: git
-    url: https://gitlab.tudelft.nl/rcj_zoef/zoef_pymata
+    url: https://github.com/zoef-robot/pymata-express.git
     version: master
   zoef_ros_package:
     type: git
     url: https://gitlab.tudelft.nl/rcj_zoef/zoef_ros_package
     version: master
-
+  zoef-arduino-libraries:
+    type: git
+    url: https://github.com/zoef-robot/zoef-arduino-libraries.git
+    version: master
 

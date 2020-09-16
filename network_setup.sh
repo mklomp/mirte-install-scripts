@@ -2,6 +2,18 @@
 
 ZOEF_SRC_DIR=/usr/local/src/zoef
 
+# Create unique SSID
+# This must be run every time on boot, since it should
+# be generated on first boot (so not when generating
+# the image)
+if [ ! -f /etc/ssid ]; then
+    UNIQUE_ID=$(openssl rand -hex 3)
+    ZOEF_SSID=Zoef_$(echo ${UNIQUE_ID^^})
+    sudo bash -c 'echo '$ZOEF_SSID' > /etc/hostname'
+    sudo ln -s /etc/hostname /etc/ssid
+fi
+
+
 if [ ! -f /etc/NetworkManager/system-connections/ZOEF_AP_CON ]; then
    # Set my own network connection since the one from fwifi-connect takes long to connect
    # AND the avahi mdns packets do not get though
