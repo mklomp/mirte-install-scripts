@@ -25,3 +25,11 @@ sudo bash -c 'echo "zoef ALL = (root) NOPASSWD: /usr/local/src/zoef/zoef_arduino
 
 # Enable usbmon
 #echo usbmon | sudo tee -a /etc/modules
+
+# By default, armbian has ssh login for root enabled with password 1234.
+# The password need to be set to zoef_zoef so users can use the
+# Arduino IDE remotely. 
+# TODO: when the Arduino IDE also supports ssh for non-root-users
+# this has to be changed
+echo -e "zoef_zoef\nzoef_zoef" | sudo passwd root
+
