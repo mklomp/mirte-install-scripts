@@ -30,6 +30,7 @@ else
     UNIQUE_ID=$(cat /etc/hostname | cut -c6-11)
     sudo $ZOEF_SRC_DIR/zoef_install_scripts/blink.sh $UNIQUE_ID &
     sudo wifi-connect -o 8080 -p `cat /etc/wifi_pwd` -s `cat /etc/hostname` &
+    sleep 10 #otherwise dnsmaq is not started yet
     sudo service dnsmasq stop # nm does not need a dhcp/dns server
     nmcli con modify ZOEF_AP_CON 802-11-wireless-security.psk `cat /etc/wifi_pwd`
     nmcli con modify ZOEF_AP_CON ssid `cat /etc/hostname`
