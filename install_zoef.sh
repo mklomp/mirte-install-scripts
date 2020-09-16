@@ -35,8 +35,9 @@ sudo -H python3.7 -m pip install .
 
 # Install Firmata project
 cd $ZOEF_SRC_DIR/zoef_install_scripts
-mkdir -p /home/zoef/arduino_project/FirmataExpress/libraries
-ln -s $ZOEF_SRC_DIR/zoef_firmata /home/zoef/arduino_project/FirmataExpress/libraries/FirmataExpress
+mkdir -p /home/zoef/Arduino/libraries
+mkdir -p /home/zoef/arduino_project/FirmataExpress
+ln -s $ZOEF_SRC_DIR/zoef_firmata /home/zoef/Arduino/libraries/FirmataExpress
 ln -s $ZOEF_SRC_DIR/zoef_firmata/examples/FirmataExpress/FirmataExpress.ino /home/zoef/arduino_project/FirmataExpress
 
 # Install arduino firmata upload script
@@ -48,8 +49,8 @@ cd $ZOEF_SRC_DIR/zoef_install_scripts
 ./install_ROS.sh
 
 # Install Rust
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-cd $ZOEF_SRC_DIR/
-git clone https://github.com/zoef-robot/wifi-connect.git
-cd wifi-connect
-cargo-build
+#curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+#cd $ZOEF_SRC_DIR/
+#git clone https://github.com/zoef-robot/wifi-connect.git
+#cd wifi-connect
+#cargo-build
