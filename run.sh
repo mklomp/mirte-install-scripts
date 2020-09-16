@@ -1,25 +1,41 @@
 #!/bin/bash
 
-
+# Stop ROS when uploading new code
 if test "$1" == "upload"
 then
     sudo service zoef_ros stop || /bin/true
 fi
 
-echo
-if test -z $1
+# Different build scripts
+if test "$1" == "build"
 then
-    sudo singularity run --app build --bind /home/zoef/arduino_project:/arduino_project --bind /usr/local/src/zoef:/usr/local/src/zoef arduino_utils FirmataExpress
-    sudo singularity run --app upload --bind /home/zoef/arduino_project:/arduino_project --bind /usr/local/src/zoef:/usr/local/src/zoef arduino_utils FirmataExpress
-else
-    sudo singularity run --app $1 --bind /home/zoef/arduino_project:/arduino_project --bind /usr/local/src/zoef:/usr/local/src/zoef arduino_utils $2
+   arduino-cli compile --fqbn STM32:stm32:GenF1:pnum=BLACKPILL_F103C8,upload_method=dfu2Method,xserial=generic,usb=CDCgen,xusb=FS,opt=osstd,rtlib=nano /home/zoef/arduino_project/$2
+fi
+if test "$1" == "build_nano"
+then
+   arduino-cli compile --fqbn arduino:avr:nano:cpu=atmega328 /home/zoef/arduino_project/$2
+fi
+if test "$1" == "build_nano_old"
+then
+   arduino-cli compile --fqbn arduino:avr:nano:cpu=atmega328old /home/zoef/arduino_project/$2
 fi
 
-#if test "$1" == "monitor"
-#then
-#   sudo singularity run --app monitor arduino_utils
-#fi
+# Different upload scripts
+if test "$1" == "upload"
+then
+   arduino-cli upload -p /dev/ttyACM0 --fqbn STM32:stm32:GenF1:pnum=BLACKPILL_F103C8,upload_method=dfu2Method,xserial=generic,usb=CDCgen,xusb=FS,opt=osstd,rtlib=nano /home/zoef/arduino_project/$2
+fi
+if test "$1" == "upload_nano"
+then
+   arduino-cli upload -p /dev/ttyUSB0 --fqbn arduino:avr:nano:cpu=atmega328 /home/zoef/arduino_project/$2
+fi
+if test "$1" == "upload_nano_old"
+then
+   arduino-cli upload -p /dev/ttyUSB0 --fqbn arduino:avr:nano:cpu=atmega328old /home/zoef/arduino_project/$2
+fi
 
+
+# Start ROS again
 if test "$1" == "upload"
 then
     if test "$2" == "FirmataExpress"
