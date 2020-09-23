@@ -7,6 +7,9 @@ wget https://github.com/balena-io/wifi-connect/raw/master/scripts/raspbian-insta
 chmod +x raspbian-install.sh
 ./raspbian-install.sh -y
 rm raspbian-install.sh
+
+# Make sure there are no conflicting hcdp-servers
+sudo apt install -y dnsmasq-base
 systemctl disable systemd-resolved
 echo "nameserver 8.8.8.8" > /etc/resolv.conf
 systemctl disable hostapd
