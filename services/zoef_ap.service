@@ -1,8 +1,6 @@
 [Unit]
 Description=Zoef Wifi AP
-After=network.target
-After=ssh.service
-After=network-online.target
+After=NetworkManager.service
 
 [Service]
 KillMode=process

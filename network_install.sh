@@ -9,8 +9,6 @@ chmod +x raspbian-install.sh
 rm raspbian-install.sh
 systemctl disable systemd-resolved
 echo "nameserver 8.8.8.8" > /etc/resolv.conf
-apt install -y dnsmasq
-systemctl disable dnsmasq # will be started by wifi-connect
 systemctl disable hostapd
 
 # Added systemd service to account for fix: https://askubuntu.com/questions/472794/hostapd-error-nl80211-could-not-configure-driver-mode
