@@ -51,5 +51,5 @@ sudo adduser zoef dialout
 echo -e "zoef_zoef\nzoef_zoef" | sudo passwd root
 
 # Enable tuploading from remote IDE
-ln -s $ZOEF_SRC_DIR/zoef_arduino/run-avrdude /usr/bin
+sudo ln -s $ZOEF_SRC_DIR/zoef_arduino/run-avrdude /usr/bin
 sudo bash -c 'echo "zoef ALL = (root) NOPASSWD: /usr/local/bin/arduino-cli" >> /etc/sudoers'
