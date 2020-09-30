@@ -28,8 +28,11 @@ sudo apt install -y libnss-mdns
 sudo apt install -y avahi-utils avahi-daemon
 sudo apt install -y avahi-utils avahi-daemon # NOTE: Twice, since regular apt installation on armbian fails (https://forum.armbian.com/topic/10204-cant-install-avahi-on-armbian-while-building-custom-image/)
 
+# Disable lo interface for avahi
+sed -i 's/#deny-interfaces=eth1/deny-interfaces=lo/g' /etc/avahi/avahi-daemon.conf
+
 # Disable ssh root login
-sed -i 's/#PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config 
+sed -i 's/#PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
 
 # Generate wifi password (TODO: generate random password and put on NTFS)
 if [ ! -f /etc/wifi_pwd ]; then

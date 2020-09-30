@@ -1,5 +1,88 @@
 #!/bin/bash
 
+function start_avahi {
+    # Restart avahi-daemon, to clear all previous addresses and hosts
+    service avahi-daemon restart && sleep 1
+
+    # Publish avahi (not using daemon since we publish two addresses)
+    avahi-publish-address -R zoef.local $(hostname -I | awk '{print $1}') &
+    avahi-set-host-name `cat /etc/hostname`
+    avahi-publish-service `cat /etc/hostname` _zoef._tcp 80 &
+    avahi-publish-service `cat /etc/hostname` _arduino._tcp 80 &
+}
+
+
+# This function basically just starts wifi-connect
+# only taking some limitations into account
+function start_acces_point {
+    # remove own connection from nm and killall
+    rm -rf /etc/NetworkManager/system-connections/`cat /etc/hostname`*
+    killall -9 wifi-connect
+    killall -9 blink.sh
+    echo "Killed all previous instances"
+
+    # It takes some time for NetworkManager to find all
+    # networks.
+    nmcli con down `cat /etc/hostname`
+    iw dev wlan0 scan | grep SSID
+    sleep 15
+    iw dev wlan0 scan | grep SSID
+    nmcli device wifi list
+    echo "Rescanned networks"
+
+    # Start wifi-connect (this starts the AP, and uses dnsmasq
+    # as DHCP server
+    wifi-connect -o 8080 -p `cat /etc/wifi_pwd` -s `cat /etc/hostname` &
+
+    # Wait until the AP is up
+    until [ -f /etc/NetworkManager/system-connections/`cat /etc/hostname` ]
+    do
+       sleep .1
+       echo " waiting for network"
+    done
+
+    # And modify the network in a way that avahi mdns packages will
+    # get through
+    nmcli con modify `cat /etc/hostname` 802-11-wireless-security.proto rsn
+    nmcli con modify `cat /etc/hostname` 802-11-wireless-security.group ccmp
+    nmcli con modify `cat /etc/hostname` 802-11-wireless-security.pairwise ccmp
+    nmcli con down `cat /etc/hostname`
+    nmcli con up `cat /etc/hostname`
+
+    # Start all avahi addresses and services
+    start_avahi
+
+    # Blink ssid-ID
+    UNIQUE_ID=$(cat /etc/hostname | cut -c6-11)
+    $ZOEF_SRC_DIR/zoef_install_scripts/blink.sh $UNIQUE_ID &
+}
+
+function check_connection {
+   # Wait for a connection with a known ssid (timeout 10 seconds)
+   nmcli device set wlan0 autoconnect yes
+   TIMEOUT=10;
+   NEXT_WAIT_TIME=0; until [ $NEXT_WAIT_TIME -eq $TIMEOUT ] || [ `iwgetid -r` ]; do echo "wating for connection"; sleep 1; let "NEXT_WAIT_TIME=NEXT_WAIT_TIME+1"; done
+
+   # Get wifi connection if connected
+   iwgetid -r
+   if [ $? -eq 0 ]; then
+      printf 'Connected to wifi connection:', iwgetid -r,'\n'
+      $ZOEF_SRC_DIR/zoef_install_scripts/blink.sh $(hostname -I) &
+      start_avahi
+   else
+      printf 'No connection found, starting AP with wifi connect\n'
+      start_acces_point
+
+      # Restart the whole network process when connection did not take place
+      while inotifywait -e modify /etc/NetworkManager/system-connections/`cat /etc/hostname`; do echo "hoi" ; done
+      printf "Networkmanager settings changed, restarting wifi-connect\n"
+      sleep 5 # Give wifi-connect the possibility to change the settings
+      printf "And doing the next thing\n"
+      check_connection
+   fi
+}
+
+
 ZOEF_SRC_DIR=/usr/local/src/zoef
 
 # Create unique SSID
@@ -9,44 +92,11 @@ ZOEF_SRC_DIR=/usr/local/src/zoef
 if [ ! -f /etc/ssid ]; then
     UNIQUE_ID=$(openssl rand -hex 3)
     ZOEF_SSID=Zoef_$(echo ${UNIQUE_ID^^})
-    sudo bash -c 'echo '$ZOEF_SSID' > /etc/hostname'
-    sudo ln -s /etc/hostname /etc/ssid
+    bash -c 'echo '$ZOEF_SSID' > /etc/hostname'
+    ln -s /etc/hostname /etc/ssid
 fi
 
-# wait until wifi connected?
-NEXT_WAIT_TIME=0; until [ $NEXT_WAIT_TIME -eq 10 ] || [ `iwgetid -r` ]; do echo "wating for connection"; sleep 1; let "NEXT_WAIT_TIME=NEXT_WAIT_TIME+1"; done
+check_connection
 
-iwgetid -r
-if [ $? -eq 0 ]; then
-    printf 'Skipping WiFi Connect\n'
-    sudo $ZOEF_SRC_DIR/zoef_install_scripts/blink.sh $(hostname -I) &
-else
-    printf 'Starting WiFi Connect\n'
-    # remove own connection from nm
-    sudo rm -rf /etc/NetworkManager/system-connections/`cat /etc/hostname`*
-    nmcli -t -f ALL dev wifi rescan
-    sleep 15
-    sudo wifi-connect -o 8080 -p `cat /etc/wifi_pwd` -s `cat /etc/hostname` &
-    # set to pairwise to make sure avahi will work over wifi (TODO: or do we need to do this
-    # with inotify to make sure this also works after connection fails and AP gett up again
-    until [ -f /etc/NetworkManager/system-connections/`cat /etc/hostname` ]
-    do
-       sleep .1
-       echo " wainting for network"
-    done
-    UNIQUE_ID=$(cat /etc/hostname | cut -c6-11)
-    sudo $ZOEF_SRC_DIR/zoef_install_scripts/blink.sh $UNIQUE_ID &
-    nmcli con modify `cat /etc/hostname` 802-11-wireless-security.proto rsn
-    nmcli con modify `cat /etc/hostname` 802-11-wireless-security.group ccmp
-    nmcli con modify `cat /etc/hostname` 802-11-wireless-security.pairwise ccmp
-    nmcli con down `cat /etc/hostname`
-    nmcli con up `cat /etc/hostname`
-fi
-
-# Publish avahi (not using daemon since we publish two addresses)
-#TODO: publish-address whould be updated after one has changed from ap->wifi.
-avahi-publish-address -R zoef.local $(hostname -I | awk '{print $1}') &
-avahi-set-host-name `cat /etc/hostname`
-avahi-publish-service `cat /etc/hostname` _zoef._tcp 80 &
-avahi-publish-service `cat /etc/hostname` _arduino._tcp 80 &
+# This should run forever, otherwise systemd will shut it down
 sleep infinity
