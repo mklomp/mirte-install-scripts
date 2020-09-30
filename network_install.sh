@@ -31,6 +31,9 @@ sudo apt install -y avahi-utils avahi-daemon # NOTE: Twice, since regular apt in
 # Disable lo interface for avahi
 sed -i 's/#deny-interfaces=eth1/deny-interfaces=lo/g' /etc/avahi/avahi-daemon.conf
 
+# Install inotify-wait to listen to wifi changes made by wifi-connect
+sudo apt install -y inotify-tools
+
 # Disable ssh root login
 sed -i 's/#PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
 
