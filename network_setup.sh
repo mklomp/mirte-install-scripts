@@ -54,7 +54,7 @@ function start_acces_point {
 
     # Blink ssid-ID
     UNIQUE_ID=$(cat /etc/hostname | cut -c6-11)
-    $ZOEF_SRC_DIR/zoef_install_scripts/blink.sh $UNIQUE_ID &
+#    $ZOEF_SRC_DIR/zoef_install_scripts/blink.sh $UNIQUE_ID &
 }
 
 function check_connection {
