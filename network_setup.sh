@@ -17,8 +17,8 @@ function start_avahi {
 function start_acces_point {
     # remove own connection from nm and killall
     rm -rf /etc/NetworkManager/system-connections/`cat /etc/hostname`*
-    killall -9 wifi-connect
-    killall -9 blink.sh
+    sudo killall -9 wifi-connect
+    sudo killall -9 blink.sh
     echo "Killed all previous instances"
 
     # It takes some time for NetworkManager to find all
@@ -59,12 +59,12 @@ function start_acces_point {
 
 function check_connection {
    # Wait for a connection with a known ssid (timeout 10 seconds)
-   nmcli device set wlan0 autoconnect yes
+   sudo nmcli device set wlan0 autoconnect yes
    TIMEOUT=10;
    NEXT_WAIT_TIME=0; until [ $NEXT_WAIT_TIME -eq $TIMEOUT ] || [ `iwgetid -r` ]; do echo "wating for connection"; sleep 1; let "NEXT_WAIT_TIME=NEXT_WAIT_TIME+1"; done
 
    # Get wifi connection if connected
-   iwgetid -r
+   sudo iwgetid -r
    if [ $? -eq 0 ]; then
       printf 'Connected to wifi connection:', iwgetid -r,'\n'
       $ZOEF_SRC_DIR/zoef_install_scripts/blink.sh $(hostname -I) &
@@ -85,6 +85,9 @@ function check_connection {
 
 ZOEF_SRC_DIR=/usr/local/src/zoef
 
+# TODO: do this the nmcli way
+sudo bash -c 'echo "nameserver 8.8.8.8" > /etc/resolv.conf'
+
 # Create unique SSID
 # This must be run every time on boot, since it should
 # be generated on first boot (so not when generating
@@ -92,8 +95,11 @@ ZOEF_SRC_DIR=/usr/local/src/zoef
 if [ ! -f /etc/ssid ]; then
     UNIQUE_ID=$(openssl rand -hex 3)
     ZOEF_SSID=Zoef_$(echo ${UNIQUE_ID^^})
-    bash -c 'echo '$ZOEF_SSID' > /etc/hostname'
-    ln -s /etc/hostname /etc/ssid
+    sudo bash -c 'echo '$ZOEF_SSID' > /etc/hostname'
+    sudo ln -s /etc/hostname /etc/ssid
+    # And add them to the hosts file
+    sudo bash -c 'echo '$ZOEF_SSID' > /etc/hosts'
+    sudo bash -c 'echo "zoef" > /etc/hosts'
 fi
 
 check_connection
