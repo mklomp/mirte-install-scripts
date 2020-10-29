@@ -36,9 +36,9 @@ mkdir /home/zoef/arduino_project/Blink
 ln -s $ZOEF_SRC_DIR/zoef_arduino/Blink.ino /home/zoef/arduino_project/Blink
 
 # Already build all versions so only upload is needed
-sudo ./run.sh build FirmataExpress
-sudo ./run.sh build_nano FirmataExpress
-sudo ./run.sh build_nano_old FirmataExpress
+./run.sh build FirmataExpress
+./run.sh build_nano FirmataExpress
+./run.sh build_nano_old FirmataExpress
 
 # Add zoef to dialout
 sudo adduser zoef dialout
