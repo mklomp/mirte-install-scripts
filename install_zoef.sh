@@ -18,8 +18,8 @@ cp download_repos.sh $ZOEF_SRC_DIR
 cd $ZOEF_SRC_DIR
 ./download_repos.sh
 
-# Install dependecnies to be able to run python3.7
-sudo apt install -y python3.7 python3-pip python3-setuptools
+# Install dependecnies to be able to run python3.8
+sudo apt install -y python3.8 python3-pip python3-setuptools
 
 # Install Zoef Interface
 cd $ZOEF_SRC_DIR/web_interface
@@ -29,16 +29,16 @@ cd $ZOEF_SRC_DIR/web_interface
 cd $ZOEF_SRC_DIR/zoef_install_scripts
 ./install_jupyter_ros.sh
 
-# Install pymata-express
+# Install telemetrix
 cd $ZOEF_SRC_DIR/zoef_pymata
-sudo -H python3.7 -m pip install .
+sudo -H python3.8 -m pip install .
 
-# Install Firmata project
+# Install Telemtrix4Arduino project
 cd $ZOEF_SRC_DIR/zoef_install_scripts
 mkdir -p /home/zoef/Arduino/libraries
-mkdir -p /home/zoef/arduino_project/FirmataExpress
-ln -s $ZOEF_SRC_DIR/zoef_firmata /home/zoef/Arduino/libraries/FirmataExpress
-ln -s $ZOEF_SRC_DIR/zoef_firmata/examples/FirmataExpress/FirmataExpress.ino /home/zoef/arduino_project/FirmataExpress
+mkdir -p /home/zoef/arduino_project/Telemtrix4Arduino
+ln -s $ZOEF_SRC_DIR/Telemetrix4Arduino /home/zoef/Arduino/libraries/Telemetrix4Arduino
+ln -s $ZOEF_SRC_DIR/Telemetrix4Arduino/examples/Telemetrix4Arduino/Telemetrix4Arduino.ino /home/zoef/arduino_project/Telemetrix4Arduino
 
 # Install arduino firmata upload script
 cd $ZOEF_SRC_DIR/zoef_arduino

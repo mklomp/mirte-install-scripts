@@ -25,7 +25,7 @@ function start_acces_point {
     # networks.
     nmcli con down `cat /etc/hostname`
     iw dev wlan0 scan | grep SSID
-    sleep 15
+    sleep 25
     iw dev wlan0 scan | grep SSID
     nmcli device wifi list
     echo "Rescanned networks"

@@ -7,9 +7,9 @@ repositories:
     type: git
     url: https://gitlab.tudelft.nl/rcj_zoef/zoef_arduino
     version: master
-  zoef_firmata:
+  zoef_telemetrix4arduino:
     type: git
-    url: https://github.com/zoef-robot/FirmataExpress.git
+    url: https://github.com/zoef-robot/Telemetrix4Arduino.git
     version: master
   zoef_install_scripts:
     type: git
@@ -19,9 +19,9 @@ repositories:
     type: git
     url: https://gitlab.tudelft.nl/rcj_zoef/zoef_msgs
     version: master
-  zoef_pymata:
+  zoef_telemetrix:
     type: git
-    url: https://github.com/zoef-robot/pymata-express.git
+    url: https://github.com/zoef-robot/telemetrix-aio.git
     version: master
   zoef_ros_package:
     type: git
