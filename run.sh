@@ -38,7 +38,7 @@ fi
 # Start ROS again
 if test "$1" == "upload"
 then
-    if test "$2" == "FirmataExpress"
+    if test "$2" == "Telemetrix4Arduino"
     then
         sudo service zoef_ros start || /bin/true
         echo "ROS is starting"
