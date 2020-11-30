@@ -27,6 +27,7 @@ ln -s /home/zoef/.arduino15/packages/STM32/tools/STM32Tools/1.4.0/tools/linux/ma
 arduino-cli lib install "Ultrasonic"
 arduino-cli lib install "Stepper"
 arduino-cli lib install "Servo"
+arduino-cli lib install "DHTNEW"
 
 # Install our own arduino libraries
 ln -s $ZOEF_SRC_DIR/zoef-arduino-libraries/OpticalEncoder /home/zoef/Arduino/libraries
