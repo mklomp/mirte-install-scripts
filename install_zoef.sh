@@ -36,7 +36,7 @@ sudo -H python3.8 -m pip install .
 # Install Telemtrix4Arduino project
 cd $ZOEF_SRC_DIR/zoef_install_scripts
 mkdir -p /home/zoef/Arduino/libraries
-mkdir -p /home/zoef/arduino_project/Telemtrix4Arduino
+mkdir -p /home/zoef/arduino_project/Telemetrix4Arduino
 ln -s $ZOEF_SRC_DIR/Telemetrix4Arduino /home/zoef/Arduino/libraries/Telemetrix4Arduino
 ln -s $ZOEF_SRC_DIR/Telemetrix4Arduino/examples/Telemetrix4Arduino/Telemetrix4Arduino.ino /home/zoef/arduino_project/Telemetrix4Arduino
 
