@@ -27,6 +27,7 @@ ln -s /home/zoef/.arduino15/packages/STM32/tools/STM32Tools/1.4.0/tools/linux/ma
 arduino-cli lib install "Ultrasonic"
 arduino-cli lib install "Stepper"
 arduino-cli lib install "Servo"
+arduino-cli lib install "DHTNEW"
 
 # Install our own arduino libraries
 ln -s $ZOEF_SRC_DIR/zoef-arduino-libraries/OpticalEncoder /home/zoef/Arduino/libraries
@@ -36,9 +37,9 @@ mkdir /home/zoef/arduino_project/Blink
 ln -s $ZOEF_SRC_DIR/zoef_arduino/Blink.ino /home/zoef/arduino_project/Blink
 
 # Already build all versions so only upload is needed
-./run.sh build FirmataExpress
-./run.sh build_nano FirmataExpress
-./run.sh build_nano_old FirmataExpress
+./run.sh build Telemetrix4Arduino
+./run.sh build_nano Telemetrix4Arduino
+./run.sh build_nano_old Telemetrix4Arduino
 
 # Add zoef to dialout
 sudo adduser zoef dialout
