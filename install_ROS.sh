@@ -31,7 +31,7 @@ source /home/zoef/zoef_ws/devel/setup.bash
 
 # install missing python dependencies rosbridge
 sudo apt install libffi-dev
-sudo pip install twisted pyOpenSSL autobahn tornado pymongo pillow
+sudo pip install twisted pyOpenSSL autobahn tornado pymongo pillow python-future
 
 # Add systemd service to start ROS nodes
 sudo rm /lib/systemd/system/zoef_ros.service
