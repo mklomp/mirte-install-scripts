@@ -25,7 +25,7 @@ function start_acces_point {
     # networks.
     nmcli con down `cat /etc/hostname`
     iw dev wlan0 scan | grep SSID
-    sleep 15
+    sleep 25
     iw dev wlan0 scan | grep SSID
     nmcli device wifi list
     echo "Rescanned networks"
@@ -59,8 +59,8 @@ function start_acces_point {
 
 function check_connection {
    # Wait for a connection with a known ssid (timeout 10 seconds)
-   sudo nmcli device set wlan0 autoconnect yes
-   TIMEOUT=10;
+   nmcli device set wlan0 autoconnect yes
+   TIMEOUT=25;
    NEXT_WAIT_TIME=0; until [ $NEXT_WAIT_TIME -eq $TIMEOUT ] || [ `iwgetid -r` ]; do echo "wating for connection"; sleep 1; let "NEXT_WAIT_TIME=NEXT_WAIT_TIME+1"; done
 
    # Get wifi connection if connected
