@@ -46,6 +46,10 @@ sudo systemctl enable zoef_ros
 sudo apt install -y python3.8 python3-pip python3-wheel
 sudo -H python3.8 -m pip install rosdep rospkg rosinstall_generator rosinstall wstool vcstools catkin_tools catkin_pkg
 
+# Install OLED dependencies
+sudo apt install -y python3-bitstring libfreetype6-dev python3-libjpeg python3.8-dev
+sudo -H python3.8 -m pip install pillow adafruit-circuitpython-ssd1306
+
 # Install aio dependencies
 sudo -H python3.8 -m pip install janus async-generator nest-asyncio
 git clone https://github.com/locusrobotics/aiorospy.git
