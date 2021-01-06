@@ -52,3 +52,4 @@ git clone https://github.com/locusrobotics/aiorospy.git
 cd aiorospy/aiorospy
 sudo -H python3.8 -m pip install .
 cd ../..
+rm -rf aiorospy
