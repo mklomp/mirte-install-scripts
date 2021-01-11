@@ -64,6 +64,8 @@ function check_connection {
    NEXT_WAIT_TIME=0; until [ $NEXT_WAIT_TIME -eq $TIMEOUT ] || [ `iwgetid -r` ]; do echo "wating for connection"; sleep 1; let "NEXT_WAIT_TIME=NEXT_WAIT_TIME+1"; done
 
    # Get wifi connection if connected
+   echo `ip addr show`
+   echo `iwgetid -r`
    iwgetid -r
    if [ $? -eq 0 ]; then
       printf 'Connected to wifi connection:', iwgetid -r,'\n'
@@ -84,6 +86,8 @@ function check_connection {
 
 
 ZOEF_SRC_DIR=/usr/local/src/zoef
+
+$ZOEF_SRC_DIR/zoef_install_scripts/usb_ethernet.sh
 
 # Create unique SSID
 # This must be run every time on boot, since it should
