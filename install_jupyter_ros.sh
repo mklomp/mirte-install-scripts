@@ -10,8 +10,8 @@ cd /home/zoef
 python -m virtualenv jupyter
 source /home/zoef/jupyter/bin/activate
 
-# install jupyros
-pip install jupyter bqplot pyyaml ipywidgets
+# install jupyros (bqplot 0.12.19 gave a runtime error at import)
+pip install jupyter bqplot==0.12.18 pyyaml ipywidgets
 pip install jupyros
 jupyter nbextension enable --py --sys-prefix jupyros
 deactivate

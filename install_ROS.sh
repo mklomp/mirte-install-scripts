@@ -44,7 +44,7 @@ sudo systemctl enable zoef_ros
 
 # Be able to run python3.8 nodes as well
 sudo apt install -y python3.8 python3-pip python3-wheel
-sudo -H python3.8 -m pip install rosdep rospkg rosinstall_generator rosinstall wstool vcstools catkin_tools catkin_pkg
+sudo -H python3.8 -m pip install rosdep rospkg rosinstall_generator rosinstall wstool vcstools catkin_pkg
 
 # Install OLED dependencies
 sudo apt install -y python3-bitstring libfreetype6-dev libjpeg-dev python3.8-dev
@@ -56,3 +56,4 @@ git clone https://github.com/locusrobotics/aiorospy.git
 cd aiorospy/aiorospy
 sudo -H python3.8 -m pip install .
 cd ../..
+rm -rf aiorospy
