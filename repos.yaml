@@ -35,4 +35,7 @@ repositories:
     type: git
     url: https://github.com/zoef-robot/zoef-arduino-libraries.git
     version: master
-
+  zoef_python:
+    type: git
+    url: https://gitlab.tudelft.nl/rcj_zoef/zoef_python
+    version: master
