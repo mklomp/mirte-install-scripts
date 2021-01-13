@@ -6,6 +6,8 @@ ZOEF_SRC_DIR=/usr/local/src/zoef
 sudo apt install -y git curl binutils libusb-1.0-0
 
 # Install arduino-cli
+# We need to install version 0.13.0. From version 0.14.0 on a check is done on the hash of the packages,
+# while the community version of the STM (see below) needs insecure packages.
 curl https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sudo BINDIR=/usr/local/bin sh -s 0.13.0
 sudo chown -R zoef:zoef /home/zoef/.arduino15
 
@@ -15,6 +17,7 @@ arduino-cli -v core install arduino:avr
 
 # Install STM32 support. Currently not supported by stm32duino (see https://github.com/stm32duino/Arduino_Core_STM32/issues/708), but there is already
 # a community version (https://github.com/koendv/stm32duino-raspberrypi). TODO: go back to stm32duino as soon as it is merged into stm32duino.
+# We forked our own version, since the community version does not build correctly.
 arduino-cli -v core install STM32:stm32 --additional-urls https://raw.githubusercontent.com/zoef-robot/stm32duino-raspberrypi/master/BoardManagerFiles/package_stm_index.json
 
 # Fix for community STM32 (TODO: make version independant)
