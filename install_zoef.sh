@@ -45,11 +45,11 @@ cd $ZOEF_SRC_DIR/zoef_arduino
 ./install.sh
 
 # Install Zoef ROS packages
-cd $ZOEF_SRC_DIR/zoef_python
+cd $ZOEF_SRC_DIR/zoef_install_scripts
 ./install_ROS.sh
 
 # Install Zoef Python package
-cd $ZOEF_SRC_DIR/zoef_install_scripts
+cd $ZOEF_SRC_DIR/zoef_python
 python3 -m pip install .
 
 # Install Rust
