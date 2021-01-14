@@ -40,6 +40,9 @@ sed -i 's/#PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
 # Install usb_ethernet script from EV3
 wget https://raw.githubusercontent.com/ev3dev/ev3-systemd/ev3dev-buster/scripts/ev3-usb.sh -P $ZOEF_SRC_DIR/zoef_install_scripts
 chmod +x $ZOEF_SRC_DIR/zoef_install_scripts/ev3_usb.sh
+sudo chmod +x $ZOEF_SRC_DIR/zoef_install_scripts/ev3-usb.sh
+sudo chown zoef:zoef $ZOEF_SRC_DIR/zoef_install_scripts/ev3-usb.sh
+sudo bash -c 'echo "libcomposite" > /etc/modules'
 
 # Generate wifi password (TODO: generate random password and put on NTFS)
 if [ ! -f /etc/wifi_pwd ]; then
