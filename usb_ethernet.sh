@@ -40,7 +40,7 @@ sudo iptables -t nat -A POSTROUTING -i usb1 -d 192.168.42.3 -j DNAT --to-destina
 # For now we have to start the dhcp server before wificonnect. Not needed 
 # after we moved to different namespaces
 # For some reason we neet to set the dns-server manually
-sudo dnsmasq --address=/#/192.168.42.3 --dhcp-range=192.168.42.10,192.168.42.100 --conf-file --domain-needed --bogus-priv --server=8.8.8.8 --dhcp-option=option:dns-server,8.8.8.8
+sudo dnsmasq --address=/#/192.168.42.3 --dhcp-range=192.168.42.10,192.168.42.100 --conf-file --domain-needed --bogus-priv --server=8.8.8.8 --dhcp-option=option:dns-server,8.8.8.8 --interface=usb1 --except-interface=lo --bind-interfaces
 
 
 

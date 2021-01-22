@@ -11,7 +11,7 @@ rm raspbian-install.sh
 # Make sure there are no conflicting hcdp-servers
 sudo apt install -y dnsmasq-base
 systemctl disable systemd-resolved
-echo "nameserver 8.8.8.8" > /etc/resolv.conf
+#echo "nameserver 8.8.8.8" > /etc/resolv.conf
 systemctl disable hostapd
 
 # Added systemd service to account for fix: https://askubuntu.com/questions/472794/hostapd-error-nl80211-could-not-configure-driver-mode
