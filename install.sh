@@ -6,18 +6,19 @@ ZOEF_SRC_DIR=/usr/local/src/zoef
 sudo apt install -y git curl binutils libusb-1.0-0
 
 # Install arduino-cli
-curl https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sudo BINDIR=/usr/local/bin sh
+# We need to install version 0.13.0. From version 0.14.0 on a check is done on the hash of the packages,
+# while the community version of the STM (see below) needs insecure packages.
+curl https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sudo BINDIR=/usr/local/bin sh -s 0.13.0
 sudo chown -R zoef:zoef /home/zoef/.arduino15
 
 # Install arduino avr support (for nano)
-arduino-cli core update-index --additional-urls https://raw.githubusercontent.com/zoef-robot/stm32duino-raspberrypi/master/BoardManagerFiles/package_stm_index.json -v
-arduino-cli core install arduino:avr
+arduino-cli -v core update-index --additional-urls https://raw.githubusercontent.com/zoef-robot/stm32duino-raspberrypi/master/BoardManagerFiles/package_stm_index.json
+arduino-cli -v core install arduino:avr
 
 # Install STM32 support. Currently not supported by stm32duino (see https://github.com/stm32duino/Arduino_Core_STM32/issues/708), but there is already
 # a community version (https://github.com/koendv/stm32duino-raspberrypi). TODO: go back to stm32duino as soon as it is merged into stm32duino.
-# Currently the community version is broken as well due to a new xpack version. This will probably also mean that the stm32duino version might include this into their own.
-arduino-cli core install STM32:stm32 --additional-urls https://raw.githubusercontent.com/zoef-robot/stm32duino-raspberrypi/master/BoardManagerFiles/package_stm_index.json -v
-#arduino-cli core install STM32:stm32 --additional-urls https://github.com/stm32duino/BoardManagerFiles/raw/master/STM32/package_stm_index.json
+# We forked our own version, since the community version does not build correctly.
+arduino-cli -v core install STM32:stm32 --additional-urls https://raw.githubusercontent.com/zoef-robot/stm32duino-raspberrypi/master/BoardManagerFiles/package_stm_index.json
 
 # Fix for community STM32 (TODO: make version independant)
 sed -i 's/dfu-util\.sh/dfu-util\/dfu-util/g' /home/zoef/.arduino15/packages/STM32/tools/STM32Tools/1.4.0/tools/linux/maple_upload
