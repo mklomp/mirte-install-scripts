@@ -47,6 +47,9 @@ cd $ZOEF_SRC_DIR/zoef_arduino
 # Install Zoef ROS packages
 cd $ZOEF_SRC_DIR/zoef_install_scripts
 ./install_ROS.sh
+sudo apt --fix-broken install
+./install_ROS.sh
+
 
 # Install Zoef Python package
 cd $ZOEF_SRC_DIR/zoef_python
