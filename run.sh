@@ -1,8 +1,13 @@
 #!/bin/bash
 
+# Check if ROS is running
+ROS_RUNNING=`ps aux | grep [r]osmaster | wc -l`
+
+
 # Stop ROS when uploading new code
-if test "$1" == "upload"
+if test "$1" == "upload" && [[ $ROS_RUNNING == "1" ]]
 then
+    echo "STOPPING ROS"
     sudo service zoef_ros stop || /bin/true
 fi
 
@@ -36,13 +41,8 @@ fi
 
 
 # Start ROS again
-if test "$1" == "upload"
+if test "$1" == "upload" && test "$2" == "Telemetrix4Arduino" && [[ $ROS_RUNNING == "1" ]]
 then
-    if test "$2" == "Telemetrix4Arduino"
-    then
-        sudo service zoef_ros start || /bin/true
-        echo "ROS is starting"
-    else
-        echo "ROS not started"
-    fi
+   sudo service zoef_ros start || /bin/true
+   echo "STARTING ROS"
 fi
