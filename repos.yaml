@@ -26,7 +26,7 @@ repositories:
   zoef_ros_package:
     type: git
     url: https://gitlab.tudelft.nl/rcj_zoef/zoef_ros_package
-    version: oled
+    version: master
   zoef_oled_images:
     type: git
     url: https://gitlab.tudelft.nl/rcj_zoef/zoef_oled_images

@@ -32,7 +32,7 @@ function start_acces_point {
 
     # Start wifi-connect (this starts the AP, and uses dnsmasq
     # as DHCP server
-    wifi-connect -o 8080 -p `cat /etc/wifi_pwd` -s `cat /etc/hostname` &
+    wifi-connect -o 8080 -p `cat /home/zoef/.wifi_pwd` -s `cat /etc/hostname` &
 
     # Wait until the AP is up
     until [ -f /etc/NetworkManager/system-connections/`cat /etc/hostname` ]
@@ -93,11 +93,10 @@ $ZOEF_SRC_DIR/zoef_install_scripts/usb_ethernet.sh
 # This must be run every time on boot, since it should
 # be generated on first boot (so not when generating
 # the image in network_setup.sh)
-if [ ! -f /etc/ssid ]; then
+if [ ! -f /home/zoef/.ssid ] || [[ `cat /home/zoef/.ssid` == "Zoef_XXXXXX" ]]; then
     UNIQUE_ID=$(openssl rand -hex 3)
     ZOEF_SSID=Zoef_$(echo ${UNIQUE_ID^^})
-    bash -c 'echo '$ZOEF_SSID' > /etc/hostname'
-    ln -s /etc/hostname /etc/ssid
+    bash -c 'echo '$ZOEF_SSID' > /home/zoef/.ssid'
 fi
 
 check_connection

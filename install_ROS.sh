@@ -18,6 +18,11 @@ rosdep update
 sudo apt install python-pip python-wheel python-setuptools python-opencv libzbar0 -y
 sudo -H python -m pip install pyzbar
 
+# Move custom settings to writabel filesystem
+cp $ZOEF_SRC_DIR/zoef_ros_package/config/zoef_user_settings.yaml /home/zoef/.user_settings.yaml
+rm $ZOEF_SRC_DIR/zoef_ros_package/config/zoef_user_settings.yaml
+ln -s /home/zoef/.user_settings.yaml $ZOEF_SRC_DIR/zoef_ros_package/config/zoef_user_settings.yaml
+
 # Install Zoef ROS package
 mkdir -p /home/zoef/zoef_ws/src
 cd /home/zoef/zoef_ws/src

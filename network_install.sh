@@ -45,9 +45,14 @@ sudo chown zoef:zoef $ZOEF_SRC_DIR/zoef_install_scripts/ev3-usb.sh
 sudo bash -c 'echo "libcomposite" > /etc/modules'
 
 # Generate wifi password (TODO: generate random password and put on NTFS)
-if [ ! -f /etc/wifi_pwd ]; then
-    sudo bash -c 'echo zoef_zoef > /etc/wifi_pwd'
+if [ ! -f /home/zoef/.wifi_pwd ]; then
+    bash -c 'echo zoef_zoef > /home/zoef/.wifi_pwd'
 fi
 
 # Allow wifi_pwd to be modified using the web interface
-sudo chmod 777 /etc/wifi_pwd
+sudo chmod 777 /home/zoef/.wifi_pwd
+
+# Link hostname to newly to be created zoef id
+bash -c 'echo "Zoef_XXXXXX" > /home/zoef/.ssid'
+sudo rm -rf /etc/hostname
+sudo ln -s /home/zoef/.ssid /etc/hostname
