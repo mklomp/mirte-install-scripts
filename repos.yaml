@@ -2,7 +2,7 @@ repositories:
   web_interface:
     type: git
     url: https://gitlab.tudelft.nl/rcj_zoef/web_interface
-    version: master
+    version: gui_refactor
   zoef_arduino:
     type: git
     url: https://gitlab.tudelft.nl/rcj_zoef/zoef_arduino
