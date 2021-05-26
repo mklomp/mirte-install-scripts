@@ -4,14 +4,17 @@ ZOEF_SRC_DIR=/usr/local/src/zoef
 
 # Make sure there are no conflicting hcdp-servers
 sudo apt install -y dnsmasq-base
-systemctl disable systemd-resolved
+systemctl disable hostapd
+
+# Fix for bug in systemd-resolved
+# (https://askubuntu.com/questions/973017/wrong-nameserver-set-by-resolvconf-and-networkmanager)
+# For the installation we need 8.8.8.8, but linking will be done in network_setup.sh
 sudo rm -rf /etc/resolv.conf
 sudo bash -c 'echo "nameserver 8.8.8.8" > /etc/resolv.conf'
-systemctl disable hostapd
 
 # Let netplan use NM (which is used by wifi-connect)
 sudo apt install -y network-manager
-sudo echo "   renderer: NetworkManager" >> /etc/netplan/50*
+sudo echo "   renderer: NetworkManager" >> /etc/netplan/50-cloud-init.yaml
 
 # Install wifi-connect
 wget https://github.com/balena-io/wifi-connect/raw/master/scripts/raspbian-install.sh

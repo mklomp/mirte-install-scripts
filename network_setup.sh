@@ -54,7 +54,7 @@ function start_acces_point {
 
     # Blink ssid-ID
     UNIQUE_ID=$(cat /etc/hostname | cut -c6-11)
-#    $ZOEF_SRC_DIR/zoef_install_scripts/blink.sh $UNIQUE_ID &
+    $ZOEF_SRC_DIR/zoef_install_scripts/blink.sh $UNIQUE_ID &
 }
 
 function check_connection {
@@ -66,6 +66,9 @@ function check_connection {
    # Get wifi connection if connected
    sudo iwgetid -r
    if [ $? -eq 0 ]; then
+      # Bugfix (see network_install.sh)
+      sudo ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
+
       printf 'Connected to wifi connection:', iwgetid -r,'\n'
       $ZOEF_SRC_DIR/zoef_install_scripts/blink.sh $(hostname -I) &
       start_avahi
@@ -85,9 +88,6 @@ function check_connection {
 
 ZOEF_SRC_DIR=/usr/local/src/zoef
 
-# TODO: do this the nmcli way
-sudo bash -c 'echo "nameserver 8.8.8.8" > /etc/resolv.conf'
-
 # Create unique SSID
 # This must be run every time on boot, since it should
 # be generated on first boot (so not when generating
@@ -98,8 +98,8 @@ if [ ! -f /etc/ssid ]; then
     sudo bash -c 'echo '$ZOEF_SSID' > /etc/hostname'
     sudo ln -s /etc/hostname /etc/ssid
     # And add them to the hosts file
-    sudo bash -c 'echo '$ZOEF_SSID' > /etc/hosts'
-    sudo bash -c 'echo "zoef" > /etc/hosts'
+    sudo bash -c 'echo 127.0.0.1 '$ZOEF_SSID' >> /etc/hosts'
+    sudo bash -c 'echo "127.0.0.1 zoef" >> /etc/hosts'
 fi
 
 check_connection
