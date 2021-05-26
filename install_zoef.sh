@@ -61,3 +61,6 @@ python3 -m pip install .
 #git clone https://github.com/zoef-robot/wifi-connect.git
 #cd wifi-connect
 #cargo-build
+
+# Install numpy
+python3 -m pip install numpy
