@@ -50,17 +50,9 @@ cd $ZOEF_SRC_DIR/zoef_install_scripts
 sudo apt --fix-broken install
 ./install_ROS.sh
 
-
 # Install Zoef Python package
 cd $ZOEF_SRC_DIR/zoef_python
 python3 -m pip install .
-
-# Install Rust
-#curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-#cd $ZOEF_SRC_DIR/
-#git clone https://github.com/zoef-robot/wifi-connect.git
-#cd wifi-connect
-#cargo-build
 
 # Install numpy
 python3 -m pip install numpy

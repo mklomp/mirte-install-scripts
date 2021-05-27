@@ -2,17 +2,28 @@
 
 ZOEF_SRC_DIR=/usr/local/src/zoef
 
+# Make sure there are no conflicting hcdp-servers
+sudo apt install -y dnsmasq-base
+systemctl disable hostapd
+
+# Install netplan (not installed on armbian) and networmanager (not installed by Raspberry)
+sudo apt install -y netplan.io
+sudo apt install -y network-manager
+sudo cp $ZOEF_SRC_DIR/zoef_install_scripts/50-cloud-init.yaml /etc/netplan/
+sudo netplan apply
+sudo apt purge -y ifupdown
+
+# Fix for bug in systemd-resolved
+# (https://askubuntu.com/questions/973017/wrong-nameserver-set-by-resolvconf-and-networkmanager)
+# For the installation we need 8.8.8.8, but linking will be done in network_setup.sh
+sudo rm -rf /etc/resolv.conf
+sudo bash -c 'echo "nameserver 8.8.8.8" > /etc/resolv.conf'
+
 # Install wifi-connect
 wget https://github.com/balena-io/wifi-connect/raw/master/scripts/raspbian-install.sh
 chmod +x raspbian-install.sh
 ./raspbian-install.sh -y
 rm raspbian-install.sh
-
-# Make sure there are no conflicting hcdp-servers
-sudo apt install -y dnsmasq-base
-systemctl disable systemd-resolved
-#echo "nameserver 8.8.8.8" > /etc/resolv.conf
-systemctl disable hostapd
 
 # Added systemd service to account for fix: https://askubuntu.com/questions/472794/hostapd-error-nl80211-could-not-configure-driver-mode
 sudo rm /lib/systemd/system/zoef_ap.service
@@ -31,8 +42,8 @@ sudo apt install -y avahi-utils avahi-daemon # NOTE: Twice, since regular apt in
 # Disable lo interface for avahi
 sed -i 's/#deny-interfaces=eth1/deny-interfaces=lo/g' /etc/avahi/avahi-daemon.conf
 
-# Install inotify-wait to listen to wifi changes made by wifi-connect
-sudo apt install -y inotify-tools
+# Install dependecies needed for setup script
+sudo apt install -y inotify-tools wireless-tools
 
 # Disable ssh root login
 sed -i 's/#PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
