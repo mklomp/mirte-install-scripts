@@ -3,13 +3,13 @@
 #TODO: get this as a parameter
 ZOEF_SRC_DIR=/usr/local/src/zoef
 
-# Install ROS Melodic
+# Install ROS Noetic
 sudo sh -c 'echo "deb http://ftp.tudelft.nl/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 sudo apt update
-sudo apt install -y ros-melodic-ros-base python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential python-catkin-tools
-grep -qxF "source /opt/ros/melodic/setup.bash" /home/zoef/.bashrc || echo "source /opt/ros/melodic/setup.bash" >> /home/zoef/.bashrc
-source /opt/ros/melodic/setup.bash
+sudo apt install -y ros-noetic-ros-base python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential python-catkin-tools
+grep -qxF "source /opt/ros/noetic/setup.bash" /home/zoef/.bashrc || echo "source /opt/ros/noetic/setup.bash" >> /home/zoef/.bashrc
+source /opt/ros/noetic/setup.bash
 sudo rosdep init
 rosdep update
 
@@ -29,7 +29,7 @@ cd /home/zoef/zoef_ws/src
 ln -s $ZOEF_SRC_DIR/zoef_ros_package .
 ln -s $ZOEF_SRC_DIR/zoef_msgs .
 cd ..
-rosdep install -y --from-paths src/ --ignore-src --rosdistro melodic
+rosdep install -y --from-paths src/ --ignore-src --rosdistro noetic
 catkin build
 grep -qxF "source /home/zoef/zoef_ws/devel/setup.bash" /home/zoef/.bashrc || echo "source /home/zoef/zoef_ws/devel/setup.bash" >> /home/zoef/.bashrc
 source /home/zoef/zoef_ws/devel/setup.bash
