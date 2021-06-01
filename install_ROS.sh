@@ -15,8 +15,8 @@ rosdep update
 
 # Install computer vision libraries
 #TODO: make dependecies of ROS package
-sudo apt install python-pip python-wheel python-setuptools python-opencv libzbar0 -y
-sudo -H python -m pip install pyzbar
+sudo apt install python3-pip python3-wheel python3-setuptools python3-opencv libzbar0 -y
+sudo -H python3 -m pip install pyzbar
 
 # Move custom settings to writabel filesystem
 cp $ZOEF_SRC_DIR/zoef_ros_package/config/zoef_user_settings.yaml /home/zoef/.user_settings.yaml
@@ -36,7 +36,7 @@ source /home/zoef/zoef_ws/devel/setup.bash
 
 # install missing python dependencies rosbridge
 sudo apt install libffi-dev
-sudo pip install twisted pyOpenSSL autobahn tornado pymongo pillow python-future
+sudo pip3 install twisted pyOpenSSL autobahn tornado pymongo pillow
 
 # Add systemd service to start ROS nodes
 sudo rm /lib/systemd/system/zoef_ros.service
@@ -46,10 +46,6 @@ sudo systemctl daemon-reload
 sudo systemctl stop zoef_ros || /bin/true
 sudo systemctl start zoef_ros
 sudo systemctl enable zoef_ros
-
-# Be able to run python3.8 nodes as well
-sudo apt install -y python3.8 python3-pip python3-wheel
-sudo -H python3.8 -m pip install rosdep rospkg rosinstall_generator rosinstall wstool vcstools catkin_pkg
 
 # Install OLED dependencies
 sudo apt install -y python3-bitstring libfreetype6-dev libjpeg-dev python3.8-dev
