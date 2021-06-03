@@ -3,11 +3,27 @@
 #TODO: get this as a parameter
 ZOEF_SRC_DIR=/usr/local/src/zoef
 
+
+# We need to install a newer version of Cmake in order to run this from qemu
+# https://gitlab.kitware.com/cmake/cmake/-/issues/20568
+export CFLAGS="-D_FILE_OFFSET_BITS=64"
+export CXXFLAGS="-D_FILE_OFFSET_BITS=64"
+sudo apt remove -y --purge cmake
+hash -r
+sudo apt install build-essential libssl-dev
+wget https://github.com/Kitware/CMake/releases/download/v3.20.2/cmake-3.20.2.tar.gz
+tar -zxvf cmake-3.20.2.tar.gz
+cd cmake-3.20.2
+./bootstrap
+make
+sudo make install
+
+
 # Install ROS Noetic
 sudo sh -c 'echo "deb http://ftp.tudelft.nl/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
 sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 sudo apt update
-sudo apt install -y ros-noetic-ros-base python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential python-catkin-tools
+sudo apt install -y ros-noetic-ros-base python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential python3-catkin-tools python3-osrf-pycommon
 grep -qxF "source /opt/ros/noetic/setup.bash" /home/zoef/.bashrc || echo "source /opt/ros/noetic/setup.bash" >> /home/zoef/.bashrc
 source /opt/ros/noetic/setup.bash
 sudo rosdep init

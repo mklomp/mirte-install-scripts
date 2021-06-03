@@ -3,7 +3,7 @@
 ZOEF_SRC_DIR=/usr/local/src/zoef
 
 # install basic python tools
-sudo apt install -y python3 python3-venv python3-dev git
+sudo apt install -y python3 python3-venv python3-dev git libffi-dev
 
 # create and activate virtualenv
 # Due to a build error on numpy we need to install numpy and
