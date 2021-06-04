@@ -12,13 +12,13 @@ curl https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | s
 sudo chown -R zoef:zoef /home/zoef/.arduino15
 
 # Install arduino avr support (for nano)
-arduino-cli -v core update-index --additional-urls https://raw.githubusercontent.com/zoef-robot/stm32duino-raspberrypi/master/BoardManagerFiles/package_stm_index.json
+arduino-cli -v core update-index --additional-urls https://raw.githubusercontent.com/koendv/stm32duino-raspberrypi/master/BoardManagerFiles/package_stm_index.json
 arduino-cli -v core install arduino:avr
 
 # Install STM32 support. Currently not supported by stm32duino (see https://github.com/stm32duino/Arduino_Core_STM32/issues/708), but there is already
 # a community version (https://github.com/koendv/stm32duino-raspberrypi). TODO: go back to stm32duino as soon as it is merged into stm32duino.
 # We forked our own version, since the community version does not build correctly.
-arduino-cli -v core install STM32:stm32 --additional-urls https://raw.githubusercontent.com/zoef-robot/stm32duino-raspberrypi/master/BoardManagerFiles/package_stm_index.json
+arduino-cli -v core install STM32:stm32 --additional-urls https://raw.githubusercontent.com/koendv/stm32duino-raspberrypi/master/BoardManagerFiles/package_stm_index.json
 
 # Fix for community STM32 (TODO: make version independant)
 sed -i 's/dfu-util\.sh/dfu-util\/dfu-util/g' /home/zoef/.arduino15/packages/STM32/tools/STM32Tools/1.4.0/tools/linux/maple_upload
