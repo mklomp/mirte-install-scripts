@@ -22,7 +22,7 @@ arduino-cli -v core install STM32:stm32 --additional-urls https://raw.githubuser
 # Fix for community STM32 (TODO: make version independant)
 sed -i 's/dfu-util\.sh/dfu-util\/dfu-util/g' /home/zoef/.arduino15/packages/STM32/tools/STM32Tools/1.4.0/tools/linux/maple_upload
 ln -s /home/zoef/.arduino15/packages/STM32/tools/STM32Tools/1.4.0/tools/linux/maple_upload /home/zoef/.arduino15/packages/STM32/tools/STM32Tools/1.4.0/tools/linux/maple_upload.sh
-cp /home/zoef/.arduino15/packages/STM32/tools/STM32Tools/1.4.0/tools/linux/45-maple.rules /etc/udev/45-maple.rules
+sudo cp /home/zoef/.arduino15/packages/STM32/tools/STM32Tools/1.4.0/tools/linux/45-maple.rules /etc/udev/rules.d/45-maple.rules
 sudo service udev restart
 
 # Install libraries needed by FirmataExpress
