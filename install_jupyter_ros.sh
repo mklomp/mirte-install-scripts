@@ -3,16 +3,19 @@
 ZOEF_SRC_DIR=/usr/local/src/zoef
 
 # install basic python tools
-sudo apt install -y python2.7 python-virtualenv python-dev git
+sudo apt install -y python3 python3-venv python3-dev git libffi-dev
 
 # create and activate virtualenv
+# Due to a build error on numpy we need to install numpy and
+# padnas globally and us it in the virtual environment
 cd /home/zoef
-python -m virtualenv jupyter
+sudo apt install -y python3-numpy python3-pandas
+python3 -m venv jupyter --system-site-packages
 source /home/zoef/jupyter/bin/activate
 
-# install jupyros (bqplot 0.12.19 gave a runtime error at import)
-pip install jupyter bqplot==0.12.18 pyyaml ipywidgets
-pip install jupyros
+# install jupyros
+pip3 install jupyter bqplot pyyaml ipywidgets
+pip3 install jupyros
 jupyter nbextension enable --py --sys-prefix jupyros
 deactivate
 sudo chown -R zoef:zoef /home/zoef/jupyter
