@@ -35,7 +35,7 @@ function start_acces_point {
     wifi-connect -o 8080 -p `cat /home/zoef/.wifi_pwd` -s `cat /etc/hostname` &
 
     # Wait until the AP is up
-    until [ -f /etc/NetworkManager/system-connections/`cat /etc/hostname` ]
+    until [ -f /etc/NetworkManager/system-connections/`cat /etc/hostname`.nmconnection ]
     do
        sleep .1
        echo " waiting for network"
@@ -77,7 +77,7 @@ function check_connection {
       start_acces_point
 
       # Restart the whole network process when connection did not take place
-      while inotifywait -e modify /etc/NetworkManager/system-connections/`cat /etc/hostname`; do echo "hoi" ; done
+      while inotifywait -e modify /etc/NetworkManager/system-connections/`cat /etc/hostname`.nmconnection; do echo "hoi" ; done
       printf "Networkmanager settings changed, restarting wifi-connect\n"
       sleep 5 # Give wifi-connect the possibility to change the settings
       printf "And doing the next thing\n"

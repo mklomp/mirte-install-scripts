@@ -26,8 +26,8 @@ cd $ZOEF_SRC_DIR/web_interface
 ./install.sh
 
 # Install Jupyter Notebook
-cd $ZOEF_SRC_DIR/zoef_install_scripts
-./install_jupyter_ros.sh
+#cd $ZOEF_SRC_DIR/zoef_install_scripts
+#./install_jupyter_ros.sh
 
 # Install telemetrix
 cd $ZOEF_SRC_DIR/zoef_telemetrix
@@ -53,4 +53,4 @@ cd $ZOEF_SRC_DIR/zoef_python
 python3 -m pip install .
 
 # Install numpy
-python3 -m pip install numpy
+#python3 -m pip install numpy
