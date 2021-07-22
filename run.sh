@@ -26,6 +26,12 @@ if test "$1" == "build_nano_old"
 then
    arduino-cli -v compile --fqbn arduino:avr:nano:cpu=atmega328old /home/zoef/arduino_project/$2
 fi
+if test "$1" == "build_uno"
+then
+   arduino-cli -v compile --fqbn arduino:avr:uno /home/zoef/arduino_project/$2
+fi
+
+
 
 # Different upload scripts
 if test "$1" == "upload"
@@ -40,6 +46,12 @@ if test "$1" == "upload_nano_old"
 then
    arduino-cli -v upload -p /dev/ttyUSB0 --fqbn arduino:avr:nano:cpu=atmega328old /home/zoef/arduino_project/$2
 fi
+if test "$1" == "upload_uno"
+then
+   arduino-cli -v upload -p /dev/ttyACM0 --fqbn arduino:avr:uno /home/zoef/arduino_project/$2
+fi
+
+
 
 
 # Start ROS again
