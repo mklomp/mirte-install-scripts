@@ -42,6 +42,7 @@ ln -s $ZOEF_SRC_DIR/zoef_arduino/Blink.ino /home/zoef/arduino_project/Blink
 ./run.sh build Telemetrix4Arduino
 ./run.sh build_nano Telemetrix4Arduino
 ./run.sh build_nano_old Telemetrix4Arduino
+./run.sh build_uno Telemetrix4Arduino
 
 # Add zoef to dialout
 sudo adduser zoef dialout
