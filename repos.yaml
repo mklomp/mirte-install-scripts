@@ -3,10 +3,6 @@ repositories:
     type: git
     url: https://gitlab.tudelft.nl/rcj_zoef/web_interface
     version: gui_refactor
-  mirte_arduino:
-    type: git
-    url: https://gitlab.tudelft.nl/rcj_zoef/zoef_arduino
-    version: master
   mirte_telemetrix4arduino:
     type: git
     url: https://github.com/zoef-robot/Telemetrix4Arduino.git

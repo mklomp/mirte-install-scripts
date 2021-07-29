@@ -23,7 +23,8 @@ arduino-cli -v core install STM32:stm32 --additional-urls https://raw.githubuser
 sed -i 's/dfu-util\.sh/dfu-util\/dfu-util/g' /home/mirte/.arduino15/packages/STM32/tools/STM32Tools/1.4.0/tools/linux/maple_upload
 ln -s /home/mirte/.arduino15/packages/STM32/tools/STM32Tools/1.4.0/tools/linux/maple_upload /home/mirte/.arduino15/packages/STM32/tools/STM32Tools/1.4.0/tools/linux/maple_upload.sh
 sudo cp /home/mirte/.arduino15/packages/STM32/tools/STM32Tools/1.4.0/tools/linux/45-maple.rules /etc/udev/rules.d/45-maple.rules
-sudo service udev restart
+# Retartsing should only be done when not in qemu
+#sudo service udev restart
 
 # Install libraries needed by FirmataExpress
 arduino-cli lib install "Ultrasonic"
@@ -55,5 +56,5 @@ sudo adduser mirte dialout
 echo -e "mirte_mirte\nmirte_mirte" | sudo passwd root
 
 # Enable tuploading from remote IDE
-sudo ln -s $MIRTE_SRC_DIR/zoef_install_scripts/run-avrdude /usr/bin
+sudo ln -s $MIRTE_SRC_DIR/mirte_install_scripts/run-avrdude /usr/bin
 sudo bash -c 'echo "mirte ALL = (root) NOPASSWD: /usr/local/bin/arduino-cli" >> /etc/sudoers'

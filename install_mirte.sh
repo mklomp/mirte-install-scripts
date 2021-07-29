@@ -22,36 +22,36 @@ cd $MIRTE_SRC_DIR
 sudo apt install -y python3.8 python3-pip python3-setuptools
 
 # Install Mirte Interface
-#cd $MIRTE_SRC_DIR/mirte_install_scripts
-#./install_web.sh
+cd $MIRTE_SRC_DIR/mirte_install_scripts
+./install_web.sh
 
 # Install Jupyter Notebook
-#cd $MIRTE_SRC_DIR/mirte_install_scripts
-#./install_jupyter_ros.sh
+cd $MIRTE_SRC_DIR/mirte_install_scripts
+./install_jupyter_ros.sh
 
 # Install telemetrix
-#cd $MIRTE_SRC_DIR/mirte_telemetrix-aio
-#sudo -H python3.8 -m pip install .
+cd $MIRTE_SRC_DIR/mirte_telemetrix-aio
+pip3 install .
 
 # Install Telemtrix4Arduino project
-#cd $MIRTE_SRC_DIR/mirte_install_scripts
-#mkdir -p /home/mirte/Arduino/libraries
-#mkdir -p /home/mirte/arduino_project/Telemetrix4Arduino
-#ln -s $MIRTE_SRC_DIR/mirte_telemetrix4arduino /home/mirte/Arduino/libraries/Telemetrix4Arduino
-#ln -s $MIRTE_SRC_DIR/mirte_telemetrix4arduino/examples/Telemetrix4Arduino/Telemetrix4Arduino.ino /home/mirte/arduino_project/Telemetrix4Arduino
+cd $MIRTE_SRC_DIR/mirte_install_scripts
+mkdir -p /home/mirte/Arduino/libraries
+mkdir -p /home/mirte/arduino_project/Telemetrix4Arduino
+ln -s $MIRTE_SRC_DIR/mirte_telemetrix4arduino /home/mirte/Arduino/libraries/Telemetrix4Arduino
+ln -s $MIRTE_SRC_DIR/mirte_telemetrix4arduino/examples/Telemetrix4Arduino/Telemetrix4Arduino.ino /home/mirte/arduino_project/Telemetrix4Arduino
 
 # Install arduino firmata upload script
-#cd $MIRTE_SRC_DIR/mirte_install_scripts
-#./install_arduino.sh
+cd $MIRTE_SRC_DIR/mirte_install_scripts
+./install_arduino.sh
 
 # Install Mirte ROS packages
 cd $MIRTE_SRC_DIR/mirte_install_scripts
 ./install_ROS.sh
-#./install_dualshock.sh
+./install_dualshock.sh
 
 # Install Mirte Python package
-#cd $MIRTE_SRC_DIR/mirte_python
-#python3 -m pip install .
+cd $MIRTE_SRC_DIR/mirte_python
+pip3 install .
 
 # Install numpy
-#python3 -m pip install numpy
+pip3 install numpy

@@ -39,5 +39,5 @@ sed -i 's/flt_type = HCI_FLT_CLEAR_ALL;/\/\/flt_type = HCI_FLT_CLEAR_ALL;/g' hci
 sed -i 's/hci_req_add(req, HCI_OP_SET_EVENT_FLT, 1, &flt_type);/\/\/hci_req_add(req, HCI_OP_SET_EVENT_FLT, 1, &flt_type);/g' hci_core.c
 
 # Build and install
-make -C /lib/modules/$(uname -r)/build M=$PWD modules
+make -C /lib/modules/5.10.21-sunxi/build M=$PWD modules
 sudo cp bluetooth.ko /lib/modules/5.10.21-sunxi/kernel/net/bluetooth/bluetooth.ko
