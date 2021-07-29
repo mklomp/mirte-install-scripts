@@ -14,9 +14,11 @@ nodeenv --node=16.2.0 $ZOEF_SRC_DIR/web_interface/node_env
 
 # Install web interface
 . $ZOEF_SRC_DIR/web_interface/node_env/bin/activate
-cd $ZOEF_SRC_DIR/web_interface
-npm install
+cd $ZOEF_SRC_DIR/web_interface/vue-frontend
+npm install .
 npm run build
+cd $ZOEF_SRC_DIR/web_interface/nodejs-backend
+npm install .
 deactivate_node
 
 # Foward for 80 to 3000
@@ -42,7 +44,7 @@ sudo bash -c 'echo "COMMIT" >> /etc/iptables/rules.v4'
 
 # Add systemd service
 sudo rm /lib/systemd/system/zoef_web_interface.service
-sudo ln -s $ZOEF_SRC_DIR/web_interface/systemd/zoef_web_interface.service /lib/systemd/system/
+sudo ln -s $ZOEF_SRC_DIR/zoef_install_scripts/services/zoef_web_interface.service /lib/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl stop zoef_web_interface || /bin/true
 sudo systemctl start zoef_web_interface
