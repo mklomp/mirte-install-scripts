@@ -36,13 +36,13 @@ ln -s $ZOEF_SRC_DIR/zoef-arduino-libraries/OpticalEncoder /home/zoef/Arduino/lib
 
 # Install Blink example code
 mkdir /home/zoef/arduino_project/Blink
-ln -s $ZOEF_SRC_DIR/zoef_arduino/Blink.ino /home/zoef/arduino_project/Blink
+ln -s $ZOEF_SRC_DIR/zoef_web_interface/Blink.ino /home/zoef/arduino_project/Blink
 
 # Already build all versions so only upload is needed
-./run.sh build Telemetrix4Arduino
-./run.sh build_nano Telemetrix4Arduino
-./run.sh build_nano_old Telemetrix4Arduino
-./run.sh build_uno Telemetrix4Arduino
+./run_arduino.sh build Telemetrix4Arduino
+./run_arduino.sh build_nano Telemetrix4Arduino
+./run_arduino.sh build_nano_old Telemetrix4Arduino
+./run_arduino.sh build_uno Telemetrix4Arduino
 
 # Add zoef to dialout
 sudo adduser zoef dialout
