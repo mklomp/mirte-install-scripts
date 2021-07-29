@@ -42,7 +42,7 @@ ln -s $ZOEF_SRC_DIR/zoef_telemetrix4arduino/examples/Telemetrix4Arduino/Telemetr
 
 # Install arduino firmata upload script
 cd $ZOEF_SRC_DIR/zoef_arduino
-./install.sh
+./install_arduino.sh
 
 # Install Zoef ROS packages
 cd $ZOEF_SRC_DIR/zoef_install_scripts
