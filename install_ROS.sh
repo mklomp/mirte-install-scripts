@@ -3,21 +3,17 @@
 #TODO: get this as a parameter
 MIRTE_SRC_DIR=/usr/local/src/mirte
 
-
-# We need to install a newer version of Cmake in order to run this from qemu
+# There is a bug with Cmake in qemu for armhf:
 # https://gitlab.kitware.com/cmake/cmake/-/issues/20568
-export CFLAGS="-D_FILE_OFFSET_BITS=64"
-export CXXFLAGS="-D_FILE_OFFSET_BITS=64"
-sudo apt remove -y --purge cmake
-hash -r
-sudo apt install build-essential libssl-dev
-wget https://github.com/Kitware/CMake/releases/download/v3.20.2/cmake-3.20.2.tar.gz
-tar -zxvf cmake-3.20.2.tar.gz
-cd cmake-3.20.2
-./bootstrap
-make
-sudo make install
-
+# So we need to install a newer version of Cmake
+# https://apt.kitware.com/
+wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | gpg --dearmor - | sudo tee /usr/share/keyrings/kitware-archive-keyring.gpg >/dev/null
+echo 'deb [signed-by=/usr/share/keyrings/kitware-archive-keyring.gpg] https://apt.kitware.com/ubuntu/ focal main' | sudo tee /etc/apt/sources.list.d/kitware.list >/dev/null
+sudo apt-get update
+sudo rm /usr/share/keyrings/kitware-archive-keyring.gpg
+sudo apt-get install kitware-archive-keyring
+sudo apt-get install cmake-data=3.20.5-0kitware1ubuntu20.04.1
+sudo apt-get install cmake=3.20.5-0kitware1ubuntu20.04.1
 
 # Install ROS Noetic
 sudo sh -c 'echo "deb http://ftp.tudelft.nl/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
