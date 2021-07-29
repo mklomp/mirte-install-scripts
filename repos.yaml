@@ -19,7 +19,7 @@ repositories:
     type: git
     url: https://gitlab.tudelft.nl/rcj_zoef/zoef_msgs
     version: master
-  mirte_telemetrix:
+  mirte_telemetrix-aio:
     type: git
     url: https://github.com/zoef-robot/telemetrix-aio.git
     version: master

@@ -55,5 +55,5 @@ sudo adduser mirte dialout
 echo -e "mirte_mirte\nmirte_mirte" | sudo passwd root
 
 # Enable tuploading from remote IDE
-sudo ln -s $MIRTE_SRC_DIR/mirte_arduino/run-avrdude /usr/bin
+sudo ln -s $MIRTE_SRC_DIR/zoef_install_scripts/run-avrdude /usr/bin
 sudo bash -c 'echo "mirte ALL = (root) NOPASSWD: /usr/local/bin/arduino-cli" >> /etc/sudoers'
