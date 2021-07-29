@@ -1,13 +1,13 @@
 #!/bin/bash
 set -e
 
-ZOEF_SRC_DIR=/usr/local/src/zoef
+MIRTE_SRC_DIR=/usr/local/src/mirte
 
-# Add zoef user with sudo rights
+# Add mirte user with sudo rights
 #TODO: user without homedir (create homedir for user)
-sudo useradd -m -G sudo,audio -s /bin/bash zoef
-sudo mkdir /home/zoef/workdir
-sudo chown zoef:zoef /home/zoef/workdir
-echo -e "zoef_zoef\nzoef_zoef" | sudo passwd zoef
-sudo mkdir -p $ZOEF_SRC_DIR
-sudo chown zoef:zoef $ZOEF_SRC_DIR
+sudo useradd -m -G sudo,audio -s /bin/bash mirte
+sudo mkdir /home/mirte/workdir
+sudo chown mirte:mirte /home/mirte/workdir
+echo -e "mirte_mirte\nmirte_mirte" | sudo passwd mirte
+sudo mkdir -p $MIRTE_SRC_DIR
+sudo chown mirte:mirte $MIRTE_SRC_DIR

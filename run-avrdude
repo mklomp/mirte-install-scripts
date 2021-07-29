@@ -4,12 +4,12 @@
 
 
 # Stop ROS when uploading new code
-sudo service zoef_ros stop
+sudo service mirte_ros stop
 
 if test "$1" == "upload"
 then
-    sudo arduino-cli upload -p /dev/ttyACM0 -b STM32:stm32:GenF1:pnum=BLACKPILL_F103C8,upload_method=dfu2Method,xserial=generic,usb=CDCgen,xusb=FS,opt=osstd,rtlib=nano -i /home/zoef/firmware.bin
+    sudo arduino-cli upload -p /dev/ttyACM0 -b STM32:stm32:GenF1:pnum=BLACKPILL_F103C8,upload_method=dfu2Method,xserial=generic,usb=CDCgen,xusb=FS,opt=osstd,rtlib=nano -i /home/mirte/firmware.bin
 else
     objcopy --input-target=ihex --output-target=binary /tmp/sketch.hex /tmp/sketch.bin
-    runuser -l zoef -c 'sudo arduino-cli upload -p /dev/ttyACM0 -b STM32:stm32:GenF1:pnum=BLACKPILL_F103C8,upload_method=dfu2Method,xserial=generic,usb=CDCgen,xusb=FS,opt=osstd,rtlib=nano -i /tmp/sketch.bin'
+    runuser -l mirte -c 'sudo arduino-cli upload -p /dev/ttyACM0 -b STM32:stm32:GenF1:pnum=BLACKPILL_F103C8,upload_method=dfu2Method,xserial=generic,usb=CDCgen,xusb=FS,opt=osstd,rtlib=nano -i /tmp/sketch.bin'
 fi

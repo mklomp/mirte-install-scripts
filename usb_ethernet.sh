@@ -4,11 +4,11 @@
 # This script creates USB gadgets usign ConfigFS for both Linux/MacOS and Windows
 # The Linux and MacOS version will connect to usb0, whil Windows will connect
 # to usb1. Both networks then are shown on the host.
-ZOEF_SRC_DIR=/usr/local/src/zoef
+MIRTE_SRC_DIR=/usr/local/src/mirte
 
 sudo killall -9 dnsmasq
-sudo $ZOEF_SRC_DIR/zoef_install_scripts/ev3-usb.sh down `ls /sys/class/udc | tail -n1`
-sudo $ZOEF_SRC_DIR/zoef_install_scripts/ev3-usb.sh up `ls /sys/class/udc | tail -n1`
+sudo $MIRTE_SRC_DIR/mirte_install_scripts/ev3-usb.sh down `ls /sys/class/udc | tail -n1`
+sudo $MIRTE_SRC_DIR/mirte_install_scripts/ev3-usb.sh up `ls /sys/class/udc | tail -n1`
 
 # For now, we just create a different IP address for each interface. We need
 # to change this to private namespaces (see below). In order to getinthernet

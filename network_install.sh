@@ -1,6 +1,6 @@
 #!/bin/bash 
 
-ZOEF_SRC_DIR=/usr/local/src/zoef
+MIRTE_SRC_DIR=/usr/local/src/mirte
 
 # Make sure there are no conflicting hcdp-servers
 sudo apt install -y dnsmasq-base
@@ -9,7 +9,7 @@ systemctl disable hostapd
 # Install netplan (not installed on armbian) and networmanager (not installed by Raspberry)
 sudo apt install -y netplan.io
 sudo apt install -y network-manager
-sudo cp $ZOEF_SRC_DIR/zoef_install_scripts/50-cloud-init.yaml /etc/netplan/
+sudo cp $MIRTE_SRC_DIR/mirte_install_scripts/50-cloud-init.yaml /etc/netplan/
 sudo netplan apply
 sudo apt purge -y ifupdown
 
@@ -26,13 +26,13 @@ chmod +x raspbian-install.sh
 rm raspbian-install.sh
 
 # Added systemd service to account for fix: https://askubuntu.com/questions/472794/hostapd-error-nl80211-could-not-configure-driver-mode
-sudo rm /lib/systemd/system/zoef_ap.service
-sudo ln -s $ZOEF_SRC_DIR/zoef_install_scripts/services/zoef_ap.service /lib/systemd/system/
+sudo rm /lib/systemd/system/mirte_ap.service
+sudo ln -s $MIRTE_SRC_DIR/mirte_install_scripts/services/mirte_ap.service /lib/systemd/system/
 
 sudo systemctl daemon-reload
-sudo systemctl stop zoef_ap || /bin/true
-sudo systemctl start zoef_ap
-sudo systemctl enable zoef_ap
+sudo systemctl stop mirte_ap || /bin/true
+sudo systemctl start mirte_ap
+sudo systemctl enable mirte_ap
 
 # Install avahi
 sudo apt install -y libnss-mdns
@@ -49,21 +49,21 @@ sudo apt install -y inotify-tools wireless-tools
 sed -i 's/#PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
 
 # Install usb_ethernet script from EV3
-wget https://raw.githubusercontent.com/ev3dev/ev3-systemd/ev3dev-buster/scripts/ev3-usb.sh -P $ZOEF_SRC_DIR/zoef_install_scripts
-chmod +x $ZOEF_SRC_DIR/zoef_install_scripts/ev3_usb.sh
-sudo chmod +x $ZOEF_SRC_DIR/zoef_install_scripts/ev3-usb.sh
-sudo chown zoef:zoef $ZOEF_SRC_DIR/zoef_install_scripts/ev3-usb.sh
+wget https://raw.githubusercontent.com/ev3dev/ev3-systemd/ev3dev-buster/scripts/ev3-usb.sh -P $MIRTE_SRC_DIR/mirte_install_scripts
+chmod +x $MIRTE_SRC_DIR/mirte_install_scripts/ev3_usb.sh
+sudo chmod +x $MIRTE_SRC_DIR/mirte_install_scripts/ev3-usb.sh
+sudo chown mirte:mirte $MIRTE_SRC_DIR/mirte_install_scripts/ev3-usb.sh
 sudo bash -c 'echo "libcomposite" > /etc/modules'
 
 # Generate wifi password (TODO: generate random password and put on NTFS)
-if [ ! -f /home/zoef/.wifi_pwd ]; then
-    bash -c 'echo zoef_zoef > /home/zoef/.wifi_pwd'
+if [ ! -f /home/mirte/.wifi_pwd ]; then
+    bash -c 'echo mirte_mirte > /home/mirte/.wifi_pwd'
 fi
 
 # Allow wifi_pwd to be modified using the web interface
-sudo chmod 777 /home/zoef/.wifi_pwd
+sudo chmod 777 /home/mirte/.wifi_pwd
 
-# Link hostname to newly to be created zoef id
-bash -c 'echo "Zoef_XXXXXX" > /home/zoef/.ssid'
+# Link hostname to newly to be created mirte id
+bash -c 'echo "Mirte_XXXXXX" > /home/mirte/.ssid'
 sudo rm -rf /etc/hostname
-sudo ln -s /home/zoef/.ssid /etc/hostname
+sudo ln -s /home/mirte/.ssid /etc/hostname

@@ -1,0 +1,12 @@
+[Unit]
+Description=Mirte Jupyter
+After=network.target
+After=ssh.service
+After=network-online.target
+
+[Service]
+User=mirte
+ExecStart=/bin/bash -c "source /opt/ros/noetic/setup.bash && source /home/mirte/mirte_ws/devel/setup.bash && cd /home/mirte/jupyter-ros/notebooks && source /home/mirte/jupyter/bin/activate && jupyter nbextension enable --py --sys-prefix jupyros && jupyter notebook --ip='0.0.0.0' --NotebookApp.token='' --NotebookApp.password=''"
+
+[Install]
+WantedBy=multi-user.target

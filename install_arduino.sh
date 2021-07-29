@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ZOEF_SRC_DIR=/usr/local/src/zoef
+MIRTE_SRC_DIR=/usr/local/src/mirte
 
 # Install dependencies
 sudo apt install -y git curl binutils libusb-1.0-0
@@ -9,7 +9,7 @@ sudo apt install -y git curl binutils libusb-1.0-0
 # We need to install version 0.13.0. From version 0.14.0 on a check is done on the hash of the packages,
 # while the community version of the STM (see below) needs insecure packages.
 curl https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sudo BINDIR=/usr/local/bin sh -s 0.13.0
-sudo chown -R zoef:zoef /home/zoef/.arduino15
+sudo chown -R mirte:mirte /home/mirte/.arduino15
 
 # Install arduino avr support (for nano)
 arduino-cli -v core update-index --additional-urls https://raw.githubusercontent.com/koendv/stm32duino-raspberrypi/master/BoardManagerFiles/package_stm_index.json
@@ -20,9 +20,9 @@ arduino-cli -v core install arduino:avr
 arduino-cli -v core install STM32:stm32 --additional-urls https://raw.githubusercontent.com/koendv/stm32duino-raspberrypi/master/BoardManagerFiles/package_stm_index.json
 
 # Fix for community STM32 (TODO: make version independant)
-sed -i 's/dfu-util\.sh/dfu-util\/dfu-util/g' /home/zoef/.arduino15/packages/STM32/tools/STM32Tools/1.4.0/tools/linux/maple_upload
-ln -s /home/zoef/.arduino15/packages/STM32/tools/STM32Tools/1.4.0/tools/linux/maple_upload /home/zoef/.arduino15/packages/STM32/tools/STM32Tools/1.4.0/tools/linux/maple_upload.sh
-sudo cp /home/zoef/.arduino15/packages/STM32/tools/STM32Tools/1.4.0/tools/linux/45-maple.rules /etc/udev/rules.d/45-maple.rules
+sed -i 's/dfu-util\.sh/dfu-util\/dfu-util/g' /home/mirte/.arduino15/packages/STM32/tools/STM32Tools/1.4.0/tools/linux/maple_upload
+ln -s /home/mirte/.arduino15/packages/STM32/tools/STM32Tools/1.4.0/tools/linux/maple_upload /home/mirte/.arduino15/packages/STM32/tools/STM32Tools/1.4.0/tools/linux/maple_upload.sh
+sudo cp /home/mirte/.arduino15/packages/STM32/tools/STM32Tools/1.4.0/tools/linux/45-maple.rules /etc/udev/rules.d/45-maple.rules
 sudo service udev restart
 
 # Install libraries needed by FirmataExpress
@@ -32,11 +32,11 @@ arduino-cli lib install "Servo"
 arduino-cli lib install "DHTNEW"
 
 # Install our own arduino libraries
-ln -s $ZOEF_SRC_DIR/zoef-arduino-libraries/OpticalEncoder /home/zoef/Arduino/libraries
+ln -s $MIRTE_SRC_DIR/mirte-arduino-libraries/OpticalEncoder /home/mirte/Arduino/libraries
 
 # Install Blink example code
-mkdir /home/zoef/arduino_project/Blink
-ln -s $ZOEF_SRC_DIR/zoef_web_interface/Blink.ino /home/zoef/arduino_project/Blink
+mkdir /home/mirte/arduino_project/Blink
+ln -s $MIRTE_SRC_DIR/mirte_web_interface/Blink.ino /home/mirte/arduino_project/Blink
 
 # Already build all versions so only upload is needed
 ./run_arduino.sh build Telemetrix4Arduino
@@ -44,16 +44,16 @@ ln -s $ZOEF_SRC_DIR/zoef_web_interface/Blink.ino /home/zoef/arduino_project/Blin
 ./run_arduino.sh build_nano_old Telemetrix4Arduino
 ./run_arduino.sh build_uno Telemetrix4Arduino
 
-# Add zoef to dialout
-sudo adduser zoef dialout
+# Add mirte to dialout
+sudo adduser mirte dialout
 
 # By default, armbian has ssh login for root enabled with password 1234.
-# The password need to be set to zoef_zoef so users can use the
+# The password need to be set to mirte_mirte so users can use the
 # Arduino IDE remotely. 
 # TODO: when the Arduino IDE also supports ssh for non-root-users
 # this has to be changed
-echo -e "zoef_zoef\nzoef_zoef" | sudo passwd root
+echo -e "mirte_mirte\nmirte_mirte" | sudo passwd root
 
 # Enable tuploading from remote IDE
-sudo ln -s $ZOEF_SRC_DIR/zoef_arduino/run-avrdude /usr/bin
-sudo bash -c 'echo "zoef ALL = (root) NOPASSWD: /usr/local/bin/arduino-cli" >> /etc/sudoers'
+sudo ln -s $MIRTE_SRC_DIR/mirte_arduino/run-avrdude /usr/bin
+sudo bash -c 'echo "mirte ALL = (root) NOPASSWD: /usr/local/bin/arduino-cli" >> /etc/sudoers'

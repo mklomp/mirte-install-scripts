@@ -5,9 +5,9 @@ function start_avahi {
     service avahi-daemon restart && sleep 1
 
     # Publish avahi (not using daemon since we publish two addresses)
-    avahi-publish-address -R zoef.local $(hostname -I | awk '{print $1}') &
+    avahi-publish-address -R mirte.local $(hostname -I | awk '{print $1}') &
     avahi-set-host-name `cat /etc/hostname`
-    avahi-publish-service `cat /etc/hostname` _zoef._tcp 80 &
+    avahi-publish-service `cat /etc/hostname` _mirte._tcp 80 &
     avahi-publish-service `cat /etc/hostname` _arduino._tcp 80 &
 }
 
@@ -32,7 +32,7 @@ function start_acces_point {
 
     # Start wifi-connect (this starts the AP, and uses dnsmasq
     # as DHCP server
-    wifi-connect -o 8080 -p `cat /home/zoef/.wifi_pwd` -s `cat /etc/hostname` &
+    wifi-connect -o 8080 -p `cat /home/mirte/.wifi_pwd` -s `cat /etc/hostname` &
 
     # Wait until the AP is up
     until [ -f /etc/NetworkManager/system-connections/`cat /etc/hostname`.nmconnection ]
@@ -54,7 +54,7 @@ function start_acces_point {
 
     # Blink ssid-ID
     UNIQUE_ID=$(cat /etc/hostname | cut -c6-11)
-    $ZOEF_SRC_DIR/zoef_install_scripts/blink.sh $UNIQUE_ID &
+    $MIRTE_SRC_DIR/mirte_install_scripts/blink.sh $UNIQUE_ID &
 }
 
 function check_connection {
@@ -70,7 +70,7 @@ function check_connection {
       sudo ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
 
       printf 'Connected to wifi connection:', iwgetid -r,'\n'
-      $ZOEF_SRC_DIR/zoef_install_scripts/blink.sh $(hostname -I) &
+      $MIRTE_SRC_DIR/mirte_install_scripts/blink.sh $(hostname -I) &
       start_avahi
    else
       printf 'No connection found, starting AP with wifi connect\n'
@@ -86,22 +86,22 @@ function check_connection {
 }
 
 
-ZOEF_SRC_DIR=/usr/local/src/zoef
+MIRTE_SRC_DIR=/usr/local/src/mirte
 
-$ZOEF_SRC_DIR/zoef_install_scripts/usb_ethernet.sh
+$MIRTE_SRC_DIR/mirte_install_scripts/usb_ethernet.sh
 
 # Create unique SSID
 # This must be run every time on boot, since it should
 # be generated on first boot (so not when generating
 # the image in network_setup.sh)
-if [ ! -f /home/zoef/.ssid ] || [[ `cat /home/zoef/.ssid` == "Zoef_XXXXXX" ]]; then
+if [ ! -f /home/mirte/.ssid ] || [[ `cat /home/mirte/.ssid` == "Mirte_XXXXXX" ]]; then
     UNIQUE_ID=$(openssl rand -hex 3)
-    ZOEF_SSID=Zoef_$(echo ${UNIQUE_ID^^})
-    sudo bash -c 'echo '$ZOEF_SSID' > /etc/hostname'
+    MIRTE_SSID=Mirte_$(echo ${UNIQUE_ID^^})
+    sudo bash -c 'echo '$MIRTE_SSID' > /etc/hostname'
     sudo ln -s /etc/hostname /etc/ssid
     # And add them to the hosts file
-    sudo bash -c 'echo 127.0.0.1 '$ZOEF_SSID' >> /etc/hosts'
-    sudo bash -c 'echo "127.0.0.1 zoef" >> /etc/hosts'
+    sudo bash -c 'echo 127.0.0.1 '$MIRTE_SSID' >> /etc/hosts'
+    sudo bash -c 'echo "127.0.0.1 mirte" >> /etc/hosts'
 fi
 
 check_connection

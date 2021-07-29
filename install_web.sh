@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ZOEF_SRC_DIR=/usr/local/src/zoef
+MIRTE_SRC_DIR=/usr/local/src/mirte
 
 # Update
 sudo apt update
@@ -10,14 +10,14 @@ sudo apt install -y python3-pip python3-setuptools python3-wheel
 sudo -H pip install nodeenv
 
 # Install nodeenv
-nodeenv --node=16.2.0 $ZOEF_SRC_DIR/web_interface/node_env
+nodeenv --node=16.2.0 $MIRTE_SRC_DIR/mirte_web_interface/node_env
 
 # Install web interface
-. $ZOEF_SRC_DIR/web_interface/node_env/bin/activate
-cd $ZOEF_SRC_DIR/web_interface/vue-frontend
+. $MIRTE_SRC_DIR/mirte_web_interface/node_env/bin/activate
+cd $MIRTE_SRC_DIR/mirte_web_interface/vue-frontend
 npm install .
 npm run build
-cd $ZOEF_SRC_DIR/web_interface/nodejs-backend
+cd $MIRTE_SRC_DIR/mirte_web_interface/nodejs-backend
 npm install .
 deactivate_node
 
@@ -43,9 +43,9 @@ sudo bash -c 'echo "-A PREROUTING -p tcp -m tcp --dport 80 -j REDIRECT --to-port
 sudo bash -c 'echo "COMMIT" >> /etc/iptables/rules.v4'
 
 # Add systemd service
-sudo rm /lib/systemd/system/zoef_web_interface.service
-sudo ln -s $ZOEF_SRC_DIR/zoef_install_scripts/services/zoef_web_interface.service /lib/systemd/system/
+sudo rm /lib/systemd/system/mirte_web_interface.service
+sudo ln -s $MIRTE_SRC_DIR/mirte_install_scripts/services/mirte_web_interface.service /lib/systemd/system/
 sudo systemctl daemon-reload
-sudo systemctl stop zoef_web_interface || /bin/true
-sudo systemctl start zoef_web_interface
-sudo systemctl enable zoef_web_interface
+sudo systemctl stop mirte_web_interface || /bin/true
+sudo systemctl start mirte_web_interface
+sudo systemctl enable mirte_web_interface

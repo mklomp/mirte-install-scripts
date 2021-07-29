@@ -1,4 +1,4 @@
-/* Zoef by default has the following pin connections:
+/* Mirte by default has the following pin connections:
  *
  * B3, A15  - PWM pins for motor A
  * B14, B15 - PWM pins for motor B
@@ -11,7 +11,7 @@
  * B12      - left encoder 
  * B13      - right encoder
  *
- * Zoef does not use LEDs by default. For CSE2425 we connected
+ * Mirte does not use LEDs by default. For CSE2425 we connected
  * the leds to the following pins:
  *
  * B10     - left LED
