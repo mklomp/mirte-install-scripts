@@ -22,8 +22,8 @@ cd $ZOEF_SRC_DIR
 sudo apt install -y python3.8 python3-pip python3-setuptools
 
 # Install Zoef Interface
-cd $ZOEF_SRC_DIR/web_interface
-./install.sh
+cd $ZOEF_SRC_DIR/zoef_install_scripts
+./install_web.sh
 
 # Install Jupyter Notebook
 #cd $ZOEF_SRC_DIR/zoef_install_scripts
