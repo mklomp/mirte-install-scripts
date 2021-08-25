@@ -47,7 +47,12 @@ cd $MIRTE_SRC_DIR/mirte_install_scripts
 # Install Mirte ROS packages
 cd $MIRTE_SRC_DIR/mirte_install_scripts
 ./install_ROS.sh
-./install_dualshock.sh
+
+sudo apt install -y blues joystick
+if [ "$(uname -a | grep sunxi)" != "" ]; then
+  # currently only supporting cheap USB dongles on OrangePi
+  ./install_dualshock.sh
+fi
 
 # Install Mirte Python package
 cd $MIRTE_SRC_DIR/mirte_python
