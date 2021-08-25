@@ -64,6 +64,6 @@ fi
 sudo chmod 777 /home/mirte/.wifi_pwd
 
 # Link hostname to newly to be created mirte id
-bash -c 'echo "Mirte_XXXXXX" > /home/mirte/.ssid'
+bash -c 'echo "Mirte-XXXXXX" > /home/mirte/.ssid'
 sudo rm -rf /etc/hostname
 sudo ln -s /home/mirte/.ssid /etc/hostname
