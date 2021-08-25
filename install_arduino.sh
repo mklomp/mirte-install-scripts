@@ -37,7 +37,7 @@ ln -s $MIRTE_SRC_DIR/mirte-arduino-libraries/OpticalEncoder /home/mirte/Arduino/
 
 # Install Blink example code
 mkdir /home/mirte/arduino_project/Blink
-ln -s $MIRTE_SRC_DIR/mirte_web_interface/Blink.ino /home/mirte/arduino_project/Blink
+ln -s $MIRTE_SRC_DIR/mirte_install_scripts/Blink.ino /home/mirte/arduino_project/Blink
 
 # Already build all versions so only upload is needed
 ./run_arduino.sh build Telemetrix4Arduino
