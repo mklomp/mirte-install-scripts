@@ -14,11 +14,19 @@ nodeenv --node=16.2.0 $MIRTE_SRC_DIR/mirte_web_interface/node_env
 
 # Install web interface
 . $MIRTE_SRC_DIR/mirte_web_interface/node_env/bin/activate
+
+# Install frontend
 cd $MIRTE_SRC_DIR/mirte_web_interface/vue-frontend
 npm install .
 npm run build
+
+# Install backend
 cd $MIRTE_SRC_DIR/mirte_web_interface/nodejs-backend
 npm install .
+
+# Install wetty
+cd $MIRTE_SRC_DIR/mirte_web_interface
+npm -g install wetty
 deactivate_node
 
 # Foward for 80 to 3000
