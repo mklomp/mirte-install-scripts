@@ -58,6 +58,8 @@ sudo systemctl stop mirte_ros || /bin/true
 sudo systemctl start mirte_ros
 sudo systemctl enable mirte_ros
 
+sudo usermod -a -G video mirte
+
 # Install OLED dependencies
 sudo apt install -y python3-bitstring libfreetype6-dev libjpeg-dev zlib1g-dev
 sudo pip3 install pillow adafruit-circuitpython-ssd1306
