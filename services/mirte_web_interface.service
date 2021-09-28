@@ -6,7 +6,8 @@ After=network-online.target
 
 [Service]
 User=mirte
-ExecStart=/bin/bash -c "cd /usr/local/src/mirte/mirte_web_interface/ && source ./node_env/bin/activate && cd nodejs-backend && npm run backend & cd /usr/local/src/mirte/mirte_web_interface/ && source ./node_env/bin/activate && wetty -p 3333"
+ExecStart=/bin/bash -c "cd /usr/local/src/mirte/mirte_web_interface/ && source ./node_env/bin/activate && cd nodejs-backend && npm run backend" 
+# & cd /usr/local/src/mirte/mirte_web_interface/ && source ./node_env/bin/activate && wetty -p 3333"
 
 [Install]
 WantedBy=multi-user.target

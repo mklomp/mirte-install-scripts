@@ -25,8 +25,8 @@ cd $MIRTE_SRC_DIR/mirte_web_interface/nodejs-backend
 npm install .
 
 # Install wetty
-cd $MIRTE_SRC_DIR/mirte_web_interface
-npm -g install wetty
+#cd $MIRTE_SRC_DIR/mirte_web_interface
+#npm -g install wetty
 deactivate_node
 
 # Foward for 80 to 3000
