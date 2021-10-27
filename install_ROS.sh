@@ -62,7 +62,7 @@ sudo usermod -a -G video mirte
 
 # Install OLED dependencies
 sudo apt install -y python3-bitstring libfreetype6-dev libjpeg-dev zlib1g-dev
-sudo pip3 install pillow adafruit-circuitpython-ssd1306
+sudo pip3 install pillow adafruit-circuitpython-ssd1306==2.12.1
 
 # Install aio dependencies
 sudo pip3 install janus async-generator nest-asyncio
