@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Install bluetooth/joystick packages. Maybe this could also be done is ROS
-sudo apt install -y bluez joystick
-
 # Currently the kernel does not support cheap Chinese btusb clones
 # (see: https://bugzilla.kernel.org/show_bug.cgi?id=60824)
 # There is some work done though to start supporting these.
