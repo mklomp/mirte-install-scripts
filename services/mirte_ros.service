@@ -1,0 +1,12 @@
+[Unit]
+Description=Mirte ROS
+After=network.target
+After=ssh.service
+After=network-online.target
+
+[Service]
+User=mirte 
+ExecStart=/bin/bash -c "source /home/mirte/mirte_ws/devel/setup.bash && roslaunch mirte_bringup minimal.launch"
+
+[Install]
+WantedBy=multi-user.target
