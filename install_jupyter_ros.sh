@@ -14,7 +14,8 @@ python3 -m venv jupyter --system-site-packages
 source /home/mirte/jupyter/bin/activate
 
 # install jupyros
-pip3 install jupyter bqplot pyyaml ipywidgets
+pip3 install wheel
+pip3 install jupyter bqplot==0.12.18 pyyaml ipywidgets
 pip3 install jupyros
 jupyter nbextension enable --py --sys-prefix jupyros
 deactivate
