@@ -4,7 +4,7 @@ After=NetworkManager.service
 
 [Service]
 KillMode=process
-ExecStart=/bin/bash -c "/usr/local/src/mirte/mirte_install_scripts/network_setup.sh"
+ExecStart=/bin/bash -c "/usr/local/src/mirte/mirte-install-scripts/network_setup.sh"
 
 [Install]
 WantedBy=multi-user.target

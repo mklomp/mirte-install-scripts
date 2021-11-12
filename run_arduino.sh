@@ -10,7 +10,7 @@ ROS_RUNNING=`ps aux | grep [r]osmaster | wc -l`
 if test "$1" == "upload" && [[ $ROS_RUNNING == "1" ]]
 then
     echo "STOPPING ROS"
-    sudo service mirte_ros stop || /bin/true
+    sudo service mirte-ros stop || /bin/true
 fi
 
 # Different build scripts
@@ -57,6 +57,6 @@ fi
 # Start ROS again
 if test "$1" == "upload" && test "$2" == "Telemetrix4Arduino" && [[ $ROS_RUNNING == "1" ]]
 then
-   sudo service mirte_ros start
+   sudo service mirte-ros start
    echo "STARTING ROS"
 fi

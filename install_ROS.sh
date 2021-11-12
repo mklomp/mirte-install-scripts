@@ -31,14 +31,14 @@ sudo apt install -y python3-pip python3-wheel python3-setuptools python3-opencv 
 sudo pip3 install pyzbar
 
 # Move custom settings to writabel filesystem
-cp $MIRTE_SRC_DIR/mirte_ros_package/config/mirte_user_settings.yaml /home/mirte/.user_settings.yaml
-rm $MIRTE_SRC_DIR/mirte_ros_package/config/mirte_user_settings.yaml
-ln -s /home/mirte/.user_settings.yaml $MIRTE_SRC_DIR/mirte_ros_package/config/mirte_user_settings.yaml
+cp $MIRTE_SRC_DIR/mirte-ros-packages/config/mirte_user_settings.yaml /home/mirte/.user_settings.yaml
+rm $MIRTE_SRC_DIR/mirte-ros-packages/config/mirte_user_settings.yaml
+ln -s /home/mirte/.user_settings.yaml $MIRTE_SRC_DIR/mirte-ros-packages/config/mirte_user_settings.yaml
 
 # Install Mirte ROS package
 mkdir -p /home/mirte/mirte_ws/src
 cd /home/mirte/mirte_ws/src
-ln -s $MIRTE_SRC_DIR/mirte_ros_package .
+ln -s $MIRTE_SRC_DIR/mirte-ros-packages .
 cd ..
 rosdep install -y --from-paths src/ --ignore-src --rosdistro noetic
 catkin build
@@ -50,13 +50,13 @@ source /home/mirte/mirte_ws/devel/setup.bash
 #sudo pip3 install twisted pyOpenSSL autobahn tornado pymongo
 
 # Add systemd service to start ROS nodes
-sudo rm /lib/systemd/system/mirte_ros.service
-sudo ln -s $MIRTE_SRC_DIR/mirte_install_scripts/services/mirte_ros.service /lib/systemd/system/
+sudo rm /lib/systemd/system/mirte-ros.service
+sudo ln -s $MIRTE_SRC_DIR/mirte-install-scripts/services/mirte-ros.service /lib/systemd/system/
 
 sudo systemctl daemon-reload
-sudo systemctl stop mirte_ros || /bin/true
-sudo systemctl start mirte_ros
-sudo systemctl enable mirte_ros
+sudo systemctl stop mirte-ros || /bin/true
+sudo systemctl start mirte-ros
+sudo systemctl enable mirte-ros
 
 sudo usermod -a -G video mirte
 

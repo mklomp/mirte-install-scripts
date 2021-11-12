@@ -4,7 +4,7 @@
 
 
 # Stop ROS when uploading new code
-sudo service mirte_ros stop
+sudo service mirte-ros stop
 
 if test "$1" == "upload"
 then

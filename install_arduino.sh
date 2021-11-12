@@ -38,7 +38,7 @@ ln -s $MIRTE_SRC_DIR/mirte-arduino-libraries/OpticalEncoder /home/mirte/Arduino/
 
 # Install Blink example code
 mkdir /home/mirte/arduino_project/Blink
-ln -s $MIRTE_SRC_DIR/mirte_install_scripts/Blink.ino /home/mirte/arduino_project/Blink
+ln -s $MIRTE_SRC_DIR/mirte-install-scripts/Blink.ino /home/mirte/arduino_project/Blink
 
 # Already build all versions so only upload is needed
 ./run_arduino.sh build Telemetrix4Arduino
@@ -57,5 +57,5 @@ sudo adduser mirte dialout
 echo -e "mirte_mirte\nmirte_mirte" | sudo passwd root
 
 # Enable tuploading from remote IDE
-sudo ln -s $MIRTE_SRC_DIR/mirte_install_scripts/run-avrdude /usr/bin
+sudo ln -s $MIRTE_SRC_DIR/mirte-install-scripts/run-avrdude /usr/bin
 sudo bash -c 'echo "mirte ALL = (root) NOPASSWD: /usr/local/bin/arduino-cli" >> /etc/sudoers'

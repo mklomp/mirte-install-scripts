@@ -26,5 +26,5 @@ git clone https://github.com/RoboStack/jupyter-ros.git
 sudo chown -R mirte:mirte /home/mirte/jupyter-ros
 
 # Add systemd service to start jupyter
-sudo rm /lib/systemd/system/mirte_jupyter.service
-sudo ln -s $MIRTE_SRC_DIR/mirte_install_scripts/services/mirte_jupyter.service /lib/systemd/system/
+sudo rm /lib/systemd/system/mirte-jupyter.service
+sudo ln -s $MIRTE_SRC_DIR/mirte-install-scripts/services/mirte-jupyter.service /lib/systemd/system/

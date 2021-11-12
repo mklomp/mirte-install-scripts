@@ -9,7 +9,7 @@ systemctl disable hostapd
 # Install netplan (not installed on armbian) and networmanager (not installed by Raspberry)
 sudo apt install -y netplan.io
 sudo apt install -y network-manager
-sudo cp $MIRTE_SRC_DIR/mirte_install_scripts/50-cloud-init.yaml /etc/netplan/
+sudo cp $MIRTE_SRC_DIR/mirte-install-scripts/50-cloud-init.yaml /etc/netplan/
 sudo netplan apply
 sudo apt purge -y ifupdown
 
@@ -26,13 +26,13 @@ chmod +x raspbian-install.sh
 rm raspbian-install.sh
 
 # Added systemd service to account for fix: https://askubuntu.com/questions/472794/hostapd-error-nl80211-could-not-configure-driver-mode
-sudo rm /lib/systemd/system/mirte_ap.service
-sudo ln -s $MIRTE_SRC_DIR/mirte_install_scripts/services/mirte_ap.service /lib/systemd/system/
+sudo rm /lib/systemd/system/mirte-ap.service
+sudo ln -s $MIRTE_SRC_DIR/mirte-install-scripts/services/mirte-ap.service /lib/systemd/system/
 
 sudo systemctl daemon-reload
-sudo systemctl stop mirte_ap || /bin/true
-sudo systemctl start mirte_ap
-sudo systemctl enable mirte_ap
+sudo systemctl stop mirte-ap || /bin/true
+sudo systemctl start mirte-ap
+sudo systemctl enable mirte-ap
 
 # Install avahi
 sudo apt install -y libnss-mdns
@@ -49,10 +49,10 @@ sudo apt install -y inotify-tools wireless-tools
 sed -i 's/#PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
 
 # Install usb_ethernet script from EV3
-wget https://raw.githubusercontent.com/ev3dev/ev3-systemd/ev3dev-buster/scripts/ev3-usb.sh -P $MIRTE_SRC_DIR/mirte_install_scripts
-chmod +x $MIRTE_SRC_DIR/mirte_install_scripts/ev3_usb.sh
-sudo chmod +x $MIRTE_SRC_DIR/mirte_install_scripts/ev3-usb.sh
-sudo chown mirte:mirte $MIRTE_SRC_DIR/mirte_install_scripts/ev3-usb.sh
+wget https://raw.githubusercontent.com/ev3dev/ev3-systemd/ev3dev-buster/scripts/ev3-usb.sh -P $MIRTE_SRC_DIR/mirte-install-scripts
+chmod +x $MIRTE_SRC_DIR/mirte-install-scripts/ev3_usb.sh
+sudo chmod +x $MIRTE_SRC_DIR/mirte-install-scripts/ev3-usb.sh
+sudo chown mirte:mirte $MIRTE_SRC_DIR/mirte-install-scripts/ev3-usb.sh
 sudo bash -c 'echo "libcomposite" > /etc/modules'
 
 # Generate wifi password (TODO: generate random password and put on NTFS)

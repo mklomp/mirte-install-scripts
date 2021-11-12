@@ -54,7 +54,7 @@ function start_acces_point {
 
     # Blink ssid-ID
     UNIQUE_ID=$(cat /etc/hostname | cut -c6-11)
-    $MIRTE_SRC_DIR/mirte_install_scripts/blink.sh $UNIQUE_ID &
+    $MIRTE_SRC_DIR/mirte-install-scripts/blink.sh $UNIQUE_ID &
 }
 
 function check_connection {
@@ -70,7 +70,7 @@ function check_connection {
       sudo ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
 
       printf 'Connected to wifi connection:', iwgetid -r,'\n'
-      $MIRTE_SRC_DIR/mirte_install_scripts/blink.sh $(hostname -I) &
+      $MIRTE_SRC_DIR/mirte-install-scripts/blink.sh $(hostname -I) &
       start_avahi
    else
       printf 'No connection found, starting AP with wifi connect\n'
@@ -88,7 +88,7 @@ function check_connection {
 
 MIRTE_SRC_DIR=/usr/local/src/mirte
 
-$MIRTE_SRC_DIR/mirte_install_scripts/usb_ethernet.sh
+$MIRTE_SRC_DIR/mirte-install-scripts/usb_ethernet.sh
 
 # Create unique SSID
 # This must be run every time on boot, since it should

@@ -1,33 +1,33 @@
 repositories:
-  mirte_web_interface:
+  mirte-web-interface:
     type: git
-    url: https://gitlab.tudelft.nl/rcj_zoef/web_interface
+    url: https://github.com/mirte-robot/mirte-web-interface.git
     version: master
-  mirte_telemetrix4arduino:
+  mirte-telemetrix4arduino:
     type: git
     url: https://github.com/zoef-robot/Telemetrix4Arduino.git
     version: master
-  mirte_install_scripts:
+  mirte-install-scripts:
     type: git
-    url: https://gitlab.tudelft.nl/rcj_zoef/zoef_install_scripts
+    url: https://github.com/mirte-robot/mirte-install-scripts.git
     version: master
-  mirte_telemetrix-aio:
+  mirte-telemetrix-aio:
     type: git
     url: https://github.com/zoef-robot/telemetrix-aio.git
     version: master
-  mirte_ros_package:
+  mirte-ros-packages:
     type: git
-    url: https://gitlab.tudelft.nl/rcj_zoef/zoef_ros_package
+    url: https://github.com/mirte-robot/mirte-ros-packages.git
     version: master
-  mirte_oled_images:
+  mirte-oled-images:
     type: git
-    url: https://gitlab.tudelft.nl/rcj_zoef/zoef_oled_images
+    url: https://github.com/mirte-robot/mirte-oled-images.git
     version: master
   mirte-arduino-libraries:
     type: git
     url: https://github.com/zoef-robot/zoef-arduino-libraries.git
     version: master
-  mirte_python:
+  mirte-python:
     type: git
-    url: https://gitlab.tudelft.nl/rcj_zoef/zoef_python
+    url: https://github.com/mirte-robot/mirte-python.git
     version: master

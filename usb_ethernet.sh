@@ -7,8 +7,8 @@
 MIRTE_SRC_DIR=/usr/local/src/mirte
 
 sudo killall -9 dnsmasq
-sudo $MIRTE_SRC_DIR/mirte_install_scripts/ev3-usb.sh down `ls /sys/class/udc | tail -n1`
-sudo $MIRTE_SRC_DIR/mirte_install_scripts/ev3-usb.sh up `ls /sys/class/udc | tail -n1`
+sudo $MIRTE_SRC_DIR/mirte-install-scripts/ev3-usb.sh down `ls /sys/class/udc | tail -n1`
+sudo $MIRTE_SRC_DIR/mirte-install-scripts/ev3-usb.sh up `ls /sys/class/udc | tail -n1`
 
 # For now, we just create a different IP address for each interface. We need
 # to change this to private namespaces (see below). In order to getinthernet
