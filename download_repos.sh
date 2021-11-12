@@ -7,8 +7,6 @@ sudo apt-get update
 sudo apt-get install -y python3-vcstool
 
 # Download all Mirte repositories
-git config --global credential.helper 'store --file ~/.my-credentials'
 vcs import < repos.yaml --workers 1  #TODO: get yaml file as parameter
-rm ~/.my-credentials
 
 # TODO: set remote to gitlab when checkout from local
