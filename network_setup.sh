@@ -102,6 +102,8 @@ if [ ! -f /home/mirte/.ssid ] || [[ `cat /home/mirte/.ssid` == "Mirte-XXXXXX" ]]
     # And add them to the hosts file
     sudo bash -c 'echo 127.0.0.1 '$MIRTE_SSID' >> /etc/hosts'
     sudo bash -c 'echo "127.0.0.1 mirte" >> /etc/hosts'
+    # Not needed anymore once we first generate the SSID and then start the network
+    sudo bash -c 'echo "127.0.0.1 Mirte-XXXXXX" >> /etc/hosts'
 fi
 
 check_connection
