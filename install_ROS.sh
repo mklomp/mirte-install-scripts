@@ -62,6 +62,7 @@ sudo usermod -a -G video mirte
 
 # Install OLED dependencies
 sudo apt install -y python3-bitstring libfreetype6-dev libjpeg-dev zlib1g-dev fonts-dejavu
+sudo pip3 install adafruit-circuitpython-busdevice==5.1.1
 sudo pip3 install pillow adafruit-circuitpython-ssd1306==2.12.1
 
 # Install aio dependencies
