@@ -63,6 +63,7 @@ pip3 install numpy
 
 # Install Mirte documentation
 cd $MIRTE_SRC_DIR/mirte-documentation
+sudo apt install python3.8-venv
 python3 -m venv docs-env
 source docs-env/bin/activate
 pip install sphinx sphinx-prompt sphinx-tabs sphinx-rtd-theme sphinxcontrib-spelling sphinxcontrib-napoleon
