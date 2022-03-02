@@ -60,3 +60,7 @@ pip3 install .
 
 # Install numpy
 pip3 install numpy
+
+# Install overlayfs and make sd card read only (software)
+sudo apt install -y overlayroot
+echo 'overlayroot="tmpfs"' >> /etc/overlayroot.conf
