@@ -67,3 +67,9 @@ sudo chmod 777 /home/mirte/.wifi_pwd
 bash -c 'echo "Mirte-XXXXXX" > /home/mirte/.ssid'
 sudo rm -rf /etc/hostname
 sudo ln -s /home/mirte/.ssid /etc/hostname
+
+# Reboot after kernel panic
+# The OPi has a fairly unstable wifi driver which might
+# panic the kernel (at boot). Instead of waiting an unkown
+# time and reboot manually, we will reboot automatically
+sudo bash -c 'echo "kernel.panic = 10" > /etc/sysctl.conf'
