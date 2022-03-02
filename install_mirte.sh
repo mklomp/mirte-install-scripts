@@ -61,6 +61,29 @@ pip3 install .
 # Install numpy
 pip3 install numpy
 
+# Install Mirte documentation
+cd $MIRTE_SRC_DIR/mirte-documentation
+python3 -m venv docs-env
+source docs-env/bin/activate
+pip install sphinx sphinx-prompt sphinx-tabs sphinx-rtd-theme sphinxcontrib-spelling sphinxcontrib-napoleon
+mkdir -p _modules/catkin_ws/src
+cd _modules
+ln -s $MIRTE_SRC_DIR/mirte-python .
+cd mirte-robot
+pip install .
+# Installing ROS probably not needed incs this was already done?
+cd ../catkin_ws/src
+ln -s $MIRTE_SRC_DIR/mirte-ros-packages .
+cd mirte-ros-packages
+rm -rfv !("mirte-msgs")
+cd ../../
+catkin_make
+source devel/setup.bash
+cd ../../
+make html
+deactivate
+
+
 # Install overlayfs and make sd card read only (software)
 sudo apt install -y overlayroot
 echo 'overlayroot="tmpfs"' >> /etc/overlayroot.conf
