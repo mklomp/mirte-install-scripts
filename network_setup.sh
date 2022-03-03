@@ -58,10 +58,15 @@ function start_acces_point {
 }
 
 function check_connection {
+
+   # Only look for networks if you already connected to one
+   nr=`ls /etc/NetworkManager/system-connections/ | wc -l`
+   if [ "$nr" -gt 1 ]; then
    # Wait for a connection with a known ssid (timeout 10 seconds)
-   nmcli device set wlan0 autoconnect yes
-   TIMEOUT=25;
-   NEXT_WAIT_TIME=0; until [ $NEXT_WAIT_TIME -eq $TIMEOUT ] || [ `iwgetid -r` ]; do echo "wating for connection"; sleep 1; let "NEXT_WAIT_TIME=NEXT_WAIT_TIME+1"; done
+     nmcli device set wlan0 autoconnect yes
+     TIMEOUT=25;
+     NEXT_WAIT_TIME=0; until [ $NEXT_WAIT_TIME -eq $TIMEOUT ] || [ `iwgetid -r` ]; do echo "wating for connection"; sleep 1; let "NEXT_WAIT_TIME=NEXT_WAIT_TIME+1"; done
+   fi
 
    # Get wifi connection if connected
    sudo iwgetid -r
