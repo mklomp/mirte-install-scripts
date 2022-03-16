@@ -63,10 +63,9 @@ fi
 # Allow wifi_pwd to be modified using the web interface
 sudo chmod 777 /home/mirte/.wifi_pwd
 
-# Link hostname to newly to be created mirte id
-bash -c 'echo "Mirte-XXXXXX" > /home/mirte/.ssid'
-sudo rm -rf /etc/hostname
-sudo ln -s /home/mirte/.ssid /etc/hostname
+# Add hostname and make it writable
+sudo bash -c 'echo "Mirte-XXXXXX" > /etc/hostname'
+sudo chmod 777 /etc/hostname
 
 # Reboot after kernel panic
 # The OPi has a fairly unstable wifi driver which might
