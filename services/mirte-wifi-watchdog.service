@@ -1,11 +1,10 @@
 [Unit]
 Description=Mirte Wifi AP
 After=NetworkManager.service
-After=network-online.target
 
 [Service]
 KillMode=process
-ExecStart=/bin/bash -c "/usr/local/src/mirte/mirte-install-scripts/network_setup.sh"
+ExecStart=/bin/bash -c "/usr/local/src/mirte/mirte-install-scripts/wifi-watchdog.sh"
 
 [Install]
 WantedBy=multi-user.target

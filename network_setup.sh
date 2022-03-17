@@ -17,15 +17,13 @@ function start_avahi {
 function start_acces_point {
     # remove own connection from nm and killall
     rm -rf /etc/NetworkManager/system-connections/`cat /etc/hostname`*
-    sudo killall -9 wifi-connect
-    sudo killall -9 blink.sh
+    sudo killall -9 wifi-connect || /bin/true
+    sudo killall -9 blink.sh || /bin/true
     echo "Killed all previous instances"
 
     # It takes some time for NetworkManager to find all
     # networks.
     nmcli con down `cat /etc/hostname`
-    iw dev wlan0 scan | grep SSID
-    sleep 25
     iw dev wlan0 scan | grep SSID
     nmcli device wifi list
     echo "Rescanned networks"
@@ -53,11 +51,14 @@ function start_acces_point {
     start_avahi
 
     # Blink ssid-ID
-    UNIQUE_ID=$(cat /etc/hostname | cut -c6-11)
+    UNIQUE_ID=$(cat /etc/hostname | cut -c7-12)
     $MIRTE_SRC_DIR/mirte-install-scripts/blink.sh $UNIQUE_ID &
 }
 
 function check_connection {
+   # Remove my own networks
+   sudo rm /etc/NetworkManager/system-connections/`cat /etc/hostname`.*
+
 
    # Only look for networks if you already connected to one
    nr=`ls /etc/NetworkManager/system-connections/ | wc -l`

@@ -34,6 +34,15 @@ sudo systemctl stop mirte-ap || /bin/true
 sudo systemctl start mirte-ap
 sudo systemctl enable mirte-ap
 
+# Added systemd service to check on boot error for OPi
+sudo rm /lib/systemd/system/mirte-wifi-watchdog.service
+sudo ln -s $MIRTE_SRC_DIR/mirte-install-scripts/services/mirte-wifi-watchdog.service /lib/systemd/system/
+
+sudo systemctl daemon-reload
+sudo systemctl stop mirte-wifi-watchdog || /bin/true
+sudo systemctl start mirte-wifi-watchdog
+sudo systemctl enable mirte-wifi-watchdog
+
 # Install avahi
 sudo apt install -y libnss-mdns
 sudo apt install -y avahi-utils avahi-daemon
@@ -66,6 +75,9 @@ sudo chmod 777 /home/mirte/.wifi_pwd
 # Add hostname and make it writable
 sudo bash -c 'echo "Mirte-XXXXXX" > /etc/hostname'
 sudo chmod 777 /etc/hostname
+
+# Fix for wpa_supplicant error
+sudo bash -c "echo 'match-device=driver:wlan0' >> /etc/NetworkManager/NetworkManager.conf
 
 # Reboot after kernel panic
 # The OPi has a fairly unstable wifi driver which might

@@ -85,7 +85,6 @@ cd ../../
 make html
 deactivate
 
-
 # Install overlayfs and make sd card read only (software)
 sudo apt install -y overlayroot
 sudo bash -c "echo 'overlayroot=\"tmpfs\"' >> /etc/overlayroot.conf"
