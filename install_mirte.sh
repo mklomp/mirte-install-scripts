@@ -74,14 +74,8 @@ cd _modules
 ln -s $MIRTE_SRC_DIR/mirte-python .
 cd mirte-python
 pip install .
-# Installing ROS probably not needed incs this was already done?
-cd ../catkin_ws/src
-ln -s $MIRTE_SRC_DIR/mirte-ros-packages .
-cd mirte-ros-packages
-rm -rfv !("mirte-msgs")
-cd ../../
-catkin_make
-source devel/setup.bash
+source /opt/ros/noetic/setup.bash
+source /home/mirte/mirte_ws/devel/setup.bash
 cd ../../
 make html
 deactivate
