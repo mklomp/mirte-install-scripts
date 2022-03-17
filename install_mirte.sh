@@ -21,19 +21,12 @@ cd $MIRTE_SRC_DIR
 # Install dependecnies to be able to run python3.8
 sudo apt install -y python3.8 python3-pip python3-setuptools
 
-# Install Mirte Interface
-cd $MIRTE_SRC_DIR/mirte-install-scripts
-./install_web.sh
-
-# Install Jupyter Notebook
-cd $MIRTE_SRC_DIR/mirte-install-scripts
-./install_jupyter_ros.sh
-
 # Install telemetrix
 cd $MIRTE_SRC_DIR/mirte-telemetrix-aio
 pip3 install .
 
 # Install Telemtrix4Arduino project
+# TODO: building STM sometimes fails (and/or hangs)
 cd $MIRTE_SRC_DIR/mirte-install-scripts
 mkdir -p /home/mirte/Arduino/libraries
 mkdir -p /home/mirte/arduino_project/Telemetrix4Arduino
@@ -44,22 +37,30 @@ ln -s $MIRTE_SRC_DIR/mirte-telemetrix4arduino/examples/Telemetrix4Arduino/Teleme
 cd $MIRTE_SRC_DIR/mirte-install-scripts
 ./install_arduino.sh
 
+# Install Mirte Python package
+cd $MIRTE_SRC_DIR/mirte-python
+pip3 install .
+
+# Install Mirte Interface
+cd $MIRTE_SRC_DIR/mirte-install-scripts
+./install_web.sh
+
+# Install Jupyter Notebook
+cd $MIRTE_SRC_DIR/mirte-install-scripts
+./install_jupyter_ros.sh
+
 # Install Mirte ROS packages
 cd $MIRTE_SRC_DIR/mirte-install-scripts
 ./install_ROS.sh
+
+# Install numpy
+pip3 install numpy
 
 sudo apt install -y bluez joystick
 if [ "$(uname -a | grep sunxi)" != "" ]; then
   # currently only supporting cheap USB dongles on OrangePi
   ./install_fake_bt.sh
 fi
-
-# Install Mirte Python package
-cd $MIRTE_SRC_DIR/mirte-python
-pip3 install .
-
-# Install numpy
-pip3 install numpy
 
 # Install Mirte documentation
 cd $MIRTE_SRC_DIR/mirte-documentation
