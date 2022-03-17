@@ -67,11 +67,11 @@ sudo apt install -y python3.8-venv libenchant-dev
 python3 -m venv docs-env
 source docs-env/bin/activate
 pip install docutils==0.16.0
-pip install sphinx sphinx-prompt sphinx-tabs sphinx-rtd-theme sphinxcontrib-spelling sphinxcontrib-napoleon
+pip install wheel sphinx sphinx-prompt sphinx-tabs sphinx-rtd-theme sphinxcontrib-spelling sphinxcontrib-napoleon
 mkdir -p _modules/catkin_ws/src
 cd _modules
 ln -s $MIRTE_SRC_DIR/mirte-python .
-cd mirte-robot
+cd mirte-python
 pip install .
 # Installing ROS probably not needed incs this was already done?
 cd ../catkin_ws/src
@@ -87,4 +87,5 @@ deactivate
 
 # Install overlayfs and make sd card read only (software)
 sudo apt install -y overlayroot
-sudo bash -c "echo 'overlayroot=\"tmpfs\"' >> /etc/overlayroot.conf"
+# Currently only instaling, not enabled
+#sudo bash -c "echo 'overlayroot=\"tmpfs\"' >> /etc/overlayroot.conf"
