@@ -62,7 +62,7 @@ function check_connection {
 
    # Only look for networks if you already connected to one
    nr=`ls /etc/NetworkManager/system-connections/ | wc -l`
-   if [ "$nr" -gt 1 ]; then
+   if [ "$nr" -gt 0 ]; then
    # Wait for a connection with a known ssid (timeout 10 seconds)
      nmcli device set wlan0 autoconnect yes
      TIMEOUT=25;
@@ -86,6 +86,11 @@ function check_connection {
       while inotifywait -e modify /etc/NetworkManager/system-connections/`cat /etc/hostname`.nmconnection; do echo "hoi" ; done
       printf "Networkmanager settings changed, restarting wifi-connect\n"
       sleep 5 # Give wifi-connect the possibility to change the settings
+      sudo killall -9 wifi-connect || /bin/true
+      nmcli con down `cat /etc/hostname`
+      iw dev wlan0 scan | grep SSID
+      nmcli device wifi list
+      echo "Rescanned networks"
       printf "And doing the next thing\n"
       check_connection
    fi
