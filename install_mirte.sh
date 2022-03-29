@@ -21,6 +21,10 @@ cd $MIRTE_SRC_DIR
 # Install dependecnies to be able to run python3.8
 sudo apt install -y python3.8 python3-pip python3-setuptools
 
+# Set piwheels as pip repo
+sudo bash -c "echo '[global]' > /etc/pip.conf"
+sudo bash -c "echo 'extra-index-url=https://www.piwheels.org/simple' >> /etc/pip.conf"
+
 # Install telemetrix
 cd $MIRTE_SRC_DIR/mirte-telemetrix-aio
 pip3 install .
