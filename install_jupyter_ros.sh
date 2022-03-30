@@ -15,6 +15,7 @@ source /home/mirte/jupyter/bin/activate
 
 # install jupyros
 pip3 install wheel
+pip3 install markupsafe==2.0.1
 pip3 install jupyter bqplot==0.12.18 pyyaml ipywidgets
 pip3 install jupyros
 jupyter nbextension enable --py --sys-prefix jupyros
