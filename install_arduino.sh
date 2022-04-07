@@ -28,7 +28,7 @@ sudo cp /home/mirte/.arduino15/packages/STM32/tools/STM32Tools/1.4.0/tools/linux
 #sudo service udev restart
 
 # Install libraries needed by FirmataExpress
-arduino-cli lib install "Ultrasonic"
+arduino-cli lib install "NewPing"
 arduino-cli lib install "Stepper"
 arduino-cli lib install "Servo"
 arduino-cli lib install "DHTNEW"
