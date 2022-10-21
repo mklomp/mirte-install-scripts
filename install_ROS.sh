@@ -60,8 +60,9 @@ sudo systemctl enable mirte-ros
 
 sudo usermod -a -G video mirte
 
-# Install OLED dependencies
+# Install OLED dependencies (adafruit dependecies often break, so explicityle set to versions)
 sudo apt install -y python3-bitstring libfreetype6-dev libjpeg-dev zlib1g-dev fonts-dejavu
+sudo pip3 install adafruit-circuitpython-busdevice==5.1.1 adafruit-circuitpython-framebuf=1.4.9 adafruit-circuitpython-framebuf==1.4.9 install adafruit-circuitpython-typing==1.7.0 Adafruit-PlatformDetect==3.22.1
 sudo pip3 install pillow adafruit-circuitpython-ssd1306==2.12.1
 
 # Install aio dependencies
