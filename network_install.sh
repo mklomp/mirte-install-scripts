@@ -50,10 +50,9 @@ sed -i 's/#PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
 
 # Install usb_ethernet script from EV3
 wget https://raw.githubusercontent.com/ev3dev/ev3-systemd/ev3dev-buster/scripts/ev3-usb.sh -P $MIRTE_SRC_DIR/mirte-install-scripts
-chmod +x $MIRTE_SRC_DIR/mirte-install-scripts/ev3_usb.sh
 sudo chmod +x $MIRTE_SRC_DIR/mirte-install-scripts/ev3-usb.sh
 sudo chown mirte:mirte $MIRTE_SRC_DIR/mirte-install-scripts/ev3-usb.sh
-sudo bash -c 'echo "libcomposite" > /etc/modules'
+sudo bash -c 'echo "libcomposite" >> /etc/modules'
 
 # Generate wifi password (TODO: generate random password and put on NTFS)
 if [ ! -f /home/mirte/.wifi_pwd ]; then
