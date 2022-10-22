@@ -5,6 +5,7 @@ MIRTE_SRC_DIR=/usr/local/src/mirte
 # Make sure there are no conflicting hcdp-servers
 sudo apt install -y dnsmasq-base
 systemctl disable hostapd
+sed -i 's/#DNSStubListener=yes/DNSStubListener=no/g' /etc/systemd/resolved.conf
 
 # Install netplan (not installed on armbian) and networmanager (not installed by Raspberry)
 sudo apt install -y netplan.io
@@ -20,10 +21,10 @@ sudo rm -rf /etc/resolv.conf
 sudo bash -c 'echo "nameserver 8.8.8.8" > /etc/resolv.conf'
 
 # Install wifi-connect
-wget https://github.com/balena-io/wifi-connect/raw/master/scripts/raspbian-install.sh
-chmod +x raspbian-install.sh
-./raspbian-install.sh -y
-rm raspbian-install.sh
+wget https://github.com/balena-os/wifi-connect/releases/download/v4.4.6/wifi-connect-v4.4.6-linux-$(arch).tar.gz
+tar -xf wifi-connect*
+sudo mv wifi-connect /usr/local/sbin
+rm wifi-connect*
 
 # Added systemd service to account for fix: https://askubuntu.com/questions/472794/hostapd-error-nl80211-could-not-configure-driver-mode
 sudo rm /lib/systemd/system/mirte-ap.service
