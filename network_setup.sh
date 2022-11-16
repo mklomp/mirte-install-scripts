@@ -43,10 +43,11 @@ function start_acces_point {
 
     # And modify the network in a way that avahi mdns packages will
     # get through
-    nmcli con modify `cat /etc/hostname` 802-11-wireless-security.proto rsn
-    nmcli con modify `cat /etc/hostname` 802-11-wireless-security.group ccmp
-    nmcli con modify `cat /etc/hostname` 802-11-wireless-security.pairwise ccmp
+    nmcli con modify `cat /etc/hostname` 802-11-wireless-security.proto wpa
+#    nmcli con modify `cat /etc/hostname` 802-11-wireless-security.group ccmp
+#    nmcli con modify `cat /etc/hostname` 802-11-wireless-security.pairwise ccmp
     nmcli con down `cat /etc/hostname`
+    sleep 10
     nmcli con up `cat /etc/hostname`
 
     # Start all avahi addresses and services
