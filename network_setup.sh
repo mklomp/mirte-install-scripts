@@ -79,10 +79,10 @@ function check_connection {
 
       # Restart the whole network process when connection did not take place
       while inotifywait -e modify /etc/NetworkManager/system-connections/`cat /etc/hostname`.nmconnection; do echo "hoi" ; done
-      printf "Networkmanager settings changed, restarting wifi-connect\n"
-      sleep 5 # Give wifi-connect the possibility to change the settings
-      printf "And doing the next thing\n"
-      check_connection
+#      printf "Networkmanager settings changed, restarting wifi-connect\n"
+#      sleep 5 # Give wifi-connect the possibility to change the settings
+#      printf "And doing the next thing\n"
+#      check_connection
    fi
 }
 
