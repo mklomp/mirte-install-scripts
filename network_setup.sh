@@ -41,10 +41,11 @@ function start_acces_point {
 
     # And modify the network in a way that avahi mdns packages will
     # get through
-    nmcli con modify `cat /etc/hostname` 802-11-wireless-security.proto rsn
-    nmcli con modify `cat /etc/hostname` 802-11-wireless-security.group ccmp
-    nmcli con modify `cat /etc/hostname` 802-11-wireless-security.pairwise ccmp
+    nmcli con modify `cat /etc/hostname` 802-11-wireless-security.proto wpa
+#    nmcli con modify `cat /etc/hostname` 802-11-wireless-security.group ccmp
+#    nmcli con modify `cat /etc/hostname` 802-11-wireless-security.pairwise ccmp
     nmcli con down `cat /etc/hostname`
+    sleep 10
     nmcli con up `cat /etc/hostname`
 
     # Start all avahi addresses and services
@@ -84,15 +85,16 @@ function check_connection {
 
       # Restart the whole network process when connection did not take place
       while inotifywait -e modify /etc/NetworkManager/system-connections/`cat /etc/hostname`.nmconnection; do echo "hoi" ; done
-      printf "Networkmanager settings changed, restarting wifi-connect\n"
-      sleep 5 # Give wifi-connect the possibility to change the settings
-      sudo killall -9 wifi-connect || /bin/true
-      nmcli con down `cat /etc/hostname`
-      iw dev wlan0 scan | grep SSID
-      nmcli device wifi list
-      echo "Rescanned networks"
-      printf "And doing the next thing\n"
-      check_connection
+# TODO: check: mybe this can be enabled again (currently this does not make thesaved wifi peristent
+#      printf "Networkmanager settings changed, restarting wifi-connect\n"
+#      sleep 5 # Give wifi-connect the possibility to change the settings
+#      sudo killall -9 wifi-connect || /bin/true
+#      nmcli con down `cat /etc/hostname`
+#      iw dev wlan0 scan | grep SSID
+#      nmcli device wifi list
+#      echo "Rescanned networks"
+#      printf "And doing the next thing\n"
+#      check_connection
    fi
 }
 
