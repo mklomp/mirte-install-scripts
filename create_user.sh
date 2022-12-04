@@ -11,3 +11,8 @@ sudo chown mirte:mirte /home/mirte/workdir
 echo -e "mirte_mirte\nmirte_mirte" | sudo passwd mirte
 sudo mkdir -p $MIRTE_SRC_DIR
 sudo chown mirte:mirte $MIRTE_SRC_DIR
+
+# For Raspberry create ssh keys
+sudo mkdir /home/mirte/.ssh
+sudo ssh-keygen -q -t rsa -N '' -f /home/mirte/.ssh/id_rsa <<<y >/dev/null 2>&1
+sudo chown mirte:mirte -R /home/mirte/.ssh
