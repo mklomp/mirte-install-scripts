@@ -21,7 +21,9 @@ sudo rm -rf /etc/resolv.conf
 sudo bash -c 'echo "nameserver 8.8.8.8" > /etc/resolv.conf'
 
 # Install wifi-connect
-wget https://github.com/balena-os/wifi-connect/releases/download/v4.4.6/wifi-connect-v4.4.6-linux-$(arch).tar.gz
+MY_ARCH=$(arch)
+if [[ "$MY_ARCH" == "armv7l" ]]; then MY_ARCH="rpi"; fi
+wget https://github.com/balena-os/wifi-connect/releases/download/v4.4.6/wifi-connect-v4.4.6-linux-$(echo "$MY_ARCH").tar.gz
 tar -xf wifi-connect*
 sudo mv wifi-connect /usr/local/sbin
 rm wifi-connect*
