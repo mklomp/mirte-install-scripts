@@ -54,8 +54,8 @@ cd $MIRTE_SRC_DIR/mirte-install-scripts
 ./install_jupyter_ros.sh
 
 # Install Mirte ROS packages
-cd $MIRTE_SRC_DIR/mirte-install-scripts
-./install_ROS.sh
+#cd $MIRTE_SRC_DIR/mirte-install-scripts
+#./install_ROS.sh
 
 # Install numpy
 pip3 install numpy
