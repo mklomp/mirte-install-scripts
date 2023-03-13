@@ -8,11 +8,11 @@ systemctl disable hostapd
 sed -i 's/#DNSStubListener=yes/DNSStubListener=no/g' /etc/systemd/resolved.conf
 
 # Install netplan (not installed on armbian) and networmanager (not installed by Raspberry)
-sudo apt install -y netplan.io
+#sudo apt install -y netplan.io
 sudo apt install -y network-manager
-sudo cp $MIRTE_SRC_DIR/mirte-install-scripts/50-cloud-init.yaml /etc/netplan/
-sudo netplan apply
-sudo apt purge -y ifupdown
+#sudo cp $MIRTE_SRC_DIR/mirte-install-scripts/50-cloud-init.yaml /etc/netplan/
+#sudo netplan apply
+#sudo apt purge -y ifupdown
 
 # Fix for bug in systemd-resolved
 # (https://askubuntu.com/questions/973017/wrong-nameserver-set-by-resolvconf-and-networkmanager)
