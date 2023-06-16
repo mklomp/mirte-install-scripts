@@ -9,7 +9,6 @@ sudo apt install -y git curl binutils libusb-1.0-0
 # We need to install version 0.13.0. From version 0.14.0 on a check is done on the hash of the packages,
 # while the community version of the STM (see below) needs insecure packages.
 curl https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sudo BINDIR=/usr/local/bin sh -s 0.13.0
-sudo chown -R mirte:mirte /home/mirte/.arduino15
 
 # Install arduino avr support (for nano)
 arduino-cli -v core update-index --additional-urls https://raw.githubusercontent.com/koendv/stm32duino-raspberrypi/master/BoardManagerFiles/package_stm_index.json

@@ -31,9 +31,9 @@ sudo apt install -y python3-pip python3-wheel python3-setuptools python3-opencv 
 sudo pip3 install pyzbar
 
 # Move custom settings to writabel filesystem
-cp $MIRTE_SRC_DIR/mirte-ros-packages/config/mirte_user_settings.yaml /home/mirte/.user_settings.yaml
-rm $MIRTE_SRC_DIR/mirte-ros-packages/config/mirte_user_settings.yaml
-ln -s /home/mirte/.user_settings.yaml $MIRTE_SRC_DIR/mirte-ros-packages/config/mirte_user_settings.yaml
+#cp $MIRTE_SRC_DIR/mirte-ros-packages/mirte_telemetrix/config/mirte_user_settings.yaml /home/mirte/.user_settings.yaml
+#rm $MIRTE_SRC_DIR/mirte-ros-packages/mirte_telemetrix/config/mirte_user_settings.yaml
+#ln -s /home/mirte/.user_settings.yaml $MIRTE_SRC_DIR/mirte-ros-packages/config/mirte_user_settings.yaml
 
 # Install Mirte ROS package
 mkdir -p /home/mirte/mirte_ws/src
