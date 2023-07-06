@@ -28,6 +28,8 @@ sudo bash -c "echo 'extra-index-url=https://www.piwheels.org/simple' >> /etc/pip
 # Install telemetrix
 cd $MIRTE_SRC_DIR/mirte-telemetrix-aio
 pip3 install .
+cd $MIRTE_SRC_DIR/mirte-tmx-pico-aio
+pip3 install .
 
 # Install Telemtrix4Arduino project
 # TODO: building STM sometimes fails (and/or hangs)
@@ -62,8 +64,8 @@ pip3 install numpy
 
 sudo apt install -y bluez joystick
 if [ "$(uname -a | grep sunxi)" != "" ]; then
-  # currently only supporting cheap USB dongles on OrangePi
-  ./install_fake_bt.sh
+	# currently only supporting cheap USB dongles on OrangePi
+	./install_fake_bt.sh
 fi
 
 # Install Mirte documentation
@@ -71,7 +73,7 @@ cd $MIRTE_SRC_DIR/mirte-documentation
 sudo apt install -y python3.8-venv libenchant-dev
 python3 -m venv docs-env
 source docs-env/bin/activate
-pip install docutils==0.16.0 sphinx-tabs==3.2.0  #TODO: use files to freeze versions
+pip install docutils==0.16.0 sphinx-tabs==3.2.0 #TODO: use files to freeze versions
 pip install wheel sphinx sphinx-prompt sphinx-rtd-theme sphinxcontrib-spelling sphinxcontrib-napoleon
 mkdir -p _modules/catkin_ws/src
 cd _modules

@@ -16,11 +16,11 @@ sudo apt-get install cmake-data=3.20.5-0kitware1ubuntu20.04.1
 sudo apt-get install cmake=3.20.5-0kitware1ubuntu20.04.1
 
 # Install ROS Noetic
-sudo sh -c 'echo "deb http://ftp.tudelft.nl/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
 sudo apt update
 sudo apt install -y ros-noetic-ros-base python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential python3-catkin-tools python3-osrf-pycommon
-grep -qxF "source /opt/ros/noetic/setup.bash" /home/mirte/.bashrc || echo "source /opt/ros/noetic/setup.bash" >> /home/mirte/.bashrc
+grep -qxF "source /opt/ros/noetic/setup.bash" /home/mirte/.bashrc || echo "source /opt/ros/noetic/setup.bash" >>/home/mirte/.bashrc
 source /opt/ros/noetic/setup.bash
 sudo rosdep init
 rosdep update
@@ -37,12 +37,12 @@ sudo pip3 install pyzbar
 
 # Install Mirte ROS package
 mkdir -p /home/mirte/mirte_ws/src
-cd /home/mirte/mirte_ws/src
+cd /home/mirte/mirte_ws/src || exit
 ln -s $MIRTE_SRC_DIR/mirte-ros-packages .
 cd ..
 rosdep install -y --from-paths src/ --ignore-src --rosdistro noetic
 catkin build
-grep -qxF "source /home/mirte/mirte_ws/devel/setup.bash" /home/mirte/.bashrc || echo "source /home/mirte/mirte_ws/devel/setup.bash" >> /home/mirte/.bashrc
+grep -qxF "source /home/mirte/mirte_ws/devel/setup.bash" /home/mirte/.bashrc || echo "source /home/mirte/mirte_ws/devel/setup.bash" >>/home/mirte/.bashrc
 source /home/mirte/mirte_ws/devel/setup.bash
 
 # install missing python dependencies rosbridge
@@ -68,7 +68,7 @@ sudo pip3 install pillow adafruit-circuitpython-ssd1306==2.12.1
 # Install aio dependencies
 sudo pip3 install janus async-generator nest-asyncio
 git clone https://github.com/locusrobotics/aiorospy.git
-cd aiorospy/aiorospy
+cd aiorospy/aiorospy || exit
 sudo pip3 install .
 cd ../..
 rm -rf aiorospy
