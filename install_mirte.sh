@@ -18,8 +18,8 @@ cp download_repos.sh $MIRTE_SRC_DIR
 cd $MIRTE_SRC_DIR
 ./download_repos.sh
 
-# Install dependecnies to be able to run python3.8
-sudo apt install -y python3.8 python3-pip python3-setuptools
+# Install dependencies to be able to run python3 (3.10 default)
+sudo apt install -y python3 python3-pip python3-setuptools
 
 # Set piwheels as pip repo
 sudo bash -c "echo '[global]' > /etc/pip.conf"
@@ -68,7 +68,7 @@ fi
 
 # Install Mirte documentation
 cd $MIRTE_SRC_DIR/mirte-documentation
-sudo apt install -y python3.8-venv libenchant-dev
+sudo apt install -y python3-venv libenchant-dev
 python3 -m venv docs-env
 source docs-env/bin/activate
 pip install docutils==0.16.0 sphinx-tabs==3.2.0  #TODO: use files to freeze versions
