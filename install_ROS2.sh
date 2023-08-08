@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# IMPORTANT:
+# Do not upgrade apt-get since it will break the image. libc-bin will for some
+# reason break and not be able to install new stuff on the image.
+
 #TODO: get this as a parameter
 MIRTE_SRC_DIR=/usr/local/src/mirte
 
@@ -10,10 +14,9 @@ sudo apt update && sudo apt install curl -y
 sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
 sudo apt update
-sudo apt upgrade -y
-sudo apt install ros-humble-ros-base
-sudo apt install ros-humble-xacro
-sudo apt install ros-dev-tools
+sudo apt install -y ros-humble-ros-base
+sudo apt install -y ros-humble-xacro
+sudo apt install -y ros-dev-tools
 grep -qxF "source /opt/ros/humble/setup.bash" /home/mirte/.bashrc || echo "source /opt/ros/humble/setup.bash" >> /home/mirte/.bashrc
 source /opt/ros/humble/setup.bash
 sudo rosdep init
@@ -30,9 +33,18 @@ sudo pip3 install pyzbar
 #ln -s /home/mirte/.user_settings.yaml $MIRTE_SRC_DIR/mirte-ros-packages/config/mirte_user_settings.yaml
 
 # Install Mirte ROS package
+python3 -m pip install mergedeep
 mkdir -p /home/mirte/mirte_ws/src
 cd /home/mirte/mirte_ws/src
 ln -s $MIRTE_SRC_DIR/mirte-ros-packages .
+
+# Install source dependencies for slam
+sudo apt install ros-humble-slam-toolbox -y
+sudo apt install libboost-all-dev -y
+git clone https://github.com/AlexKaravaev/ros2_laser_scan_matcher
+git clone https://github.com/AlexKaravaev/csm
+git clone https://github.com/ldrobotSensorTeam/ldlidar_stl_ros2
+
 cd ..
 rosdep install -y --from-paths src/ --ignore-src --rosdistro humble
 colcon build
