@@ -18,8 +18,8 @@ cp download_repos.sh $MIRTE_SRC_DIR
 cd $MIRTE_SRC_DIR
 ./download_repos.sh
 
-# Install dependecnies to be able to run python3.8
-sudo apt install -y python3.8 python3-pip python3-setuptools
+# Install dependecnies to be able to run python3
+sudo apt install -y python3 python3-pip python3-setuptools
 
 # Set piwheels as pip repo
 sudo bash -c "echo '[global]' > /etc/pip.conf"
