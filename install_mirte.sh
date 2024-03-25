@@ -70,7 +70,7 @@ fi
 
 # Install Mirte documentation
 cd $MIRTE_SRC_DIR/mirte-documentation
-sudo apt install -y python3.8-venv libenchant-dev
+sudo apt install -y python3-venv libenchant-dev
 python3 -m venv docs-env
 source docs-env/bin/activate
 pip install docutils==0.16.0 sphinx-tabs==3.2.0 #TODO: use files to freeze versions
