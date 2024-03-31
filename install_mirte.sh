@@ -42,20 +42,20 @@ cd $MIRTE_SRC_DIR/mirte-install-scripts
 ./install_arduino.sh
 
 # Install Mirte Python package
-cd $MIRTE_SRC_DIR/mirte-python
-pip3 install .
+#cd $MIRTE_SRC_DIR/mirte-python
+#pip3 install .
 
 # Install Mirte Interface
 cd $MIRTE_SRC_DIR/mirte-install-scripts
 ./install_web.sh
 
 # Install Jupyter Notebook
-cd $MIRTE_SRC_DIR/mirte-install-scripts
-./install_jupyter_ros.sh
-
-# Install Mirte ROS packages
 #cd $MIRTE_SRC_DIR/mirte-install-scripts
-#./install_ROS.sh
+#./install_jupyter_ros.sh
+
+# Install Mirte ROS2 packages
+cd $MIRTE_SRC_DIR/mirte-install-scripts
+./install_ROS2.sh
 
 # Install numpy
 pip3 install numpy
