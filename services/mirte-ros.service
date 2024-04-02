@@ -6,7 +6,7 @@ After=network-online.target
 
 [Service]
 User=mirte 
-ExecStart=/bin/bash -c "source /home/mirte/mirte_ws/devel/setup.bash && roslaunch mirte_bringup minimal.launch"
+ExecStart=/bin/bash -c "source /home/mirte/mirte_ws/install/setup.bash && ros2 launch mirte_bringup minimal.launch.py"
 
 [Install]
 WantedBy=multi-user.target

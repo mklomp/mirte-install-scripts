@@ -25,7 +25,7 @@ rosdep update
 # Install computer vision libraries
 #TODO: make dependecies of ROS package
 sudo apt install -y python3-pip python3-wheel python3-setuptools python3-opencv libzbar0
-sudo pip3 install pyzbar
+sudo pip3 install pyzbar mergedeep
 
 # Move custom settings to writabel filesystem
 #cp $MIRTE_SRC_DIR/mirte-ros-packages/mirte_telemetrix/config/mirte_user_settings.yaml /home/mirte/.user_settings.yaml

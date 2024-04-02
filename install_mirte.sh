@@ -55,7 +55,7 @@ pip3 install .
 #cd $MIRTE_SRC_DIR/mirte-install-scripts
 #./install_jupyter_ros.sh
 
-# Install Mirte ROS packages
+# Install Mirte ROS2 packages
 cd $MIRTE_SRC_DIR/mirte-install-scripts
 ./install_ROS2.sh
 
