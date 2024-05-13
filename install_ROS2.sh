@@ -47,7 +47,7 @@ git clone https://github.com/ldrobotSensorTeam/ldlidar_stl_ros2
 
 cd ..
 rosdep install -y --from-paths src/ --ignore-src --rosdistro humble
-colcon build
+colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
 grep -qxF "source /home/mirte/mirte_ws/install/setup.bash" /home/mirte/.bashrc || echo "source /home/mirte/mirte_ws/install/setup.bash" >> /home/mirte/.bashrc
 source /home/mirte/mirte_ws/install/setup.bash
 
