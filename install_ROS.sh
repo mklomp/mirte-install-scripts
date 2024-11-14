@@ -47,6 +47,14 @@ source /home/mirte/mirte_ws/devel/setup.bash
 #sudo apt install -y libffi-dev libjpeg-dev zlib1g-dev
 #sudo pip3 install twisted pyOpenSSL autobahn tornado pymongo
 
+# Enable systemd-time-wait-sync to make sure ROS will only start after NTP sync
+# And make sure this service timesout after 30 seconds (in AP mode)
+sudo systemctl enable systemd-time-wait-sync
+sudo mkdir /etc/systemd/system/systemd-time-wait-sync.service.d/
+sudo bash -c 'echo "[Service]" >> /etc/systemd/system/systemd-time-wait-sync.service.d/timeout.conf'
+sudo bash -c 'echo "TimeoutStartSec=30s" >> /etc/systemd/system/systemd-time-wait-sync.service.d/timeout.conf'
+
+
 # Add systemd service to start ROS nodes
 sudo rm /lib/systemd/system/mirte-ros.service || true
 sudo ln -s $MIRTE_SRC_DIR/mirte-install-scripts/services/mirte-ros.service /lib/systemd/system/
